@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[第一篇博文]]></title>
+    <url>%2F2019%2F10%2F01%2F%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E6%96%87%2F</url>
+    <content type="text"><![CDATA[今天是十月一日国庆节，祝祖国繁荣昌盛，更加富强！这是我的第一篇博文，从此这里将成为我记录知识，不断成长的一片小园地。documentation ，troubleshooting，GitHubhexo搭建博客的简单用法： 新建博文1$ hexo new "My New Post" More info: Writing 本地预览123$ hexo clean$ hexo g$ hexo s 部署博客123$ hexo clean$ hexo g$ hexo d]]></content>
+  </entry>
+</search>
