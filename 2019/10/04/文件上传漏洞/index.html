@@ -978,49 +978,25 @@
 
 
 
-
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-      <style>
-        a.gitment-editor-footer-tip { display: none; }
-        .gitment-container.gitment-footer-container { display: none; }
-      </style>
-    
-
-    
-      <script type="text/javascript">
-      function renderGitment(){
-        var gitment = new Gitmint({
-            id: window.location.pathname, 
-            owner: 'KevenS10',
-            repo: 'kevens10.github.io',
-            
-            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
-            
-            oauth: {
-            
-            
-                client_secret: '0516f8cf89e5e33fe026a5ed26b2dabe156d6fe2',
-            
-                client_id: 'bd7a36deca89567b9787'
-            }});
-        gitment.render('gitment-container');
-      }
-
-      
-      renderGitment();
-      
-      </script>
-    
-
-
+   
+   
+   
+   
+   <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+   <script src="https://billts.site/js/gitment.js"></script>
+   
+       <script type="text/javascript">
+           var gitment = new Gitment({
+              id: window.location.pathname, 
+               owner: '',
+               repo: '',
+               oauth: {
+                   client_id: '',
+                   client_secret: '',
+               }});
+           gitment.render('gitment-container');
+       </script>
+   
 
 
 
