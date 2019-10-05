@@ -407,42 +407,6 @@
 
 
           
-<div onclick="showGitment()" id="gitment_title" class="gitment_title">显示 Gitment 评论</div>
-<div id="container" style="display:none"></div>
-<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
-<script src="https://billts.site/js/gitment.js"></script>
-<script>
-const myTheme = {
-render(state, instance) {
-const container = document.createElement('div');
-container.lang = "en-US";
-container.className = 'gitment-container gitment-root-container';
-container.appendChild(instance.renderHeader(state, instance));
-container.appendChild(instance.renderEditor(state, instance));
-container.appendChild(instance.renderComments(state, instance));
-container.appendChild(instance.renderFooter(state, instance));
-return container;
-}
-}
-function showGitment() {
-$("#gitment_title").attr("style", "display:none");
-$("#container").attr("style", "").addClass("gitment_container");
-var gitment = new Gitment({
-id: window.location.pathname,
-theme: myTheme,
-owner: '',
-repo: '',
-oauth: {
-client_id: 'bd7a36deca89567b9787',
-client_secret: '0516f8cf89e5e33fe026a5ed26b2dabe156d6fe2'
-}
-});
-gitment.render('container');
-}
-</script>
-
-
-
 
         </div>
         
@@ -806,26 +770,6 @@ gitment.render('container');
 
 
 
-
-   
-   
-   
-   
-<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
-<script src="https://billts.site/js/gitment.js"></script>
-   
-       <script type="text/javascript">
-           var gitment = new Gitment({
-              id: window.location.pathname, 
-               owner: '',
-               repo: '',
-               oauth: {
-                   client_id: '',
-                   client_secret: '',
-               }});
-           gitment.render('gitment-container');
-       </script>
-   
 
 
 
