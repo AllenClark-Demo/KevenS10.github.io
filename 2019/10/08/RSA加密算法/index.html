@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="CTF密码学,密码学,">
 
 
 
@@ -87,16 +87,22 @@
 
 
 
-<meta name="description" content="等级：LV8">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Keven S">
-<meta property="og:url" content="http://keven.ss06.com/categories/CTF逆向/index.html">
+<meta name="description" content="0x01 RSA介绍RSA加密算法是一种非对称加密算法。在公开密钥加密和电子商业中RSA被广泛使用。对极大整数做因数分解的难度决定了RSA算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用RSA加密的信息的可靠性就肯定会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的RSA钥匙才可能被强力方式解破。到目前为止，世界上还没有">
+<meta name="keywords" content="CTF密码学,密码学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RSA加密算法">
+<meta property="og:url" content="http://keven.ss06.com/2019/10/08/RSA加密算法/index.html">
 <meta property="og:site_name" content="Keven S">
-<meta property="og:description" content="等级：LV8">
+<meta property="og:description" content="0x01 RSA介绍RSA加密算法是一种非对称加密算法。在公开密钥加密和电子商业中RSA被广泛使用。对极大整数做因数分解的难度决定了RSA算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用RSA加密的信息的可靠性就肯定会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的RSA钥匙才可能被强力方式解破。到目前为止，世界上还没有">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://keven.ss06.com/images/RSA1.png">
+<meta property="og:image" content="http://keven.ss06.com/images/rsa2.png">
+<meta property="og:image" content="http://keven.ss06.com/images/rsa3.png">
+<meta property="og:updated_time" content="2019-10-08T11:13:09.649Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Keven S">
-<meta name="twitter:description" content="等级：LV8">
+<meta name="twitter:title" content="RSA加密算法">
+<meta name="twitter:description" content="0x01 RSA介绍RSA加密算法是一种非对称加密算法。在公开密钥加密和电子商业中RSA被广泛使用。对极大整数做因数分解的难度决定了RSA算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用RSA加密的信息的可靠性就肯定会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的RSA钥匙才可能被强力方式解破。到目前为止，世界上还没有">
+<meta name="twitter:image" content="http://keven.ss06.com/images/RSA1.png">
 
 
 
@@ -126,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://keven.ss06.com/categories/CTF逆向/">
+  <link rel="canonical" href="http://keven.ss06.com/2019/10/08/RSA加密算法/">
 
 
 
 
 
-  <title>分类: CTF逆向 | Keven S</title>
+  <title>RSA加密算法 | Keven S</title>
   
 
 
@@ -151,7 +157,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -307,53 +313,214 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>CTF逆向<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://keven.ss06.com/2019/10/08/RSA加密算法/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/temp.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keven S">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/10/08/XCTF-逆向-re1-100/" itemprop="url">
-              
-                <span itemprop="name">XCTF 逆向 re1-100</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">RSA加密算法</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-08T16:47:10+08:00" content="2019-10-08">
-          10-08
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-08T18:47:06+08:00">
+                2019-10-08
+              </time>
+            
 
-    </header>
-  </article>
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-08T19:13:09+08:00">
+                2019-10-08
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="0x01-RSA介绍"><a href="#0x01-RSA介绍" class="headerlink" title="0x01 RSA介绍"></a>0x01 RSA介绍</h2><p>RSA加密算法是一种非对称加密算法。在公开密钥加密和电子商业中RSA被广泛使用。<br>对极大整数做因数分解的难度决定了RSA算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用RSA加密的信息的可靠性就肯定会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的RSA钥匙才可能被强力方式解破。到目前为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被解破的。</p>
+<h2 id="0x02-RSA算法"><a href="#0x02-RSA算法" class="headerlink" title="0x02 RSA算法"></a>0x02 RSA算法</h2><p>RSA的安全基于大数分解的难度。其公钥和私钥是一对大素数（100到200位十进制数或更大）的函数。从一个公钥和密文恢复出明文的难度，等价于分解两个大素数之积（这是公认的数学难题）。<br>　　RSA的公钥、私钥的组成，以及加密、解密的公式可见于下表：</p>
+<p><img src="/images/RSA1.png" alt></p>
+<p>算法描述：<br>（1）选择一对不同的、足够大的素数p，q。</p>
+<p>（2）计算n=pq。</p>
+<p>（3）计算f(n)=(p-1)(q-1)，同时对p, q严加保密，不让任何人知道。</p>
+<p>（4）找一个与f(n)互质的数e，且1&lt;e&lt;f(n)。</p>
+<p>（5）计算d，使得de≡1 mod f(n)。这个公式也可以表达为d ≡e-1 mod f(n)</p>
+<p>（6）公钥KU=(e,n)，私钥KR=(d,n)。</p>
+<p>（7）加密时，先将明文变换成0至n-1的一个整数M。若明文较长，可先分割成适当的组，然后再进行交换。设密文为C，则加密过程为<img src="/images/rsa2.png" alt> </p>
+<p>（8）解密过程为<img src="/images/rsa3.png" alt> </p>
+<h2 id="0x03-python计算私钥"><a href="#0x03-python计算私钥" class="headerlink" title="0x03 python计算私钥"></a>0x03 python计算私钥</h2><p>已知p,q,e,求d</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import gmpy2</span><br><span class="line">p=473398607161</span><br><span class="line">q=4511491</span><br><span class="line">e=17</span><br><span class="line">phi=(p-1)*(q-1)</span><br><span class="line">d=long(gmpy2.invert(e,phi))</span><br><span class="line"><span class="built_in">print</span> d</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x04-python解密"><a href="#0x04-python解密" class="headerlink" title="0x04 python解密"></a>0x04 python解密</h2><p>已知p,q,e,c,求m</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import gmpy2</span><br><span class="line"></span><br><span class="line">n=73069886771625642807435783661014062604264768481735145873508846925735521695159</span><br><span class="line">e=65537</span><br><span class="line">p = 386123125371923651191219869811293586459</span><br><span class="line">q = 189239861511125143212536989589123569301</span><br><span class="line">assert n==p*q</span><br><span class="line"></span><br><span class="line">c=15116717704501623028903918131505510580599561357387431295289012193980554012811</span><br><span class="line">d=gmpy2.invert(e,(p-1)*(q-1))</span><br><span class="line">m=pow(c,d,n)</span><br><span class="line">print (m)</span><br></pre></td></tr></table></figure>
 
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Keven
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://keven.ss06.com/2019/10/08/RSA加密算法/" title="RSA加密算法">http://keven.ss06.com/2019/10/08/RSA加密算法/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:20px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CTF密码学/" rel="tag"># CTF密码学</a>
+          
+            <a href="/tags/密码学/" rel="tag"># 密码学</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/08/XCTF-逆向-re1-100/" rel="next" title="XCTF 逆向 re1-100">
+                <i class="fa fa-chevron-left"></i> XCTF 逆向 re1-100
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -361,6 +528,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Njk2Mi8yMzQ2Mw=="></div>
+    </div>
+
+  
+
+
+
+
 
         </div>
         
@@ -381,8 +559,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -518,6 +705,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-RSA介绍"><span class="nav-number">1.</span> <span class="nav-text">0x01 RSA介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-RSA算法"><span class="nav-number">2.</span> <span class="nav-text">0x02 RSA算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-python计算私钥"><span class="nav-number">3.</span> <span class="nav-text">0x03 python计算私钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-python解密"><span class="nav-number">4.</span> <span class="nav-text">0x04 python解密</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -690,6 +893,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -718,6 +925,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
