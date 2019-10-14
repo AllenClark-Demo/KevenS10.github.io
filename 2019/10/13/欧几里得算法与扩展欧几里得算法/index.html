@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="Keven S">
 <meta property="og:description" content="欧几里得算法欧几里德算法又称辗转相除法，用于计算两个整数a,b的最大公约数。 基本算法：设a=qb+r，其中a，b，q，r都是整数，则gcd(a,b)=gcd(b,r)，即gcd(a,b)=gcd(b,a%b)。 证明第一种证明：a可以表示成a = kb + r，则r = a mod b　　假设d是a,b的一个公约数，则有 　　d|a, d|b，而r = a - kb，因此d|r 　　因此d是(b">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-13T13:07:04.159Z">
+<meta property="og:updated_time" content="2019-10-14T10:44:52.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="欧几里得算法与扩展欧几里得算法">
 <meta name="twitter:description" content="欧几里得算法欧几里德算法又称辗转相除法，用于计算两个整数a,b的最大公约数。 基本算法：设a=qb+r，其中a，b，q，r都是整数，则gcd(a,b)=gcd(b,r)，即gcd(a,b)=gcd(b,a%b)。 证明第一种证明：a可以表示成a = kb + r，则r = a mod b　　假设d是a,b的一个公约数，则有 　　d|a, d|b，而r = a - kb，因此d|r 　　因此d是(b">
@@ -372,8 +372,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-13T21:07:04+08:00">
-                2019-10-13
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-14T18:44:52+08:00">
+                2019-10-14
               </time>
             
           </span>
@@ -428,7 +428,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  771 字
+                  1,758 字
                 </span>
               
 
@@ -444,7 +444,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -476,7 +476,7 @@
 <p>　　因此(a,b)和(b,a mod b)的公约数是一样的，其最大公约数也必然相等，得证</p>
 <h5 id="第二种证明："><a href="#第二种证明：" class="headerlink" title="第二种证明："></a>第二种证明：</h5><p>要证欧几里德算法成立，即证: gcd(a,b)=gcd(b,r),其中 gcd是取最大公约数的意思，r=a mod b</p>
 <p>下面证 gcd（a，b）=gcd（b，r）<br>设  c是a，b的最大公约数，即c=gcd（a，b），则有 a=mc，b=nc，其中m，n为正整数，且m，n互为质数<br>    由 r= a mod b可知，r= a- qb 其中，q是正整数，<br>    则 r=a-qb=mc-qnc=（m-qn）c<br>    b=nc,r=(m-qn)c，且n，（m-qn）互质（假设n，m-qn不互质，则n=xd, m-qn=yd 其中x,y,d都是正整数，且d&gt;1<br>                                                                则a=mc=(qx+y)dc, b=xdc,这时a,b 的最大公约数变成dc，与前提矛盾，<br>                                                                 所以n ，m-qn一定互质）<br>    则gcd（b,r）=c=gcd（a,b）<br>    得证。</p>
-<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> #include&lt;stdio.h&gt;</span><br><span class="line">int gcd(int i,int j)&#123;//定义求最大公因数的函数，有两个参数i,j是要求最大公因数的两个数 </span><br><span class="line">	while(j!=0)</span><br><span class="line">	&#123;</span><br><span class="line">		int r=j;     //定义r为中间变量，用于交换i,j的值 </span><br><span class="line">		j=i%j;     	 //求i,j的余数 </span><br><span class="line">		i=r;</span><br><span class="line">	&#125;                //根据欧几里得算法，gcd(i,j)=gcd(j,i%j)，在j！=0的条件下循环计算 </span><br><span class="line">	return i;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	int i,j;</span><br><span class="line">    printf(&quot;input i,j:&quot;);</span><br><span class="line">    scanf(&quot;%d %d&quot;,&amp;i,&amp;j);</span><br><span class="line">    printf(&quot;gcd of i,j is:%d&quot;,gcd(i,j));</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int gcd(int i,int j)&#123;//定义求最大公因数的函数，有两个参数i,j是要求最大公因数的两个数 </span><br><span class="line">	while(j!=0)</span><br><span class="line">	&#123;</span><br><span class="line">		int r=j;     //定义r为中间变量，用于交换i,j的值 </span><br><span class="line">		j=i%j;     	 //求i,j的余数 </span><br><span class="line">		i=r;</span><br><span class="line">	&#125;                //根据欧几里得算法，gcd(i,j)=gcd(j,i%j)，在j！=0的条件下循环计算 </span><br><span class="line">	return i;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">	int i,j;</span><br><span class="line">    printf(&quot;input i,j:&quot;);</span><br><span class="line">    scanf(&quot;%d %d&quot;,&amp;i,&amp;j);</span><br><span class="line">    printf(&quot;gcd of i,j is:%d&quot;,gcd(i,j));</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>递归：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int gcd(int a,int b)</span><br><span class="line">&#123;</span><br><span class="line">    if(b==0)</span><br><span class="line">        return a;</span><br><span class="line">    return </span><br><span class="line">        gcd(b,a%b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -491,7 +491,44 @@
 <p>　　则:ax1+by1=bx2+(a mod b)y2;</p>
 <p>　　即:ax1+by1=bx2+(a-(a/b)<em>b)y2=ay2+bx2-(a/b)</em>by2;</p>
 <p>　　根据恒等定理得：x1=y2; y1=x2-(a/b)*y2;</p>
-<pre><code>这样我们就得到了求解 x1,y1 的方法：x1，y1 的值基于 x2，y2.</code></pre><p>　  上面的思想是以递归定义的，因为 gcd 不断的递归求解一定会有个时候 b=0，所以递归可以结束。</p>
+<p>   这样我们就得到了求解 x1,y1 的方法：x1，y1 的值基于 x2，y2.</p>
+<p>　  上面的思想是以递归定义的，因为 gcd 不断的递归求解一定会有个时候 b=0，所以递归可以结束。</p>
+<p> 当 b=0 时存在 x , y 为最后一组解<br>，而每一组的解可根据后一组得到。所以第一组的解 x , y 必然存在</p>
+<h3 id="算法实现-1"><a href="#算法实现-1" class="headerlink" title="算法实现"></a>算法实现</h3><p>根据上面的证明，在实现的时候采用递归做法</p>
+<p>　　先递归进入下一层，等到到达最后一层即 b=0 时就返回x=1 , y=0</p>
+<p>　　再根据 x=y’ , y=x’-a/b/y’ ( x’ 与 y’ 为下一层的 x 与 y ) 得到当层的解</p>
+<p>　　不断算出当层的解并返回，最终返回至第一层，得到原解<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">int exgcd(int m,int n,int &amp;x,int &amp;y)//扩展欧几里得算法</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    int x1,y1,x0,y0;</span><br><span class="line">    x0=1; y0=0;</span><br><span class="line">    x1=0; y1=1;</span><br><span class="line">    x=0; y=1;						//初始化x0,y0,x1,y1 </span><br><span class="line">    int r=m%n;						//令r=i mod j</span><br><span class="line">    int q=(m-r)/n;					</span><br><span class="line">    while(r)</span><br><span class="line">    &#123;</span><br><span class="line">        x=x0-q*x1; y=y0-q*y1;		</span><br><span class="line">        x0=x1; y0=y1;</span><br><span class="line">        x1=x; y1=y;					//x0=y1,y0=x1-(m/n)y1</span><br><span class="line">        m=n; n=r; r=m%n;</span><br><span class="line">        q=(m-r)/n;</span><br><span class="line">    &#125;</span><br><span class="line">    return n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>递归：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">int exgcd(int a,int b,int &amp;x,int &amp;y)</span><br><span class="line">&#123;</span><br><span class="line">    if(b==0)</span><br><span class="line">    &#123;</span><br><span class="line">        x=1;</span><br><span class="line">        y=0;</span><br><span class="line">        return a;</span><br><span class="line">    &#125;</span><br><span class="line">    int r=exgcd(b,a%b,x,y);</span><br><span class="line">    int t=x;</span><br><span class="line">    x=y;</span><br><span class="line">    y=t-a/b*y;</span><br><span class="line">    return r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="应用："><a href="#应用：" class="headerlink" title="应用："></a>应用：</h3><p>（1）求解不定方程；</p>
+<p>（2）求解模线性方程（线性同余方程）；</p>
+<p>（3）求解模的逆元；</p>
+<h5 id="求解逆元"><a href="#求解逆元" class="headerlink" title="求解逆元"></a>求解逆元</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int exgcd(int m,int n,int &amp;x,int &amp;y)//扩展欧几里得算法</span><br><span class="line">&#123;</span><br><span class="line">    int x1,y1,x0,y0;</span><br><span class="line">    x0=1; y0=0;</span><br><span class="line">    x1=0; y1=1;</span><br><span class="line">    x=0; y=1;						//初始化x0,y0,x1,y1 </span><br><span class="line">    int r=m%n;						//令r=i mod j</span><br><span class="line">    int q=(m-r)/n;					</span><br><span class="line">    while(r)</span><br><span class="line">    &#123;</span><br><span class="line">        x=x0-q*x1; y=y0-q*y1;		</span><br><span class="line">        x0=x1; y0=y1;</span><br><span class="line">        x1=x; y1=y;					//x0=y1,y0=x1-(m/n)y1</span><br><span class="line">        m=n; n=r; r=m%n;</span><br><span class="line">        q=(m-r)/n;</span><br><span class="line">    &#125;								//可以求出x,y的值</span><br><span class="line">    return n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int mod_reverse(int a,int n)//ax=1(mod n) 求a的逆元x </span><br><span class="line">&#123;</span><br><span class="line">    int d,x,y;</span><br><span class="line">    d=exgcd(a,n,x,y);		//调用扩展欧几里得算法求最大公因数 </span><br><span class="line">    if(d==1)				//如果做大公因数是1，gcd(a,n)=1则存在逆元 </span><br><span class="line">        return (x%n+n)%n;	//求a的逆相当于求解ax=1(mod n),这个方程可以转化为ax-my=1,</span><br><span class="line">		//然后套用二元一次方程的方法，用扩展欧几里得算法求得一组x0,y0和gcd</span><br><span class="line">    else</span><br><span class="line">        return -1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	int i,j;</span><br><span class="line">	printf(&quot;input a,n(ax=1(mod n)):&quot;) ;</span><br><span class="line">	scanf(&quot;%d%d&quot;,&amp;i,&amp;j);</span><br><span class="line">	printf(&quot;mod_reverse a is:%d&quot;,mod_reverse(i,j));</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="求解不定方程"><a href="#求解不定方程" class="headerlink" title="求解不定方程"></a>求解不定方程</h5><p>exgcd 解不定方程（使用不将a与b转为互质的方法）</p>
+<p>　　对于 ax+by=c 的不定方程，设 r=gcd(a,b)</p>
+<p>　　当 c%r!=0 时无整数解</p>
+<p>　　当 c%r=0 时，将方程右边 *r/c 后转换为 ax+by=r 的形式</p>
+<p>　　可以根据扩展欧几里得算法求得一组整数解 x0 , y0</p>
+<p>　　而这只是转换后的方程的解，原方程的一组解应再 *c/r 转变回去</p>
+<p>　　（如 2x+4y=4 转换为 2x+4y=2 后应再将解得的 x , y 乘上2）</p>
+<p>　　则原方程解为 x1=x0<em>c/r , y1=x0</em>c/r</p>
+<p>　　通解 x=x1+b/r<em>t , y=y1-a/r</em>t ，其中 t 为整数</p>
+<p>　　证明：</p>
+<p>　　　　将 x , y 带入方程得</p>
+<p>　　　　ax+ab/r<em>t+by-ab/r</em>t=c</p>
+<p>　　　　ax+by=c</p>
+<p>　　　　此等式恒成立</p>
+<p>　　　　得证</p>
+<p>　　这里 b/r 与 a/r 为最小的系数，所以求得的解是最多最全面的</p>
+<p>　　证明：</p>
+<p>　　　　为了推出证明中的 ax+by=c ，且想达到更小的系数，只能将 b/r 与 a/r 同除以一个数 s</p>
+<p>　　　　而 b/r 与 a/r 互质，且 s 为整数，则 s=1 ，不影响通解</p>
+<p>　　　　那么 b/r 与 a/r 就为最小的系数</p>
+<p>　　　　得证</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bool linear_equation(int a,int b,int c,int &amp;x,int &amp;y)</span><br><span class="line">&#123;</span><br><span class="line">    int d=exgcd(a,b,x,y);</span><br><span class="line">    if(c%d)</span><br><span class="line">        return false;</span><br><span class="line">    int k=c/d;</span><br><span class="line">    x*=k; y*=k;    //求得的只是其中一组解</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -786,7 +823,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#欧几里得算法"><span class="nav-number">1.</span> <span class="nav-text">欧几里得算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#证明"><span class="nav-number">1.1.</span> <span class="nav-text">证明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一种证明："><span class="nav-number">1.1.0.1.</span> <span class="nav-text">第一种证明：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二种证明："><span class="nav-number">1.1.0.2.</span> <span class="nav-text">第二种证明：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现"><span class="nav-number">1.2.</span> <span class="nav-text">算法实现</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展欧几里得算法"><span class="nav-number">2.</span> <span class="nav-text">扩展欧几里得算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#证明-1"><span class="nav-number">2.1.</span> <span class="nav-text">证明</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#欧几里得算法"><span class="nav-number">1.</span> <span class="nav-text">欧几里得算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#证明"><span class="nav-number">1.1.</span> <span class="nav-text">证明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一种证明："><span class="nav-number">1.1.0.1.</span> <span class="nav-text">第一种证明：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二种证明："><span class="nav-number">1.1.0.2.</span> <span class="nav-text">第二种证明：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现"><span class="nav-number">1.2.</span> <span class="nav-text">算法实现</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展欧几里得算法"><span class="nav-number">2.</span> <span class="nav-text">扩展欧几里得算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#证明-1"><span class="nav-number">2.1.</span> <span class="nav-text">证明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法实现-1"><span class="nav-number">2.2.</span> <span class="nav-text">算法实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用："><span class="nav-number">2.3.</span> <span class="nav-text">应用：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#求解逆元"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">求解逆元</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#求解不定方程"><span class="nav-number">2.3.0.2.</span> <span class="nav-text">求解不定方程</span></a></li></ol></li></ol></li></div>
             
 
           </div>
@@ -836,7 +873,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 15.4k 字</span>
+  <span class="post-count">全站共 16.4k 字</span>
 </div>
 
         
