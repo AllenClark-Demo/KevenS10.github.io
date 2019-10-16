@@ -132,6 +132,22 @@
 
 
 
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "1e5e27e2"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
   <title>Keven S</title>
   
 
@@ -172,7 +188,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">从来如此，便对么？</p>
+        <p class="site-subtitle">名无实，实无名</p>
       
   </div>
 
@@ -466,7 +482,8 @@
 pass-01能有上传点，就先上传一句话试一试，这道题给出的是前端检测，只允许.jpg|.png|.gif上传
 解决方法很多，第一种是找到约束上传条件的checkFile(),将其删掉，就直接可以上传.php文件或者是将checkFile()里添加.php也能上传一句话但更通用的办法是：将.php文件隐藏成.jpg，然后再从抓包里面改回.php，这在下面的题中也 有用到。
 pass-02第二题同样先上传一句话
-这道题同样是文件类型不对，与第一题同属于文件后缀检验，但不是前端检测，然后我再源码中
+这道题同样是文件类型不对，与第一题同属于文件后缀检验，但不是前端检测，然后我再源码中发现了么样一段东西。
+12345678910111213141516171819202122232425&lt;?phpinclude '../config.php';include '../head
           ...
           <!--noindex-->
           <div class="post-button text-center">

@@ -95,10 +95,12 @@
 <meta property="og:site_name" content="Keven S">
 <meta property="og:description" content="0x01 什么是弱类型强类型语言，当你定义一个变量是某个类型，如果不经过代码显式转换（强制转化）过，它就永远都是这个类型，如果把它当做其他类型来用，就会报错 弱类型语言，你想把这个变量当做什么类型来用，就当做什么类型来用，语言的解析器会自动（隐式）转换。 0x02 弱类型整数大小比较1234$temp = $_GET[&apos;password&apos;];is_numeric($temp)?die(&quot;no nu">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-07T14:10:35.518Z">
+<meta property="og:image" content="http://keven.ss06.com/images/phpruoleixingbijiao.png">
+<meta property="og:updated_time" content="2019-10-16T13:04:12.156Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP弱类型">
 <meta name="twitter:description" content="0x01 什么是弱类型强类型语言，当你定义一个变量是某个类型，如果不经过代码显式转换（强制转化）过，它就永远都是这个类型，如果把它当做其他类型来用，就会报错 弱类型语言，你想把这个变量当做什么类型来用，就当做什么类型来用，语言的解析器会自动（隐式）转换。 0x02 弱类型整数大小比较1234$temp = $_GET[&apos;password&apos;];is_numeric($temp)?die(&quot;no nu">
+<meta name="twitter:image" content="http://keven.ss06.com/images/phpruoleixingbijiao.png">
 
 
 
@@ -130,6 +132,22 @@
 
   <link rel="canonical" href="http://keven.ss06.com/2019/10/07/PHP弱类型/">
 
+
+
+
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "1e5e27e2"
+    });
+  daovoice('update');
+  </script>
 
 
 
@@ -173,7 +191,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">从来如此，便对么？</p>
+        <p class="site-subtitle">名无实，实无名</p>
       
   </div>
 
@@ -372,8 +390,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-07T22:10:35+08:00">
-                2019-10-07
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-16T21:04:12+08:00">
+                2019-10-16
               </time>
             
           </span>
@@ -466,7 +484,7 @@
 
       
         <h2 id="0x01-什么是弱类型"><a href="#0x01-什么是弱类型" class="headerlink" title="0x01 什么是弱类型"></a>0x01 什么是弱类型</h2><p>强类型语言，当你定义一个变量是某个类型，如果不经过代码显式转换（强制转化）过，它就永远都是这个类型，如果把它当做其他类型来用，就会报错</p>
-<p>弱类型语言，你想把这个变量当做什么类型来用，就当做什么类型来用，语言的解析器会自动（隐式）转换。</p>
+<p>弱类型语言，你想把这个变量当做什么类型来用，就当做什么类型来用，语言的解析器会自动（隐式）转换。<br><img src="/images/phpruoleixingbijiao.png" alt></p>
 <h2 id="0x02-弱类型整数大小比较"><a href="#0x02-弱类型整数大小比较" class="headerlink" title="0x02 弱类型整数大小比较"></a>0x02 弱类型整数大小比较</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$temp</span> = <span class="variable">$_GET</span>[<span class="string">'password'</span>];</span><br><span class="line">is_numeric(<span class="variable">$temp</span>)?die(<span class="string">"no numeric"</span>):NULL;</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$temp</span>&gt;1336)&#123;</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$flag</span>;</span><br></pre></td></tr></table></figure>
 
 <p>is_numeric() 函数用于检测变量是否为数字或数字字符串。<br>如果指定的变量是数字和数字字符串则返回 TRUE，否则返回 FALSE(PHP 版本要求：PHP 4, PHP 5, PHP 7)</p>
@@ -561,13 +579,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/CTF-Web/" rel="tag"># CTF Web</a>
+            <a href="/tags/CTF-Web/" rel="tag"><i class="fa fa-tag"></i> CTF Web</a>
           
-            <a href="/tags/PHP/" rel="tag"># PHP</a>
+            <a href="/tags/PHP/" rel="tag"><i class="fa fa-tag"></i> PHP</a>
           
-            <a href="/tags/后端/" rel="tag"># 后端</a>
+            <a href="/tags/后端/" rel="tag"><i class="fa fa-tag"></i> 后端</a>
           
-            <a href="/tags/弱类型/" rel="tag"># 弱类型</a>
+            <a href="/tags/弱类型/" rel="tag"><i class="fa fa-tag"></i> 弱类型</a>
           
         </div>
       

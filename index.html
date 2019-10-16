@@ -132,6 +132,22 @@
 
 
 
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "1e5e27e2"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
   <title>Keven S</title>
   
 
@@ -172,7 +188,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">从来如此，便对么？</p>
+        <p class="site-subtitle">名无实，实无名</p>
       
   </div>
 
@@ -464,7 +480,9 @@
           
           今天在写扩展欧几里得算法的C语言函数时在实参与形参的参数传递时出了一些问题，于是复习一下C语言传参的方式两种传参方式，值传递与地址传递
 值传递这种方式使用变量、常量、数组元素作为函数参数，实际是将实参的值复制到形参相应的存储单元中，即形参和实参分别占用不同的存储单元，这种传递方式称为“参数的值传递”或者“函数的传值调用”。
-值传递的特点是单向传递，即主调函数调用时给形参分配存储单元，把实参的值传递给形参，在调用结束后，形参的存储单元被释放，而形参值的任何变化都不会影响到实参的值，实参的存储单元仍
+值传递的特点是单向传递，即主调函数调用时给形参分配存储单元，把实参的值传递给形参，在调用结束后，形参的存储单元被释放，而形参值的任何变化都不会影响到实参的值，实参的存储单元仍保留并维持数值不变
+例子：
+12345678910111213141516171819#include &lt;stdio.h&gt;/* 变量x、y为Swap函数的形式参数 */void Swap(
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -668,7 +686,10 @@
 　　d|a, d|b，而r = a - kb，因此d|r
 　　因此d是(b,a mod b)的公约数
 　　假设d 是(b,a mod b)的公约数，则
-　　d | b , d
+　　d | b , d |r ，但是a = kb +r
+　　因此d也是(a,b)的公约数
+　　因此(a,b)和(b,a mod b)的公约数是一样的，其最大公约数也必然相等，得证
+第二种证明：要证欧几里德算法成立，即证: 
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -867,7 +888,7 @@
         
           
           文件头文件尾总结
-12345678910111213141516171819202122232425262728293031JPEG (jpg)，                        　　文件头：FFD8FF　　　　　　　　　　　　　　　　　　　　　　　 文件尾：FF D9　　　　　　　　　　　　　　　PNG (png)，                       　　 文件头：89504E47　　　　　　　　　　　　　　　　　　　　　　文件尾：AE 42 60 82GIF (gif
+12345678910111213141516171819202122232425262728293031JPEG (jpg)，                        　　文件头：FFD8FF　　　　　　　　　　　　　　　　　　　　　　　 文件尾：FF D9　　　　　　　　　　　　　　　PNG (png)，                       　　 文件头：89504E47　　　　　　　　　　　　　　　　　　　　　　文件尾：AE 42 60 82GIF (gif)，                           　　文件头：47494638　　　　　　　　　　　　　　　　　　　　　　文件尾：00 3B                          
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1066,7 +1087,7 @@
         
           
           文件包含漏洞利用的前提1.web 应用采用 include 等文件包含函数，并且需要包含的文件路径是通过用户传输参数的方式引入；2.用户能够控制包含文件的参数，被包含的文件可被当前页面访问；在使用文件包含漏洞时，必须要能知道其绝对路径方法： 在包含文件处，查看其返回的错误的信息
-伪协议种类123456789101112file:// — 访问本地文件系统http:// — 访问 HTTP(s) 网址ftp:// — 访问 FTP(s) URLsphp:// — 访问各个输入/输出流（I/O st
+伪协议种类123456789101112file:// — 访问本地文件系统http:// — 访问 HTTP(s) 网址ftp:// — 访问 FTP(s) URLsphp:// — 访问各个输入/输出流（I/O streams）zlib:// — 压缩流data:// — 数据（RFC 2397）glob:// — 查找匹配的文件路径模式phar:// — PHP 归档ssh2:// — Secure Shell
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1266,7 +1287,8 @@
           
           程序的内存结构
 栈防护技术RELRO在Linux系统安全领域数据可以写的存储区就会是攻击的目标，尤其是存储函数指针的区域，尽量减少可写的存储区域可使安全系数提高。GCC, GNU linker以及Glibc-dynamic linker一起配合实现了一种叫做relro的技术Relocation Read Only, 重定向只读，实现就是由linker指定binary的一块经过dynamic linker处理过 relocation之后的区域为只读。（参考RELRO技术细节）
-Stack栈溢出检查
+Stack栈溢出检查，用Canary金丝雀值是否变化来检测,Canary found表示开启。
+金丝雀最早指的是矿工曾利用金丝雀来确认是否有气体泄漏，如果金丝雀因为气体泄漏而中毒死亡，可以给矿工预警。这里是一种缓冲区溢出
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1465,7 +1487,7 @@ Stack栈溢出检查
         
           
           0x01 RSA介绍RSA加密算法是一种非对称加密算法。在公开密钥加密和电子商业中RSA被广泛使用。对极大整数做因数分解的难度决定了RSA算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用RSA加密的信息的可靠性就肯定会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的RSA钥匙才可能被强力方式解破。到目前为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被解破的。
-0
+0x02 RSA算法RSA的安全基于大数分解的难度。其公钥和私钥是一对大素数（100到200位十进制数或更大）的函数。从一个公钥和密文恢复出明文的难度，等价于分解两个大素数之积（这是公认的数学难题）。　
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1781,8 +1803,8 @@ bufParentRead是我们输入的字符串，查看confuseKey函数：
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-07T22:10:35+08:00">
-                2019-10-07
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-16T21:04:12+08:00">
+                2019-10-16
               </time>
             
           </span>
@@ -1874,7 +1896,8 @@ bufParentRead是我们输入的字符串，查看confuseKey函数：
 弱类型语言，你想把这个变量当做什么类型来用，就当做什么类型来用，语言的解析器会自动（隐式）转换。
 0x02 弱类型整数大小比较1234$temp = $_GET['password'];is_numeric($temp)?die("no numeric"):NULL;if($temp&gt;1336)&#123;echo $flag;
 
-i
+is_numeric() 函数用于检测变量是否为数字或数字字符串。如果指定的变量是数字和数字字符串则返回 TRUE，否则返回 FALSE(PHP 版本要求：PHP 4, PHP 5, PHP 7)
+在这
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -2081,7 +2104,7 @@ HyperComments：https://www.hypercomments.com （来自俄罗斯的评论系统�
 
 Gitment： https://github.com/imsun/gitment （有点小bug，比如说每次需要手动初始化，登录时会跳到主页。。）
 
-Vali
+Valine: https://github.com/xCss/Valine 来必力使用方法打开来必力官网：https://livere.com，注册，点击上方的安装，选择免费的city版本。并点击现在安装。
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -2282,7 +2305,7 @@ Vali
           背景Serialize()     //将一个对象转换成一个字符串
 unserialize()   //将字符串还原成一个对象
 通过序列化与反序列化我们可以很方便的在PHP中进行对象的传递。本质上反序列化是没有危害的。但是如果用户对数据可控那就可以利用反序列化构造payload攻击。
-常见方法__construct()//创建对象时触发__destruct() //对象被销毁时触发__call() //在对象上下文中调用不可访问的方法时触发__callStatic() //在静态上下文中调用不可
+常见方法__construct()//创建对象时触发__destruct() //对象被销毁时触发__call() //在对象上下文中调用不可访问的方法时触发__callStatic() //在静态上下文中调用不可访问的方法时触发__get() //用于从不可访问的属性读取数据__set() //用于将数据写入不可访问的属性__isset() //在不可访问的属性上调用isset()或empty()触发__un
           ...
           <!--noindex-->
           <div class="post-button text-center">
