@@ -1836,7 +1836,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c6ff1a;
+  background: #dfffd9;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3119,11 +3119,4 @@ body .highlight:hover .btn-copy {
 }
 body .site-meta {
   background: #00bfff;
-}
-body .posts-expand .post {
-  margin-top: 60px;
-  margin-bottom: 20px;
-  padding: 25px;
-  -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
-  -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
 }
