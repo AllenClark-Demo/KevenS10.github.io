@@ -91,52 +91,52 @@
 <meta name="keywords" content="CTF PWN,二进制漏洞,栈溢出">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基本的栈溢出">
-<meta property="og:url" content="http://keven.ss06.com/2019/10/08/基本的栈溢出/index.html">
+<meta property="og:url" content="https://kevens10.github.io/2019/10/08/基本的栈溢出/index.html">
 <meta property="og:site_name" content="Keven S">
 <meta property="og:description" content="程序的内存结构 栈防护技术RELRO在Linux系统安全领域数据可以写的存储区就会是攻击的目标，尤其是存储函数指针的区域，尽量减少可写的存储区域可使安全系数提高。GCC, GNU linker以及Glibc-dynamic linker一起配合实现了一种叫做relro的技术Relocation Read Only, 重定向只读，实现就是由linker指定binary的一块经过dynamic lin">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://keven.ss06.com/images/neicunjiegou.jpg">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu1.jpg">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu2.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu3.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu5.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu2-1.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu2-2.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu3-1.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu3-2.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu3-3.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu3-4.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4-1.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4-2.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4-3.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4-4.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4-5.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu4-6.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu5-1.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu5-2.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu6-1.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu6-2.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu6-3.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu7-1.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu7-2.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu7-3.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu7-4.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-1.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-2.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-3.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-4.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-5.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-6.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-7.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-8.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-9.png">
-<meta property="og:image" content="http://keven.ss06.com/images/zhanyichu8-10.png">
+<meta property="og:image" content="https://kevens10.github.io/images/neicunjiegou.jpg">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu1.jpg">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu2.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu3.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu4.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu5.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu2-1.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu2-2.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu3-1.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu3-2.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu3-3.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu3-4.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu4-1.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu4-2.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu4-3.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu4-4.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu4-5.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu4-6.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu5-1.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu5-2.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu6-1.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu6-2.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu6-3.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu7-1.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu7-2.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu7-3.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu7-4.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu8-1.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu8-2.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu8-3.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu8-4.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu8-5.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu8-6.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu8-7.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu8-8.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu8-9.png">
+<meta property="og:image" content="https://kevens10.github.io/images/zhanyichu8-10.png">
 <meta property="og:updated_time" content="2019-10-17T03:25:42.841Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基本的栈溢出">
 <meta name="twitter:description" content="程序的内存结构 栈防护技术RELRO在Linux系统安全领域数据可以写的存储区就会是攻击的目标，尤其是存储函数指针的区域，尽量减少可写的存储区域可使安全系数提高。GCC, GNU linker以及Glibc-dynamic linker一起配合实现了一种叫做relro的技术Relocation Read Only, 重定向只读，实现就是由linker指定binary的一块经过dynamic lin">
-<meta name="twitter:image" content="http://keven.ss06.com/images/neicunjiegou.jpg">
+<meta name="twitter:image" content="https://kevens10.github.io/images/neicunjiegou.jpg">
 
 
 
@@ -166,7 +166,7 @@
 
 
 
-  <link rel="canonical" href="http://keven.ss06.com/2019/10/08/基本的栈溢出/">
+  <link rel="canonical" href="https://kevens10.github.io/2019/10/08/基本的栈溢出/">
 
 
 
@@ -381,7 +381,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://keven.ss06.com/2019/10/08/基本的栈溢出/">
+    <link itemprop="mainEntityOfPage" href="https://kevens10.github.io/2019/10/08/基本的栈溢出/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Keven">
@@ -638,7 +638,7 @@ p.interactive()</code></pre><h2 id="0x08-cgpwn2"><a href="#0x08-cgpwn2" class="h
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://keven.ss06.com/2019/10/08/基本的栈溢出/" title="基本的栈溢出">http://keven.ss06.com/2019/10/08/基本的栈溢出/</a>
+    <a href="https://kevens10.github.io/2019/10/08/基本的栈溢出/" title="基本的栈溢出">https://kevens10.github.io/2019/10/08/基本的栈溢出/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -781,7 +781,7 @@ p.interactive()</code></pre><h2 id="0x08-cgpwn2"><a href="#0x08-cgpwn2" class="h
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -803,7 +803,7 @@ p.interactive()</code></pre><h2 id="0x08-cgpwn2"><a href="#0x08-cgpwn2" class="h
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -823,7 +823,7 @@ p.interactive()</code></pre><h2 id="0x08-cgpwn2"><a href="#0x08-cgpwn2" class="h
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="1807456258@qq.com" target="_blank" title="E-Mail">
+                    <a href="https://mail.qq.com/cgi-bin/loginpage" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>
@@ -960,7 +960,7 @@ p.interactive()</code></pre><h2 id="0x08-cgpwn2"><a href="#0x08-cgpwn2" class="h
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 17.5k 字</span>
+  <span class="post-count">全站共 18.1k 字</span>
 </div>
 
         
