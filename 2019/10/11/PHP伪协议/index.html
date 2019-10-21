@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="CTF Web,PHP伪协议,PHP,后端,">
+  <meta name="keywords" content="CTF Web,PHP,后端,PHP伪协议,">
 
 
 
@@ -88,7 +88,7 @@
 
 
 <meta name="description" content="文件包含漏洞利用的前提1.web 应用采用 include 等文件包含函数，并且需要包含的文件路径是通过用户传输参数的方式引入；2.用户能够控制包含文件的参数，被包含的文件可被当前页面访问；在使用文件包含漏洞时，必须要能知道其绝对路径方法： 在包含文件处，查看其返回的错误的信息 伪协议种类123456789101112file:// — 访问本地文件系统http:// — 访问 HTTP(s) 网">
-<meta name="keywords" content="CTF Web,PHP伪协议,PHP,后端">
+<meta name="keywords" content="CTF Web,PHP,后端,PHP伪协议">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP伪协议">
 <meta property="og:url" content="https://kevens10.github.io/2019/10/11/PHP伪协议/index.html">
@@ -563,16 +563,28 @@ include($_REQUEST[&apos;path&apos;]);
           
             <a href="/tags/CTF-Web/" rel="tag"><i class="fa fa-tag"></i> CTF Web</a>
           
-            <a href="/tags/PHP伪协议/" rel="tag"><i class="fa fa-tag"></i> PHP伪协议</a>
-          
             <a href="/tags/PHP/" rel="tag"><i class="fa fa-tag"></i> PHP</a>
           
             <a href="/tags/后端/" rel="tag"><i class="fa fa-tag"></i> 后端</a>
+          
+            <a href="/tags/PHP伪协议/" rel="tag"><i class="fa fa-tag"></i> PHP伪协议</a>
           
         </div>
       
 
       
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
       
       
 
@@ -877,7 +889,7 @@ include($_REQUEST[&apos;path&apos;]);
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 20.2k 字</span>
+  <span class="post-count">全站共 20.5k 字</span>
 </div>
 
         
@@ -1405,6 +1417,23 @@ include($_REQUEST[&apos;path&apos;]);
 
   
   
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 21565,
+    el: 'wpac-rating',
+    color: '00BFFF'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
 
   
 
