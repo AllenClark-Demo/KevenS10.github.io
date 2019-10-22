@@ -98,7 +98,7 @@
 <meta property="og:image" content="https://kevens10.github.io/images/RSA1.png">
 <meta property="og:image" content="https://kevens10.github.io/images/rsa2.png">
 <meta property="og:image" content="https://kevens10.github.io/images/rsa3.png">
-<meta property="og:updated_time" content="2019-10-08T11:15:34.800Z">
+<meta property="og:updated_time" content="2019-10-22T13:45:41.877Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RSA加密算法">
 <meta name="twitter:description" content="0x01 RSA介绍RSA加密算法是一种非对称加密算法。在公开密钥加密和电子商业中RSA被广泛使用。对极大整数做因数分解的难度决定了RSA算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用RSA加密的信息的可靠性就肯定会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的RSA钥匙才可能被强力方式解破。到目前为止，世界上还没有">
@@ -392,8 +392,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-08T19:15:34+08:00">
-                2019-10-08
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-22T21:45:41+08:00">
+                2019-10-22
               </time>
             
           </span>
@@ -448,7 +448,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  572 字
+                  795 字
                 </span>
               
 
@@ -464,7 +464,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  4 分钟
                 </span>
               
             </div>
@@ -502,7 +502,9 @@
 <h2 id="0x04-python解密"><a href="#0x04-python解密" class="headerlink" title="0x04 python解密"></a>0x04 python解密</h2><p>已知p,q,e,c,求m</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import gmpy2</span><br><span class="line"></span><br><span class="line">n=73069886771625642807435783661014062604264768481735145873508846925735521695159</span><br><span class="line">e=65537</span><br><span class="line">p = 386123125371923651191219869811293586459</span><br><span class="line">q = 189239861511125143212536989589123569301</span><br><span class="line">assert n==p*q</span><br><span class="line"></span><br><span class="line">c=15116717704501623028903918131505510580599561357387431295289012193980554012811</span><br><span class="line">d=gmpy2.invert(e,(p-1)*(q-1))</span><br><span class="line">m=pow(c,d,n)</span><br><span class="line">print (m)</span><br></pre></td></tr></table></figure>
 
+<h2 id="0x05-已知e-d-n求p-q"><a href="#0x05-已知e-d-n求p-q" class="headerlink" title="0x05 已知e,d,n求p,q"></a>0x05 已知e,d,n求p,q</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import random  </span><br><span class="line">  </span><br><span class="line">def gcd(a, b):  </span><br><span class="line">   if a &lt; b:  </span><br><span class="line">     a, b = b, a  </span><br><span class="line">   while b != 0:  </span><br><span class="line">     temp = a % b  </span><br><span class="line">     a = b  </span><br><span class="line">     b = temp  </span><br><span class="line">   return a  </span><br><span class="line">  </span><br><span class="line">def getpq(n,e,d):  </span><br><span class="line">    p = 1  </span><br><span class="line">    q = 1  </span><br><span class="line">    while p==1 and q==1:  </span><br><span class="line">        k = d * e - 1  </span><br><span class="line">        g = random.randint ( 0 , n )  </span><br><span class="line">        while p==1 and q==1 and k % 2 == 0:  </span><br><span class="line">            k /= 2  </span><br><span class="line">            y = pow(g,k,n)  </span><br><span class="line">            if y!=1 and gcd(y-1,n)&gt;1:  </span><br><span class="line">                p = gcd(y-1,n)  </span><br><span class="line">                q = n/p  </span><br><span class="line">    return p,q  </span><br><span class="line">  </span><br><span class="line">def main():  </span><br><span class="line"> </span><br><span class="line">    n = 0xa66791dc6988168de7ab77419bb7fb0c001c62710270075142942e19a8d8c51d053b3e3782a1de5dc5af4ebe99468170114a1dfe67cdc9a9af55d655620bbab  </span><br><span class="line">    e =  0x10001</span><br><span class="line">    d =  0x123c5b61ba36edb1d3679904199a89ea80c09b9122e1400c09adcf7784676d01d23356a7d44d6bd8bd50e94bfc723fa87d8862b75177691c11d757692df8881</span><br><span class="line">    p,q = getpq(n,e,d)  </span><br><span class="line">    print &quot;p: &quot;+hex(p)</span><br><span class="line">    print &quot;q: &quot;+hex(q)  </span><br><span class="line">  </span><br><span class="line">if __name__ == &apos;__main__&apos;:  </span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
 
+<h2 id="0x06-公因数分解n"><a href="#0x06-公因数分解n" class="headerlink" title="0x06 公因数分解n"></a>0x06 公因数分解n</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def gcd(a, b):</span><br><span class="line">   if a &lt; b:</span><br><span class="line">     a, b = b, a</span><br><span class="line">   while b != 0:</span><br><span class="line">     temp = a % b</span><br><span class="line">     a = b</span><br><span class="line">     b = temp</span><br><span class="line">   return a</span><br><span class="line">n1=9051013965404084482870087864821455535159008696042953021965631089095795348830954383127323853272528967729311045179605407693592665683311660581204886571146327720288455874927281128121117323579691204792399913106627543274457036172455814805715668293705603675386878220947722186914112990452722174363713630297685159669328951520891938403452797650685849523658191947411429068829734053745180460758604283051344339641429819373112365211739216160420494167071996438506850526168389386850499796102003625404245645796271690310748804327</span><br><span class="line">n2=13225948396179603816062046418717214792668512413625091569997524364243995991961018894150059207824093837420451375240550310050209398964506318518991620142575926623780411532257230701985821629425722030608722035570690474171259238153947095310303522831971664666067542649034461621725656234869005501293423975184701929729170077280251436216167293058560030089006140224375425679571181787206982712477261432579537981278055755344573767076951793312062480275004564657590263719816033564139497109942073701755011873153205366238585665743</span><br><span class="line">print &quot;p: &quot;+str(gcd(n1,n2))</span><br><span class="line">print &quot;q1: &quot;+str(n1/gcd(n1,n2))</span><br><span class="line">print &quot;q2: &quot;+str(n2/gcd(n1,n2))</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -816,7 +818,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-RSA介绍"><span class="nav-number">1.</span> <span class="nav-text">0x01 RSA介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-RSA算法"><span class="nav-number">2.</span> <span class="nav-text">0x02 RSA算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-python计算私钥"><span class="nav-number">3.</span> <span class="nav-text">0x03 python计算私钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-python解密"><span class="nav-number">4.</span> <span class="nav-text">0x04 python解密</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-RSA介绍"><span class="nav-number">1.</span> <span class="nav-text">0x01 RSA介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-RSA算法"><span class="nav-number">2.</span> <span class="nav-text">0x02 RSA算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-python计算私钥"><span class="nav-number">3.</span> <span class="nav-text">0x03 python计算私钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-python解密"><span class="nav-number">4.</span> <span class="nav-text">0x04 python解密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-已知e-d-n求p-q"><span class="nav-number">5.</span> <span class="nav-text">0x05 已知e,d,n求p,q</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-公因数分解n"><span class="nav-number">6.</span> <span class="nav-text">0x06 公因数分解n</span></a></li></ol></div>
             
 
           </div>
@@ -874,7 +876,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 21.4k 字</span>
+  <span class="post-count">全站共 21.7k 字</span>
 </div>
 
         
