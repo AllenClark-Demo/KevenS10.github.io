@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kevens10.github.io/2019/11/07/XSS%E6%BC%8F%E6%B4%9E/</loc>
+    
+    <lastmod>2019-11-07T15:15:40.117Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://kevens10.github.io/about/index.html</loc>
+    
+    <lastmod>2019-11-03T07:58:51.336Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://kevens10.github.io/2019/10/31/%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF%E5%AD%98%E5%82%A8%E6%A8%A1%E5%BC%8F/</loc>
     
     <lastmod>2019-10-31T08:32:05.772Z</lastmod>
@@ -82,13 +96,6 @@
     <loc>https://kevens10.github.io/2019/10/08/%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%A0%88%E6%BA%A2%E5%87%BA/</loc>
     
     <lastmod>2019-10-17T03:25:42.841Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://kevens10.github.io/about/index.html</loc>
-    
-    <lastmod>2019-10-17T03:02:42.922Z</lastmod>
     
   </url>
   
