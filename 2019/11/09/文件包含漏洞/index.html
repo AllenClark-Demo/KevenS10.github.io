@@ -95,12 +95,17 @@
 <meta property="og:site_name" content="Keven S">
 <meta property="og:description" content="0x00 文件包含与文件包含漏洞文件包含是指，服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP来执行。文件包含还有另外一个名称，那就是代码重用。我们若是需要修改页面，只需要修改一个头部代码文件就可以了，其他上万个页面将会全部对应改变。 文件包含漏洞是指客户端（一般为浏览器）用户通过输入控制动念包含在版务器的文件，从而导致恶意代码的执行及敏感信息泄露，主要包括本">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://kevens10.github.io/images/baohanloudong4.png">
+<meta property="og:image" content="https://kevens10.github.io/images/baohanloudong4.png">
+<meta property="og:image" content="https://kevens10.github.io/images/baohanloudong1.png">
+<meta property="og:image" content="https://kevens10.github.io/images/baohanloudong2.png">
+<meta property="og:image" content="https://kevens10.github.io/images/baohanloudong4.png">
 <meta property="og:image" content="https://kevens10.github.io/images/baohanloudong3.png">
-<meta property="og:updated_time" content="2019-11-09T10:33:47.026Z">
+<meta property="og:updated_time" content="2019-11-10T03:00:26.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文件包含漏洞">
 <meta name="twitter:description" content="0x00 文件包含与文件包含漏洞文件包含是指，服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP来执行。文件包含还有另外一个名称，那就是代码重用。我们若是需要修改页面，只需要修改一个头部代码文件就可以了，其他上万个页面将会全部对应改变。 文件包含漏洞是指客户端（一般为浏览器）用户通过输入控制动念包含在版务器的文件，从而导致恶意代码的执行及敏感信息泄露，主要包括本">
-<meta name="twitter:image" content="https://kevens10.github.io/images/baohanloudong3.png">
+<meta name="twitter:image" content="https://kevens10.github.io/images/baohanloudong4.png">
 
 
 
@@ -374,7 +379,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-09T22:32:44+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-09T18:59:18+08:00">
                 2019-11-09
               </time>
             
@@ -390,8 +395,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-11-09T18:33:47+08:00">
-                2019-11-09
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-10T11:00:26+08:00">
+                2019-11-10
               </time>
             
           </span>
@@ -446,7 +451,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,646 字
+                  1,603 字
                 </span>
               
 
@@ -462,7 +467,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -485,14 +490,22 @@
       
         <h2 id="0x00-文件包含与文件包含漏洞"><a href="#0x00-文件包含与文件包含漏洞" class="headerlink" title="0x00 文件包含与文件包含漏洞"></a>0x00 文件包含与文件包含漏洞</h2><p>文件包含是指，服务器执行PHP文件时，可以通过文件包含函数加载另一个文件中的PHP代码，并且当PHP来执行。文件包含还有另外一个名称，那就是代码重用。我们若是需要修改页面，只需要修改一个头部代码文件就可以了，其他上万个页面将会全部对应改变。</p>
 <p>文件包含漏洞是指客户端（一般为浏览器）用户通过输入控制动念包含在版务器的文件，从而导致恶意代码的执行及敏感信息泄露，主要包括本地文件包含LFI和远程文件包含RFI两种形式</p>
-<h2 id="0x01-文件包含函数"><a href="#0x01-文件包含函数" class="headerlink" title="0x01 文件包含函数"></a>0x01 文件包含函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vrequire()</span><br><span class="line"></span><br><span class="line">require_once()</span><br><span class="line"></span><br><span class="line">include()</span><br><span class="line"></span><br><span class="line">include_once()</span><br></pre></td></tr></table></figure>
+<h2 id="0x01-文件包含函数"><a href="#0x01-文件包含函数" class="headerlink" title="0x01 文件包含函数"></a>0x01 文件包含函数</h2><p>文件包含的函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vrequire()</span><br><span class="line"></span><br><span class="line">require_once()</span><br><span class="line"></span><br><span class="line">include()</span><br><span class="line"></span><br><span class="line">include_once()</span><br></pre></td></tr></table></figure>
 
 <p>include在包含的过程中如果出现错误，会抛出一个警告，程序继续正常运行；require函数出现错误的时候，会直接报错并退出程序的执行。</p>
 <p>而include_once()，require_once()这两个函数，与前两个的不同之处在于这两个函数只包含一次，适用于在脚本执行期间同一个文件有可能被包括超过一次的情况下，你想确保它只被包括一次以避免函数重定义，变量重新赋值等问题。</p>
-<h2 id="0x02-漏洞产生原因"><a href="#0x02-漏洞产生原因" class="headerlink" title="0x02 漏洞产生原因"></a>0x02 漏洞产生原因</h2><p>文件包含函数加载的参数没有经过过滤或者严格的定义，用户可以操作一些敏感文件，文件泄露和恶意代码注入，可以被用户控制，包含其他恶意文件，执行非预期的代码<br>当包含文件在服务器本地上，就形成本地文件包含，当包含的文件在第三方服务器是，就形成可远程文件包含。<br>demo:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $filename  = $_GET[&apos;filename&apos;];</span><br><span class="line">    include($filename);</span><br><span class="line">?&gt;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">filename参数开发者没有经过严格的过滤，直接带入了include的函数，攻击者可以修改filename的值，执行非预期的操作。</span><br><span class="line"></span><br><span class="line">## 0x03 本地文件包含</span><br><span class="line">本地文件包含LFI也即Local File Inclusion，其特性是可包含任意类型的文件，当被包含的文件书写符合php书写规范，即（&lt;？php..…….代码.……？&gt;或&lt;？.…代码..？&gt;）时，不论文件后缀是什么，都可以解析其中的php代码，当书写规范不符合时，则以文本形式输出。</span><br><span class="line">测试：</span><br><span class="line"></span><br><span class="line">``` </span><br><span class="line">&lt;?php</span><br><span class="line">    $filename  = $_GET[&apos;filename&apos;];</span><br><span class="line">    include($filename);</span><br><span class="line">?&gt;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">![](/images/baohanloudong1.png)</span><br><span class="line">![](/images/baohanloudong2.png)</span><br><span class="line"></span><br><span class="line">## 0x04 远程文件包含</span><br><span class="line">远程文件包含RFI也即Remote File Inclusion，其基本原理与本地文件包含LFI类似，区别只是被包含的文件由原来的本地文件路径变为远程文件路径。其特性是可包含任意类型的文件，并且如果被包含文件中有类似&quot;&lt;？php…（省略号为php代码）？&gt;”或</span><br><span class="line">“&lt;？.…（省略号为php代码）？&gt;”这2种形式的字符串，则在包含时会执行字符串中的PHP代码。</span><br><span class="line">``` </span><br><span class="line">allow_url_fopen = On（是否允许打开远程文件）</span><br><span class="line">allow_url_include = On（是否允许include/require远程文件）</span><br><span class="line">``` </span><br><span class="line">前提：需要开启allow_url_fopen，默认关闭。</span><br><span class="line">示例：include.php</span><br><span class="line">``` </span><br><span class="line">&lt;?php</span><br><span class="line">    $filename  = $_GET[&apos;filename&apos;];</span><br><span class="line">    include($filename);</span><br><span class="line">?&gt;</span><br><span class="line">``` </span><br><span class="line">新建file.txt</span><br><span class="line">``` </span><br><span class="line">&lt;?php</span><br><span class="line">   echo &quot;hello,hacker&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="0x02-漏洞产生原因"><a href="#0x02-漏洞产生原因" class="headerlink" title="0x02 漏洞产生原因"></a>0x02 漏洞产生原因</h2><p>文件包含函数加载的参数没有经过过滤或者严格的定义，用户可以操作一些敏感文件，文件泄露和恶意代码注入，可以被用户控制，包含其他恶意文件，执行非预期的代码<br>当包含文件在服务器本地上，就形成本地文件包含，当包含的文件在第三方服务器是，就形成可远程文件包含。<br>例子：</p>
+<p><img src="/images/baohanloudong4.png" alt></p>
+<p>filename参数开发者没有经过严格的过滤，直接带入了include的函数，攻击者可以修改filename的值，执行非预期的操作。</p>
+<h2 id="0x03-本地文件包含"><a href="#0x03-本地文件包含" class="headerlink" title="0x03 本地文件包含"></a>0x03 本地文件包含</h2><p>本地文件包含LFI也即Local File Inclusion，其特性是可包含任意类型的文件，当被包含的文件书写符合php书写规范，即（&lt;？php..…….代码.……？&gt;或&lt;？.…代码..？&gt;）时，不论文件后缀是什么，都可以解析其中的php代码，当书写规范不符合时，则以文本形式输出。<br>测试：</p>
+<p><img src="/images/baohanloudong4.png" alt></p>
+<p><img src="/images/baohanloudong1.png" alt><br>执行结果：<br><img src="/images/baohanloudong2.png" alt></p>
+<h2 id="0x04-远程文件包含"><a href="#0x04-远程文件包含" class="headerlink" title="0x04 远程文件包含"></a>0x04 远程文件包含</h2><p>远程文件包含RFI也即Remote File Inclusion，其基本原理与本地文件包含LFI类似，区别只是被包含的文件由原来的本地文件路径变为远程文件路径。其特性是可包含任意类型的文件，并且如果被包含文件中有类似”&lt;？php…（省略号为php代码）？&gt;”或<br>“&lt;？.…（省略号为php代码）？&gt;”这2种形式的字符串，则在包含时会执行字符串中的PHP代码。<br>有两个关键函数：<br>allow_url_fopen = On（是否允许打开远程文件）<br>allow_url_include = On（是否允许include/require远程文件）</p>
+<p>前提：需要开启allow_url_fopen，默认关闭。<br>示例：include.php<br><img src="/images/baohanloudong4.png" alt><br>新建file.txt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">   echo &quot;hello,hacker&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
-<p>访问<a href="http://www.xxxx.com/file=http://www.xxxx.com/file.txt" target="_blank" rel="noopener">http://www.xxxx.com/file=http://www.xxxx.com/file.txt</a><br>执行结果将输出hello world。</p>
+<p>访问<a href="http://www.xxxx.com/include.php?file=http://www.xxxx.com/file.txt" target="_blank" rel="noopener">http://www.xxxx.com/include.php?file=http://www.xxxx.com/file.txt</a><br>执行结果将输出hello world。</p>
 <h2 id="0x05-文件包含利用"><a href="#0x05-文件包含利用" class="headerlink" title="0x05 文件包含利用"></a>0x05 文件包含利用</h2><h3 id="读取敏感信息"><a href="#读取敏感信息" class="headerlink" title="读取敏感信息"></a>读取敏感信息</h3><p>通过目录遍历可以获取到系统中其他文件的内容：<br><img src="/images/baohanloudong3.png" alt></p>
 <h4 id="常见敏感信息路径"><a href="#常见敏感信息路径" class="headerlink" title="常见敏感信息路径"></a>常见敏感信息路径</h4><h5 id="Windows系统"><a href="#Windows系统" class="headerlink" title="Windows系统"></a>Windows系统</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">c:\boot.ini // 查看系统版本</span><br><span class="line"></span><br><span class="line">c:\windows\system32\inetsrv\MetaBase.xml // IIS配置文件</span><br><span class="line"></span><br><span class="line">c:\windows\repair\sam // 存储Windows系统初次安装的密码</span><br><span class="line"></span><br><span class="line">c:\ProgramFiles\mysql\my.ini // MySQL配置</span><br><span class="line"></span><br><span class="line">c:\ProgramFiles\mysql\data\mysql\user.MYD // MySQL root密码</span><br><span class="line"></span><br><span class="line">c:\windows\php.ini // php 配置信息</span><br></pre></td></tr></table></figure>
 
@@ -896,7 +909,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-文件包含与文件包含漏洞"><span class="nav-number">1.</span> <span class="nav-text">0x00 文件包含与文件包含漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-文件包含函数"><span class="nav-number">2.</span> <span class="nav-text">0x01 文件包含函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-漏洞产生原因"><span class="nav-number">3.</span> <span class="nav-text">0x02 漏洞产生原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-文件包含利用"><span class="nav-number">4.</span> <span class="nav-text">0x05 文件包含利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读取敏感信息"><span class="nav-number">4.1.</span> <span class="nav-text">读取敏感信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见敏感信息路径"><span class="nav-number">4.1.1.</span> <span class="nav-text">常见敏感信息路径</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Windows系统"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">Windows系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux-Unix系统"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">Linux/Unix系统</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session文件包含漏洞-待续"><span class="nav-number">4.2.</span> <span class="nav-text">session文件包含漏洞(待续)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程包含shell"><span class="nav-number">4.3.</span> <span class="nav-text">远程包含shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用php协议进行包含"><span class="nav-number">4.4.</span> <span class="nav-text">利用php协议进行包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地包含配合文件上传"><span class="nav-number">4.5.</span> <span class="nav-text">本地包含配合文件上传</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-绕过方法"><span class="nav-number">5.</span> <span class="nav-text">0x06 绕过方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问号绕过"><span class="nav-number">5.1.</span> <span class="nav-text">问号绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#井号绕过"><span class="nav-number">5.2.</span> <span class="nav-text">井号绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#截断包含"><span class="nav-number">5.3.</span> <span class="nav-text">截断包含</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#00截断包含"><span class="nav-number">5.3.1.</span> <span class="nav-text">%00截断包含</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用长目录截断"><span class="nav-number">5.3.2.</span> <span class="nav-text">使用长目录截断</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-文件包含与文件包含漏洞"><span class="nav-number">1.</span> <span class="nav-text">0x00 文件包含与文件包含漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-文件包含函数"><span class="nav-number">2.</span> <span class="nav-text">0x01 文件包含函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-漏洞产生原因"><span class="nav-number">3.</span> <span class="nav-text">0x02 漏洞产生原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-本地文件包含"><span class="nav-number">4.</span> <span class="nav-text">0x03 本地文件包含</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-远程文件包含"><span class="nav-number">5.</span> <span class="nav-text">0x04 远程文件包含</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-文件包含利用"><span class="nav-number">6.</span> <span class="nav-text">0x05 文件包含利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读取敏感信息"><span class="nav-number">6.1.</span> <span class="nav-text">读取敏感信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见敏感信息路径"><span class="nav-number">6.1.1.</span> <span class="nav-text">常见敏感信息路径</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Windows系统"><span class="nav-number">6.1.1.1.</span> <span class="nav-text">Windows系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux-Unix系统"><span class="nav-number">6.1.1.2.</span> <span class="nav-text">Linux/Unix系统</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session文件包含漏洞-待续"><span class="nav-number">6.2.</span> <span class="nav-text">session文件包含漏洞(待续)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程包含shell"><span class="nav-number">6.3.</span> <span class="nav-text">远程包含shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用php协议进行包含"><span class="nav-number">6.4.</span> <span class="nav-text">利用php协议进行包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地包含配合文件上传"><span class="nav-number">6.5.</span> <span class="nav-text">本地包含配合文件上传</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-绕过方法"><span class="nav-number">7.</span> <span class="nav-text">0x06 绕过方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问号绕过"><span class="nav-number">7.1.</span> <span class="nav-text">问号绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#井号绕过"><span class="nav-number">7.2.</span> <span class="nav-text">井号绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#截断包含"><span class="nav-number">7.3.</span> <span class="nav-text">截断包含</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#00截断包含"><span class="nav-number">7.3.1.</span> <span class="nav-text">%00截断包含</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用长目录截断"><span class="nav-number">7.3.2.</span> <span class="nav-text">使用长目录截断</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -954,7 +967,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">全站共 28.9k 字</span>
+  <span class="post-count">全站共 28.8k 字</span>
 </div>
 
         
