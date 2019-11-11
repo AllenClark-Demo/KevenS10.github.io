@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://kevens10.github.io/2019/11/11/SSRF%E6%BC%8F%E6%B4%9E/</loc>
+    <lastmod>2019-11-11</lastmod>
+  </url>  <url>
     <loc>https://kevens10.github.io/2019/11/10/XXE%E6%BC%8F%E6%B4%9E/</loc>
     <lastmod>2019-11-11</lastmod>
   </url>  <url>

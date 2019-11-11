@@ -76,7 +76,7 @@
 
 
 
-  <meta name="keywords" content="CTF 逆向,逆向,IDA,">
+  <meta name="keywords" content="CTF Web,SSRF,">
 
 
 
@@ -87,23 +87,18 @@
 
 
 
-<meta name="description" content="用ida（x64）打开，找到主函数main直接进行分析，找到以下代码：  这一堆的代码看上去就是检查一些东西的，比如说checkStringIsNumber()就是检查字符串是不是全部都是数字.  继续往下走  bufParentRead是我们输入的字符串，查看confuseKey函数：  这里的字符顺序有问题，将我们输入的分成4段然后重新组合，重新组合。我们就直接修改要比较的字符串就好了，变换一">
-<meta name="keywords" content="CTF 逆向,逆向,IDA">
+<meta name="description" content="SSRF 即Server-Side Request Forgery服务器端请求伪造攻击，利用漏洞伪造服务器端发起请求，从而突破客户端获取本身得不到的数据，SSRF攻击的目标是从外网无法访问的内部系统。 SSRF漏洞形成的原因主要是服务器端所提供的接口中包含了所要请求的内容的URL参数，并且未对客户端所传输过来的URL参数进行过滤。 假设A网站是一个所有人都可以访问的外网网站，B网站是一个他们内部的">
+<meta name="keywords" content="CTF Web,SSRF">
 <meta property="og:type" content="article">
-<meta property="og:title" content="XCTF 逆向 re1-100">
-<meta property="og:url" content="https://kevens10.github.io/2019/10/08/XCTF-逆向-re1-100/index.html">
+<meta property="og:title" content="SSRF漏洞">
+<meta property="og:url" content="https://kevens10.github.io/2019/11/11/SSRF漏洞/index.html">
 <meta property="og:site_name" content="Keven S">
-<meta property="og:description" content="用ida（x64）打开，找到主函数main直接进行分析，找到以下代码：  这一堆的代码看上去就是检查一些东西的，比如说checkStringIsNumber()就是检查字符串是不是全部都是数字.  继续往下走  bufParentRead是我们输入的字符串，查看confuseKey函数：  这里的字符顺序有问题，将我们输入的分成4段然后重新组合，重新组合。我们就直接修改要比较的字符串就好了，变换一">
+<meta property="og:description" content="SSRF 即Server-Side Request Forgery服务器端请求伪造攻击，利用漏洞伪造服务器端发起请求，从而突破客户端获取本身得不到的数据，SSRF攻击的目标是从外网无法访问的内部系统。 SSRF漏洞形成的原因主要是服务器端所提供的接口中包含了所要请求的内容的URL参数，并且未对客户端所传输过来的URL参数进行过滤。 假设A网站是一个所有人都可以访问的外网网站，B网站是一个他们内部的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://kevens10.github.io/images/re1-100-1.png">
-<meta property="og:image" content="https://kevens10.github.io/images/re1-100-2.png">
-<meta property="og:image" content="https://kevens10.github.io/images/re1-100-3.png">
-<meta property="og:image" content="https://kevens10.github.io/images/re1-100-4.png">
-<meta property="og:updated_time" content="2019-10-08T10:01:49.704Z">
+<meta property="og:updated_time" content="2019-11-11T06:37:16.881Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XCTF 逆向 re1-100">
-<meta name="twitter:description" content="用ida（x64）打开，找到主函数main直接进行分析，找到以下代码：  这一堆的代码看上去就是检查一些东西的，比如说checkStringIsNumber()就是检查字符串是不是全部都是数字.  继续往下走  bufParentRead是我们输入的字符串，查看confuseKey函数：  这里的字符顺序有问题，将我们输入的分成4段然后重新组合，重新组合。我们就直接修改要比较的字符串就好了，变换一">
-<meta name="twitter:image" content="https://kevens10.github.io/images/re1-100-1.png">
+<meta name="twitter:title" content="SSRF漏洞">
+<meta name="twitter:description" content="SSRF 即Server-Side Request Forgery服务器端请求伪造攻击，利用漏洞伪造服务器端发起请求，从而突破客户端获取本身得不到的数据，SSRF攻击的目标是从外网无法访问的内部系统。 SSRF漏洞形成的原因主要是服务器端所提供的接口中包含了所要请求的内容的URL参数，并且未对客户端所传输过来的URL参数进行过滤。 假设A网站是一个所有人都可以访问的外网网站，B网站是一个他们内部的">
 
 
 
@@ -133,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="https://kevens10.github.io/2019/10/08/XCTF-逆向-re1-100/">
+  <link rel="canonical" href="https://kevens10.github.io/2019/11/11/SSRF漏洞/">
 
 
 
@@ -155,7 +150,7 @@
 
 
 
-  <title>XCTF 逆向 re1-100 | Keven S</title>
+  <title>SSRF漏洞 | Keven S</title>
   
 
 
@@ -348,7 +343,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kevens10.github.io/2019/10/08/XCTF-逆向-re1-100/">
+    <link itemprop="mainEntityOfPage" href="https://kevens10.github.io/2019/11/11/SSRF漏洞/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Keven">
@@ -365,7 +360,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">XCTF 逆向 re1-100</h1>
+          <h1 class="post-title" itemprop="name headline">SSRF漏洞</h1>
         
 
         <div class="post-meta">
@@ -377,8 +372,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-08T16:47:10+08:00">
-                2019-10-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-11T20:08:51+08:00">
+                2019-11-11
               </time>
             
 
@@ -393,8 +388,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-10-08T18:01:49+08:00">
-                2019-10-08
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-11T14:37:16+08:00">
+                2019-11-11
               </time>
             
           </span>
@@ -412,8 +407,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CTF逆向/" itemprop="url" rel="index">
-                    <span itemprop="name">CTF逆向</span>
+                  <a href="/categories/Web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
                   </a>
                 </span>
 
@@ -449,7 +444,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  135 字
+                  1,449 字
                 </span>
               
 
@@ -465,7 +460,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -486,15 +481,28 @@
       
 
       
-        <p>用ida（x64）打开，找到主函数main<br>直接进行分析，找到以下代码：</p>
-<p><img src="/images/re1-100-1.png" alt></p>
-<p>这一堆的代码看上去就是检查一些东西的，比如说checkStringIsNumber()就是检查字符串是不是全部都是数字.</p>
-<p><img src="/images/re1-100-2.png" alt></p>
-<p>继续往下走</p>
-<p><img src="/images/re1-100-3.png" alt></p>
-<p>bufParentRead是我们输入的字符串，<br>查看confuseKey函数：</p>
-<p><img src="/images/re1-100-4.png" alt></p>
-<p>这里的字符顺序有问题，<br>将我们输入的分成4段然后重新组合，重新组合。<br>我们就直接修改要比较的字符串就好了，变换一下顺序：<br>53fc275d81053ed5be8cdaf29f59034938ae4efd</p>
+        <p>SSRF 即Server-Side Request Forgery<br>服务器端请求伪造攻击，利用漏洞伪造服务器端发起请求，从而突破客户端获取本身得不到的数据，SSRF攻击的目标是从外网无法访问的内部系统。</p>
+<p>SSRF漏洞形成的原因主要是服务器端所提供的接口中包含了所要请求的内容的URL参数，并且未对客户端所传输过来的URL参数进行过滤。</p>
+<p>假设A网站是一个所有人都可以访问的外网网站，B网站是一个他们内部的网站，普通用户只能访问A网站，不能访问B网站，但是我们可以通过A网站做中间人，伪造身份发送请求，就可以访问B网站，近而达到攻击B网站的目的。<br><a href="http://www.shiyanbar.com/xxx.php?image=www.abc.com/.jpg" target="_blank" rel="noopener">www.shiyanbar.com/xxx.php?image=www.abc.com/.jpg</a> 获取a网站一个图片<br>那么这里如果服务器端没有对请求获取图片的参数 image 做出严格限制和过滤，那么它就有可能导致获取其它服务器数据<br><a href="http://www.shiyanbar.com/xxx.php?image=XXX" target="_blank" rel="noopener">www.shiyanbar.com/xxx.php?image=XXX</a>  //XXX为利用方法</p>
+<h3 id="可能出现的地方"><a href="#可能出现的地方" class="headerlink" title="可能出现的地方"></a>可能出现的地方</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1.社交分享功能：获取超链接的标题等内容进行显示</span><br><span class="line">2.转码服务：通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览</span><br><span class="line">3.在线翻译：给网址翻译对应网页的内容</span><br><span class="line">4.图片加载/下载：例如富文本编辑器中的点击下载图片到本地；通过URL地址加载或下载图片</span><br><span class="line">5.图片/文章收藏功能：主要其会取URL地址中title以及文本的内容作为显示以求一个好的用具体验</span><br><span class="line">6.云服务厂商：它会远程执行一些命令来判断网站是否存活等，所以如果可以捕获相应的信息，就可以进行ssrf测试</span><br><span class="line">7.网站采集，网站抓取的地方：一些网站会针对你输入的url进行一些信息采集工作</span><br><span class="line">8.数据库内置功能：数据库的比如mongodb的copyDatabase函数</span><br><span class="line">9.邮件系统：比如接收邮件服务器地址</span><br><span class="line">10.编码处理, 属性信息处理，文件处理：比如ffpmg，ImageMagick，docx，pdf，xml处理器等</span><br><span class="line">11.未公开的api实现以及其他扩展调用URL的功能：可以利用google 语法加上这些关键字去寻找SSRF漏洞</span><br><span class="line">一些的url中的关键字：share、wap、url、link、src、source、target、u、3g、display、sourceURl、imageURL、domain……</span><br><span class="line">12.从远程服务器请求资源（upload from url 如discuz！；import &amp; expost rss feed 如web blog；使用了xml引擎对象的地方 如wordpress xmlrpc.php）</span><br></pre></td></tr></table></figure>
+
+<h3 id="绕过方法"><a href="#绕过方法" class="headerlink" title="绕过方法"></a>绕过方法</h3><p>1、更改IP地址写法<br>因为可能通过过滤掉内网IP的方式。<br>可以通过进制绕过：<br>192.168.0.1的各种进制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(1)、8进制格式：0300.0250.0.1</span><br><span class="line"></span><br><span class="line">(2)、16进制格式：0xC0.0xA8.0.1</span><br><span class="line"></span><br><span class="line">(3)、10进制整数格式：3232235521</span><br><span class="line"></span><br><span class="line">(4)、16进制整数格式：0xC0A80001</span><br></pre></td></tr></table></figure>
+
+<p>2、利用解析URL所出现的问题<br>在某些情况下，后端程序可能会对访问的URL进行解析，对解析出来的host地址进行过滤。这时候可能会出现对URL参数解析不当，导致可以绕过过滤。<br><a href="http://www.baidu.com@192.168.0.1/" target="_blank" rel="noopener">http://www.baidu.com@192.168.0.1/</a><br>当后端程序通过不正确的正则表达式（比如将http之后到com为止的字符内容，也就是<a href="http://www.baidu.com，认为是访问请求的host地址时）对上述URL的内容进行解析的时候，很有可能会认为访问URL的host为www.baidu.com，而实际上这个URL所请求的内容都是192.168.0.1上的内容。" target="_blank" rel="noopener">www.baidu.com，认为是访问请求的host地址时）对上述URL的内容进行解析的时候，很有可能会认为访问URL的host为www.baidu.com，而实际上这个URL所请求的内容都是192.168.0.1上的内容。</a><br>3、URL跳转绕过：<a href="http://www.hackersb.cn/redirect.php?url=http://192.168.0.1/" target="_blank" rel="noopener">http://www.hackersb.cn/redirect.php?url=http://192.168.0.1/</a><br>4、利用302跳转<br>xip.io来绕过：<a href="http://xxx.192.168.0.1.xip.io/" target="_blank" rel="noopener">http://xxx.192.168.0.1.xip.io/</a> == 192.168.0.1 (xxx 任意）<br>指向任意ip的域名：xip.io(37signals开发实现的定制DNS服务)<br>192.168.0.1.xip.io，就会自动重定向到192.168.0.1。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><h4 id="easygallery-1"><a href="#easygallery-1" class="headerlink" title="easygallery-1"></a>easygallery-1</h4><p>查看源码，发现“flag”:  <?php $flag='flag in the /flag';?><br>接着在下面发现链接：<br><a href="http://xxxx/gallery.php?path=http://127.0.0.1:8082/gallery/static/img/portfolio-1.jpg" target="_blank" rel="noopener">http://xxxx/gallery.php?path=http://127.0.0.1:8082/gallery/static/img/portfolio-1.jpg</a></p>
+<p>SSRF利用，直接payload拿试试：<br><a href="http://xxxx/gallery.php?path=file:///flag" target="_blank" rel="noopener">http://xxxx/gallery.php?path=file:///flag</a></p>
+<p>发现为空，这里忽略了一个点：<br>题目应该是限制了后缀jpg,尝试绕过，这里用到一个点，即%23或？，HTML中起连接作用，而且不影响读取文件</p>
+<p>最终payload:<br><a href="http://xxxx/gallery.php?path=file:///flag%23.jpg" target="_blank" rel="noopener">http://xxxx/gallery.php?path=file:///flag%23.jpg</a></p>
+<h4 id="easygallery-2"><a href="#easygallery-2" class="headerlink" title="easygallery-2"></a>easygallery-2</h4><p>与1基本类似，但是再次用原来payload会发现报错：scheme error!<br>猜测后端禁用了file协议。。。</p>
+<p>抓包发现是POST方式，猜测是命令执行<br>最终payload:<br><a href="http://xxxx/download.php?f=http://127.0.0.1/download.php" target="_blank" rel="noopener">http://xxxx/download.php?f=http://127.0.0.1/download.php</a> file:///flag 1.jpg</p>
+<h3 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h3><p>1.禁止跳转</p>
+<p>2.过滤返回信息，验证远程服务器对请求的响应是比较容易的方法。如果web应用是去获取某一种类型的文件。那么在把返回结果展示给用户之前先验证返回的信息是否符合标准。</p>
+<p>3.禁用不需要的协议，仅仅允许http和https请求。可以防止类似于file://, gopher://, ftp:// 等引起的问题</p>
+<p>4.设置URL白名单或者限制内网IP（使用gethostbyname()判断是否为内网IP）</p>
+<p>5.限制请求的端口为http常用的端口，比如 80、443、8080、8090</p>
+<p>6.统一错误信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</p>
+<p>参考资料：<a href="https://www.freebuf.com/articles/web/135342.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/135342.html</a><br><a href="https://xz.aliyun.com/t/2115" target="_blank" rel="noopener">https://xz.aliyun.com/t/2115</a></p>
 
       
     </div>
@@ -515,7 +523,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://kevens10.github.io/2019/10/08/XCTF-逆向-re1-100/" title="XCTF 逆向 re1-100">https://kevens10.github.io/2019/10/08/XCTF-逆向-re1-100/</a>
+    <a href="https://kevens10.github.io/2019/11/11/SSRF漏洞/" title="SSRF漏洞">https://kevens10.github.io/2019/11/11/SSRF漏洞/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -543,11 +551,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/CTF-逆向/" rel="tag"><i class="fa fa-tag"></i> CTF 逆向</a>
+            <a href="/tags/CTF-Web/" rel="tag"><i class="fa fa-tag"></i> CTF Web</a>
           
-            <a href="/tags/逆向/" rel="tag"><i class="fa fa-tag"></i> 逆向</a>
-          
-            <a href="/tags/IDA/" rel="tag"><i class="fa fa-tag"></i> IDA</a>
+            <a href="/tags/SSRF/" rel="tag"><i class="fa fa-tag"></i> SSRF</a>
           
         </div>
       
@@ -572,8 +578,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/07/PHP弱类型/" rel="next" title="PHP弱类型">
-                <i class="fa fa-chevron-left"></i> PHP弱类型
+              <a href="/2019/11/10/XXE漏洞/" rel="next" title="XXE漏洞">
+                <i class="fa fa-chevron-left"></i> XXE漏洞
               </a>
             
           </div>
@@ -581,10 +587,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/08/RSA加密算法/" rel="prev" title="RSA加密算法">
-                RSA加密算法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -649,8 +651,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -834,6 +845,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#可能出现的地方"><span class="nav-number">1.</span> <span class="nav-text">可能出现的地方</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绕过方法"><span class="nav-number">2.</span> <span class="nav-text">绕过方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">3.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#easygallery-1"><span class="nav-number">3.1.</span> <span class="nav-text">easygallery-1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#easygallery-2"><span class="nav-number">3.2.</span> <span class="nav-text">easygallery-2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞修复"><span class="nav-number">4.</span> <span class="nav-text">漏洞修复</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
 
