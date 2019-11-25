@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="XF2UidoKuF">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/k32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/k16.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CTF Web,MD5,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MD5算法流程MD5算法主要分这几步：1.把消息分为n个消息块。（补位）2.对最后一个消息块进行消息填充。（补长度）3.每个消息块和一个输入量做运算，把运算结果作为下一个输入量（计算消息摘要） 1234567891011121314hash函数拿到需要处理的字符串后，需要先补位。即使得其长度在对 512 取模后的值为 448。也就是说，len(message) % 512 == 448。用字节长度">
+<meta name="keywords" content="CTF Web,MD5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="哈希扩展长度攻击">
+<meta property="og:url" content="https://kevens10.github.io/2019/11/23/哈希扩展长度攻击/index.html">
+<meta property="og:site_name" content="Keven S">
+<meta property="og:description" content="MD5算法流程MD5算法主要分这几步：1.把消息分为n个消息块。（补位）2.对最后一个消息块进行消息填充。（补长度）3.每个消息块和一个输入量做运算，把运算结果作为下一个输入量（计算消息摘要） 1234567891011121314hash函数拿到需要处理的字符串后，需要先补位。即使得其长度在对 512 取模后的值为 448。也就是说，len(message) % 512 == 448。用字节长度">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://kevens10.github.io/images/haxikuozhanchangdugongji1.png">
+<meta property="og:image" content="https://kevens10.github.io/images/haxikuozhanchangdugongji2.png">
+<meta property="og:updated_time" content="2019-11-24T08:49:22.900Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="哈希扩展长度攻击">
+<meta name="twitter:description" content="MD5算法流程MD5算法主要分这几步：1.把消息分为n个消息块。（补位）2.对最后一个消息块进行消息填充。（补长度）3.每个消息块和一个输入量做运算，把运算结果作为下一个输入量（计算消息摘要） 1234567891011121314hash函数拿到需要处理的字符串后，需要先补位。即使得其长度在对 512 取模后的值为 448。也就是说，len(message) % 512 == 448。用字节长度">
+<meta name="twitter:image" content="https://kevens10.github.io/images/haxikuozhanchangdugongji1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kevens10.github.io/2019/11/23/哈希扩展长度攻击/">
+
+
+
+
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "1e5e27e2"
+    });
+  daovoice('update');
+  </script>
+
+
+
+
+  <title>哈希扩展长度攻击 | Keven S</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/KevenS10" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+
+
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Keven S</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">名无实，实无名</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            站内搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kevens10.github.io/2019/11/23/哈希扩展长度攻击/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/temp.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keven S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">哈希扩展长度攻击</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-23T18:59:18+08:00">
+                2019-11-23
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-11-24T16:49:22+08:00">
+                2019-11-24
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web安全/" itemprop="url" rel="index">
+                    <span itemprop="name">Web安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,081 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  16 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="MD5算法流程"><a href="#MD5算法流程" class="headerlink" title="MD5算法流程"></a>MD5算法流程</h2><p><img src="/images/haxikuozhanchangdugongji1.png" alt><br>MD5算法主要分这几步：<br>1.把消息分为n个消息块。（补位）<br>2.对最后一个消息块进行消息填充。（补长度）<br>3.每个消息块和一个输入量做运算，把运算结果作为下一个输入量（计算消息摘要）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hash函数拿到需要处理的字符串后，需要先补位。</span><br><span class="line">即使得其长度在对 512 取模后的值为 448。也就是说，len(message) % 512 == 448。</span><br><span class="line">用字节长度整除64，取得余数。</span><br><span class="line">如果该余数正好等于56，那么就在该字符串最后添加上8个字节的长度描述符（具体用bit表示）。</span><br><span class="line">如果不等于56，就先对字符串进行长度填充，填充时第一个字节为hex(80)，其他字节均用hex(00)填充，填充至余数为56后，同样增加8个字节的长度描述符（该长度描述符为需要被hash的字符串的长度，不是填充之后整个字符串的长度）。</span><br><span class="line">补位的方式的二进制表示是在消息的后面加上一个1，后面跟着无限个0，直到 len(message) % 512 == 448。在 16 进制下，我们需要在消息后补80，就是 2 进制的10000000。我们把消息abc进行补位到 448 bit，也就是 56 byte。</span><br><span class="line">eg：被操作字符串为“test”,长度即为0x20（长度按照bit算）</span><br><span class="line"></span><br><span class="line">补位之后补长度</span><br><span class="line">补位过后，倒数第8 个字节储存的是补位之前的消息长度。比如，abc是 3 个字母，也就是 3 个字节，24 bit。换算成 16 进制为 0x18。其后跟着 7 个字节的 0x00，把消息补满 64 字节</span><br><span class="line"></span><br><span class="line">计算消息摘要必须用补位已经补长度完成之后的消息来进行运算，拿出 512 bit的消息（即64字节）。 计算消息摘要的时候，有一个初始的链变量，用来参与第一轮的运算。MD5 的初始链变量为：</span><br><span class="line">A=0x67452301 B=0xefcdab89 C=0x98badcfe D=0x10325476 </span><br><span class="line">经过一次消息摘要后，上面的链变量将会被新的值覆盖，而最后一轮产生的链变量经过高低位互换（如：aabbccdd -&gt; ddccbbaa）后就是我们计算出来的 md5 值。</span><br></pre></td></tr></table></figure>
+
+<h2 id="长度扩展攻击"><a href="#长度扩展攻击" class="headerlink" title="长度扩展攻击"></a>长度扩展攻击</h2><p>哈希长度拓展攻击(Hash Length Extension Attacks)的实现就是基于初始链变量的值被新的覆盖。<br>哈希长度扩展攻击适用于加密情况为：<code>hash($SECRET, $message)</code>的情况，其中 hash 最常见的就是 md5、sha1。我们可以在不知道<code>$SECRET</code>的情况下推算出另外一个匹配的值。<br>我们在不知道具体<code>$SECRET</code>的情况下，得知了其 hash 值，以及我们有一个可控的消息。 而我们得到的 hash 值正是<code>最后一轮摘要后的经过高地位互换的链变量</code>。 我们可以想像一下，在常规的摘要之后把我们的控制的信息进行下一轮摘要，只需要知道上一轮消息产生的链变量<br>一个题目：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;pre&gt;</span><br><span class="line">$flag = &quot;XXXXXXXXXXXXXXXXXXXXXXX&quot;;</span><br><span class="line">$secret = &quot;XXXXXXXXXXXXXXX&quot;; // This secret is 15 characters long for security!</span><br><span class="line"></span><br><span class="line">$username = $_POST[&quot;username&quot;];</span><br><span class="line">$password = $_POST[&quot;password&quot;];</span><br><span class="line"></span><br><span class="line">if (!empty($_COOKIE[&quot;getmein&quot;])) &#123;</span><br><span class="line">    if (urldecode($username) === &quot;admin&quot; &amp;&amp; urldecode($password) != &quot;admin&quot;) &#123;# ===俩边不管值还是类型都要一致</span><br><span class="line">        if ($COOKIE[&quot;getmein&quot;] === md5($secret . urldecode($username . $password))) &#123;</span><br><span class="line">            echo &quot;Congratulations! You are a registered user.\n&quot;;</span><br><span class="line">            die (&quot;The flag is &quot;. $flag);#exit()/die() 函数输出一条消息，并退出当前脚本</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            die (&quot;Your cookies don&apos;t match up! STOP HACKING THIS SITE.&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        die (&quot;You are not an admin! LEAVE.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setcookie(&quot;sample-hash&quot;, md5($secret . urldecode(&quot;admin&quot; . &quot;admin&quot;)), time() + (60 * 60 * 24 * 7));</span><br><span class="line"></span><br><span class="line">if (empty($_COOKIE[&quot;source&quot;])) &#123;</span><br><span class="line">    setcookie(&quot;source&quot;, 0, time() + (60 * 60 * 24 * 7));</span><br><span class="line">&#125;</span><br><span class="line">else &#123;</span><br><span class="line">    if ($_COOKIE[&quot;source&quot;] != 0) &#123;</span><br><span class="line">        echo &quot;&quot;; // This source code is outputted here</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    &lt;/pre&gt;</span><br><span class="line">&lt;h1&gt;Admins Only!&lt;/h1&gt;</span><br><span class="line">&lt;p&gt;If you have the correct credentials, log in below. If not, please LEAVE.&lt;/p&gt;</span><br><span class="line">&lt;form method=&quot;POST&quot;&gt;</span><br><span class="line">    Username: &lt;input type=&quot;text&quot; name=&quot;username&quot;&gt; &lt;br&gt;</span><br><span class="line">    Password: &lt;input type=&quot;password&quot; name=&quot;password&quot;&gt; &lt;br&gt;</span><br><span class="line">    &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>关键代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if ($COOKIE[&quot;getmein&quot;] === md5($secret . urldecode($username . $password)))</span><br></pre></td></tr></table></figure>
+
+<p>flag获取的要求是：传进一个cookie使getmein等于md5($secret . urldecode($username . $password))且后面部分不能为adminadmin,<br>也就是说需要构造getmein的cookie和他那串字符相同就可以。<br>sample-hash即通过setcookie得来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setcookie(&quot;sample-hash&quot;, md5($secret . urldecode(&quot;admin&quot; . &quot;admin&quot;)), time() + (60 * 60 * 24 * 7));</span><br></pre></td></tr></table></figure>
+
+<p>假设<code>secret</code>为 <code>&quot;123456789abcdef&quot;</code><br>即此hash值是通过<code>MD5(&quot;123456789abcdefadminadmin&quot;)</code>得来<br>而题目要求我们设置getmein的值为<code>MD5(&quot;123456789abcdefadmin+???&quot;)</code><br>后面那块是自己控制的，我们可以构造为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin\x80\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xc8\x00\x00\x00\x00\x00\x00\x00okay</span><br></pre></td></tr></table></figure>
+
+<p>urlencode之后为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin%80%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%00%c8%00%00%00%00%00%00%00okay</span><br></pre></td></tr></table></figure>
+
+<p>构造后到okay之前即为第一组，我们已经得到了<code>md5(secert+admin)</code>值，直接利用此<code>md5(secert+admin)</code>值运算第二组即可。</p>
+<p>现在我们在不知道具体 <code>$secret</code> 的情况下，已经得知了<code>md5(secert+admin)</code>的值为571580b26c65f306376d4f64e53cb5c7，以及<code>$sercret</code>的位数。而我们得到的 hash 值正是下一轮摘要经过高地位互换的链变量。<br>C语言代码计算：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;openssl/md6.h&gt;</span><br><span class="line">#include&lt;arpa/inet.h&gt;</span><br><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">int main(int argc,const char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">        int i;</span><br><span class="line">        unsigned char buffer[MD5_DIGEST_LENGTH];</span><br><span class="line">        MD5_CTX c;</span><br><span class="line"></span><br><span class="line">        MD5_Init(&amp;c);</span><br><span class="line">        MD5_Update(&amp;c,&quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&quot;,64);</span><br><span class="line"></span><br><span class="line">        c.A = htonl(0x571580b2);</span><br><span class="line">        c.B = htonl(0x6c65f306);</span><br><span class="line">        c.C = htonl(0x376d4f64);</span><br><span class="line">        c.D = htonl(0xe53cb5c7);</span><br><span class="line"></span><br><span class="line">        MD5_Update(&amp;c,&quot;okay&quot;,4);</span><br><span class="line">        MD5_Final(buffer,&amp;c);</span><br><span class="line">        for(i=0; i&lt;16; i++)&#123;</span><br><span class="line">                printf(&quot;%02x&quot;,buffer[i]);</span><br><span class="line">        &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里注意编译的时候带上openssl的ib库，即-l crypto：<br>gcc hash-md5.c -l crypto -pie -fpic -o hash-md5</p>
+<p>python实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A=0xb2801557</span><br><span class="line">B=0x06f3656c</span><br><span class="line">C=0x644f6d37</span><br><span class="line">D=0xc7b53ce5</span><br></pre></td></tr></table></figure>
+
+<p>my_md5.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Author：DshtAnger</span><br><span class="line"># theory reference:</span><br><span class="line">#   blog：</span><br><span class="line">#       http://blog.csdn.net/adidala/article/details/28677393</span><br><span class="line">#       http://blog.csdn.net/forgotaboutgirl/article/details/7258109</span><br><span class="line">#       http://blog.sina.com.cn/s/blog_6fe0eb1901014cpl.html</span><br><span class="line">#   RFC1321：</span><br><span class="line">#       https://www.rfc-editor.org/rfc/pdfrfc/rfc1321.txt.pdf</span><br><span class="line">##############################################################################</span><br><span class="line">import sys</span><br><span class="line">def genMsgLengthDescriptor(msg_bitsLenth):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    ---args:</span><br><span class="line">            msg_bitsLenth : the bits length of raw message</span><br><span class="line">    --return:</span><br><span class="line">            16 hex-encoded string , i.e.64bits,8bytes which used to describe the bits length of raw message added after padding</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    return __import__(&quot;struct&quot;).pack(&quot;&gt;Q&quot;,msg_bitsLenth).encode(&quot;hex&quot;)</span><br><span class="line"></span><br><span class="line">def reverse_hex_8bytes(hex_str):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    --args:</span><br><span class="line">            hex_str: a hex-encoded string with length 16 , i.e.8bytes</span><br><span class="line">    --return:</span><br><span class="line">            transform raw message descriptor to little-endian </span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    hex_str = &quot;%016x&quot;%int(hex_str,16)</span><br><span class="line">    assert len(hex_str)==16    </span><br><span class="line">    return __import__(&quot;struct&quot;).pack(&quot;&lt;Q&quot;,int(hex_str,16)).encode(&quot;hex&quot;)</span><br><span class="line"></span><br><span class="line">def reverse_hex_4bytes(hex_str):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    --args:</span><br><span class="line">            hex_str: a hex-encoded string with length 8 , i.e.4bytes</span><br><span class="line">    --return:</span><br><span class="line">            transform 4 bytes message block to little-endian</span><br><span class="line">    &apos;&apos;&apos;    </span><br><span class="line">    hex_str = &quot;%08x&quot;%int(hex_str,16)</span><br><span class="line">    assert len(hex_str)==8    </span><br><span class="line">    return __import__(&quot;struct&quot;).pack(&quot;&lt;L&quot;,int(hex_str,16)).encode(&quot;hex&quot;)</span><br><span class="line"></span><br><span class="line">def deal_rawInputMsg(input_msg):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    --args:</span><br><span class="line">            input_msg : inputed a ascii-encoded string</span><br><span class="line">    --return:</span><br><span class="line">            a hex-encoded string which can be inputed to mathematical transformation function.</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    ascii_list = [x.encode(&quot;hex&quot;) for x in input_msg]</span><br><span class="line">    length_msg_bytes = len(ascii_list)</span><br><span class="line">    length_msg_bits = len(ascii_list)*8</span><br><span class="line">    #padding</span><br><span class="line">    ascii_list.append(&apos;80&apos;)  </span><br><span class="line">    while (len(ascii_list)*8+64)%512 != 0:  </span><br><span class="line">        ascii_list.append(&apos;00&apos;)</span><br><span class="line">    #add Descriptor</span><br><span class="line">    ascii_list.append(reverse_hex_8bytes(genMsgLengthDescriptor(length_msg_bits)))</span><br><span class="line">    return &quot;&quot;.join(ascii_list)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def getM16(hex_str,operatingBlockNum):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    --args:</span><br><span class="line">            hex_str : a hex-encoded string with length in integral multiple of 512bits</span><br><span class="line">            operatingBlockNum : message block number which is being operated , greater than 1</span><br><span class="line">    --return:</span><br><span class="line">            M : result of splited 64bytes into 4*16 message blocks with little-endian</span><br><span class="line"></span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    M = [int(reverse_hex_4bytes(hex_str[i:(i+8)]),16) for i in xrange(128*(operatingBlockNum-1),128*operatingBlockNum,8)]</span><br><span class="line">    return M</span><br><span class="line"></span><br><span class="line">#定义函数，用来产生常数T[i]，常数有可能超过32位，同样需要&amp;0xffffffff操作。注意返回的是十进制的数</span><br><span class="line">def T(i):</span><br><span class="line">    result = (int(4294967296*abs(__import__(&quot;math&quot;).sin(i))))&amp;0xffffffff</span><br><span class="line">    return result   </span><br><span class="line"></span><br><span class="line">#定义每轮中用到的函数</span><br><span class="line">#RL为循环左移，注意左移之后可能会超过32位，所以要和0xffffffff做与运算，确保结果为32位</span><br><span class="line">F = lambda x,y,z:((x&amp;y)|((~x)&amp;z))</span><br><span class="line">G = lambda x,y,z:((x&amp;z)|(y&amp;(~z)))</span><br><span class="line">H = lambda x,y,z:(x^y^z)</span><br><span class="line">I = lambda x,y,z:(y^(x|(~z)))</span><br><span class="line">RL = L = lambda x,n:(((x&lt;&lt;n)|(x&gt;&gt;(32-n)))&amp;(0xffffffff))</span><br><span class="line"></span><br><span class="line">def FF(a, b, c, d, x, s, ac):  </span><br><span class="line">    a = (a+F ((b), (c), (d)) + (x) + (ac)&amp;0xffffffff)&amp;0xffffffff;  </span><br><span class="line">    a = RL ((a), (s))&amp;0xffffffff;  </span><br><span class="line">    a = (a+b)&amp;0xffffffff  </span><br><span class="line">    return a  </span><br><span class="line">def GG(a, b, c, d, x, s, ac):  </span><br><span class="line">    a = (a+G ((b), (c), (d)) + (x) + (ac)&amp;0xffffffff)&amp;0xffffffff;  </span><br><span class="line">    a = RL ((a), (s))&amp;0xffffffff;  </span><br><span class="line">    a = (a+b)&amp;0xffffffff  </span><br><span class="line">    return a  </span><br><span class="line">def HH(a, b, c, d, x, s, ac):  </span><br><span class="line">    a = (a+H ((b), (c), (d)) + (x) + (ac)&amp;0xffffffff)&amp;0xffffffff;  </span><br><span class="line">    a = RL ((a), (s))&amp;0xffffffff;  </span><br><span class="line">    a = (a+b)&amp;0xffffffff  </span><br><span class="line">    return a  </span><br><span class="line">def II(a, b, c, d, x, s, ac):  </span><br><span class="line">    a = (a+I ((b), (c), (d)) + (x) + (ac)&amp;0xffffffff)&amp;0xffffffff;  </span><br><span class="line">    a = RL ((a), (s))&amp;0xffffffff;  </span><br><span class="line">    a = (a+b)&amp;0xffffffff  </span><br><span class="line">    return a      </span><br><span class="line"></span><br><span class="line">def show_md5(A,B,C,D):</span><br><span class="line">    return &quot;&quot;.join( [  &quot;&quot;.join(__import__(&quot;re&quot;).findall(r&quot;..&quot;,&quot;%08x&quot;%i)[::-1]) for i in (A,B,C,D)  ]  )</span><br><span class="line"></span><br><span class="line">def run_md5(A=0x67452301,B=0xefcdab89,C=0x98badcfe,D=0x10325476,readyMsg=&quot;&quot;):</span><br><span class="line"></span><br><span class="line">    a = A</span><br><span class="line">    b = B</span><br><span class="line">    c = C</span><br><span class="line">    d = D</span><br><span class="line"></span><br><span class="line">    for i in xrange(0,len(readyMsg)/128):</span><br><span class="line">        M = getM16(readyMsg,i+1)</span><br><span class="line">        for i in xrange(16):</span><br><span class="line">            exec &quot;M&quot;+str(i)+&quot;=M[&quot;+str(i)+&quot;]&quot;</span><br><span class="line">        #First round</span><br><span class="line">        a=FF(a,b,c,d,M0,7,0xd76aa478L)</span><br><span class="line">        d=FF(d,a,b,c,M1,12,0xe8c7b756L)</span><br><span class="line">        c=FF(c,d,a,b,M2,17,0x242070dbL)</span><br><span class="line">        b=FF(b,c,d,a,M3,22,0xc1bdceeeL)</span><br><span class="line">        a=FF(a,b,c,d,M4,7,0xf57c0fafL)</span><br><span class="line">        d=FF(d,a,b,c,M5,12,0x4787c62aL)</span><br><span class="line">        c=FF(c,d,a,b,M6,17,0xa8304613L)</span><br><span class="line">        b=FF(b,c,d,a,M7,22,0xfd469501L)</span><br><span class="line">        a=FF(a,b,c,d,M8,7,0x698098d8L)</span><br><span class="line">        d=FF(d,a,b,c,M9,12,0x8b44f7afL)</span><br><span class="line">        c=FF(c,d,a,b,M10,17,0xffff5bb1L)</span><br><span class="line">        b=FF(b,c,d,a,M11,22,0x895cd7beL)</span><br><span class="line">        a=FF(a,b,c,d,M12,7,0x6b901122L)</span><br><span class="line">        d=FF(d,a,b,c,M13,12,0xfd987193L)</span><br><span class="line">        c=FF(c,d,a,b,M14,17,0xa679438eL)</span><br><span class="line">        b=FF(b,c,d,a,M15,22,0x49b40821L)</span><br><span class="line">        #Second round</span><br><span class="line">        a=GG(a,b,c,d,M1,5,0xf61e2562L)</span><br><span class="line">        d=GG(d,a,b,c,M6,9,0xc040b340L)</span><br><span class="line">        c=GG(c,d,a,b,M11,14,0x265e5a51L)</span><br><span class="line">        b=GG(b,c,d,a,M0,20,0xe9b6c7aaL)</span><br><span class="line">        a=GG(a,b,c,d,M5,5,0xd62f105dL)</span><br><span class="line">        d=GG(d,a,b,c,M10,9,0x02441453L)</span><br><span class="line">        c=GG(c,d,a,b,M15,14,0xd8a1e681L)</span><br><span class="line">        b=GG(b,c,d,a,M4,20,0xe7d3fbc8L)</span><br><span class="line">        a=GG(a,b,c,d,M9,5,0x21e1cde6L)</span><br><span class="line">        d=GG(d,a,b,c,M14,9,0xc33707d6L)</span><br><span class="line">        c=GG(c,d,a,b,M3,14,0xf4d50d87L)</span><br><span class="line">        b=GG(b,c,d,a,M8,20,0x455a14edL)</span><br><span class="line">        a=GG(a,b,c,d,M13,5,0xa9e3e905L)</span><br><span class="line">        d=GG(d,a,b,c,M2,9,0xfcefa3f8L)</span><br><span class="line">        c=GG(c,d,a,b,M7,14,0x676f02d9L)</span><br><span class="line">        b=GG(b,c,d,a,M12,20,0x8d2a4c8aL)</span><br><span class="line">        #Third round</span><br><span class="line">        a=HH(a,b,c,d,M5,4,0xfffa3942L)</span><br><span class="line">        d=HH(d,a,b,c,M8,11,0x8771f681L)</span><br><span class="line">        c=HH(c,d,a,b,M11,16,0x6d9d6122L)</span><br><span class="line">        b=HH(b,c,d,a,M14,23,0xfde5380c)</span><br><span class="line">        a=HH(a,b,c,d,M1,4,0xa4beea44L)</span><br><span class="line">        d=HH(d,a,b,c,M4,11,0x4bdecfa9L)</span><br><span class="line">        c=HH(c,d,a,b,M7,16,0xf6bb4b60L)</span><br><span class="line">        b=HH(b,c,d,a,M10,23,0xbebfbc70L)</span><br><span class="line">        a=HH(a,b,c,d,M13,4,0x289b7ec6L)</span><br><span class="line">        d=HH(d,a,b,c,M0,11,0xeaa127faL)</span><br><span class="line">        c=HH(c,d,a,b,M3,16,0xd4ef3085L)</span><br><span class="line">        b=HH(b,c,d,a,M6,23,0x04881d05L)</span><br><span class="line">        a=HH(a,b,c,d,M9,4,0xd9d4d039L)</span><br><span class="line">        d=HH(d,a,b,c,M12,11,0xe6db99e5L)</span><br><span class="line">        c=HH(c,d,a,b,M15,16,0x1fa27cf8L)</span><br><span class="line">        b=HH(b,c,d,a,M2,23,0xc4ac5665L)</span><br><span class="line">        #Fourth round</span><br><span class="line">        a=II(a,b,c,d,M0,6,0xf4292244L)</span><br><span class="line">        d=II(d,a,b,c,M7,10,0x432aff97L)</span><br><span class="line">        c=II(c,d,a,b,M14,15,0xab9423a7L)</span><br><span class="line">        b=II(b,c,d,a,M5,21,0xfc93a039L)</span><br><span class="line">        a=II(a,b,c,d,M12,6,0x655b59c3L)</span><br><span class="line">        d=II(d,a,b,c,M3,10,0x8f0ccc92L)</span><br><span class="line">        c=II(c,d,a,b,M10,15,0xffeff47dL)</span><br><span class="line">        b=II(b,c,d,a,M1,21,0x85845dd1L)</span><br><span class="line">        a=II(a,b,c,d,M8,6,0x6fa87e4fL)</span><br><span class="line">        d=II(d,a,b,c,M15,10,0xfe2ce6e0L)</span><br><span class="line">        c=II(c,d,a,b,M6,15,0xa3014314L)</span><br><span class="line">        b=II(b,c,d,a,M13,21,0x4e0811a1L)</span><br><span class="line">        a=II(a,b,c,d,M4,6,0xf7537e82L)</span><br><span class="line">        d=II(d,a,b,c,M11,10,0xbd3af235L)</span><br><span class="line">        c=II(c,d,a,b,M2,15,0x2ad7d2bbL)</span><br><span class="line">        b=II(b,c,d,a,M9,21,0xeb86d391L)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        A += a</span><br><span class="line">        B += b</span><br><span class="line">        C += c</span><br><span class="line">        D += d</span><br><span class="line"></span><br><span class="line">        A = A&amp;0xffffffff</span><br><span class="line">        B = B&amp;0xffffffff</span><br><span class="line">        C = C&amp;0xffffffff</span><br><span class="line">        D = D&amp;0xffffffff</span><br><span class="line"></span><br><span class="line">        a = A</span><br><span class="line">        b = B</span><br><span class="line">        c = C</span><br><span class="line">        d = D</span><br><span class="line"></span><br><span class="line">    return show_md5(a,b,c,d)</span><br></pre></td></tr></table></figure>
+
+<p>exp.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">import my_md5</span><br><span class="line">samplehash=&quot;571580b26c65f306376d4f64e53cb5c7&quot;</span><br><span class="line">#将哈希值分为四段,并反转该四字节为小端序,作为64第二次循环的输入幻书</span><br><span class="line">s1=0xb2801557</span><br><span class="line">s2=0x06f3656c</span><br><span class="line">s3=0x644f6d37</span><br><span class="line">s4=0xc7b53ce5</span><br><span class="line">#exp</span><br><span class="line">secret = &quot;A&quot;*15</span><br><span class="line">secret_admin = secret + &apos;adminadmin&#123;padding&#125;&apos;</span><br><span class="line">padding = &apos;\x80&#123;zero&#125;\xc8\x00\x00\x00\x00\x00\x00\x00&apos;.format(zero=&quot;\x00&quot;*(64-15-10-1-8))</span><br><span class="line">secret_admin = secret_admin.format(padding=padding) + &apos;dawn&apos;</span><br><span class="line">r = my_md5.deal_rawInputMsg(secret_admin)</span><br><span class="line">inp = r[len(r)/2:] #我们需要截断的地方，也是我们需要控制的地方</span><br><span class="line">print &quot;getmein:&quot;+my_md5.run_md5(s1,s2,s3,s4,inp)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/haxikuozhanchangdugongji2.png" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Keven
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://kevens10.github.io/2019/11/23/哈希扩展长度攻击/" title="哈希扩展长度攻击">https://kevens10.github.io/2019/11/23/哈希扩展长度攻击/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:20px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CTF-Web/" rel="tag"><i class="fa fa-tag"></i> CTF Web</a>
+          
+            <a href="/tags/MD5/" rel="tag"><i class="fa fa-tag"></i> MD5</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/18/基础汇编/" rel="next" title="基础汇编">
+                <i class="fa fa-chevron-left"></i> 基础汇编
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/24/SSRF漏洞1/" rel="prev" title="create_function()注入漏洞">
+                create_function()注入漏洞 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5db155f7ce04752a" async="async"></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Njk2Mi8yMzQ2Mw=="></div>
+    </div>
+
+  
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/temp.jpg" alt="Keven">
+            
+              <p class="site-author-name" itemprop="name">Keven</p>
+              <p class="site-description motion-element" itemprop="description">独立之精神，自由之思想</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/KevenS10" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://mail.qq.com/cgi-bin/loginpage" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/1807456258/main" target="_blank" title="QQ">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQ</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://me.csdn.net/qq_41544631" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-contao"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+
+
+
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=545ghtxc3lx&amp;m=2&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33" async="async"></script>
+
+
+
+
+
+
+
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+      <div class="links-of-blogroll-title">
+        <!-- modify icon to fire by szw -->
+        <i class="fa fa-history fa-" aria-hidden="true"></i>
+        近期文章
+      </div>
+      <ul class="links-of-blogroll-list">
+        
+        
+          <li>
+            <a href="/2019/11/24/create_function()注入命令执行漏洞/" title="create_function()注入命令执行漏洞" target="_blank">create_function()注入命令执行漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/24/SSRF漏洞1/" title="create_function()注入漏洞" target="_blank">create_function()注入漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/23/哈希扩展长度攻击/" title="哈希扩展长度攻击" target="_blank">哈希扩展长度攻击</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/18/基础汇编/" title="基础汇编" target="_blank">基础汇编</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/18/常用的Markdown语法/" title="常用的Markdown语法" target="_blank">常用的Markdown语法</a>
+          </li>
+        
+      </ul>
+    </div>
+
+
+
+
+
+
+
+
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com/" title="GitHub" target="_blank">GitHub</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.csdn.net/" title="CSDN" target="_blank">CSDN</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/" title="博客园" target="_blank">博客园</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.52pojie.cn/" title="吾爱破解" target="_blank">吾爱破解</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://wiki.x10sec.org/" title="CTF Wiki" target="_blank">CTF Wiki</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.zhihu.com/" title="知乎" target="_blank">知乎</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.jianshu.com/" title="简书" target="_blank">简书</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MD5算法流程"><span class="nav-number">1.</span> <span class="nav-text">MD5算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#长度扩展攻击"><span class="nav-number">2.</span> <span class="nav-text">长度扩展攻击</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+
+<div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=167850&auto=0&height=66">
+</iframe>
+</div>
+
+
+
+
+
+
+
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Keven</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+  <div class="footer-custom">Hosted by <a target="_blank" href="https://pages.github.com">GitHub Pages</a></div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">全站共 39.7k 字</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 21565,
+    el: 'wpac-rating',
+    color: '00BFFF'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+/*<div class="bg_content">
+<canvas id="canvas"></canvas>
+</div>
+<script type="text/javascript" src="/js/src/dynamic_bg.js"></script>*/
+
+
+
+
+
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+
+</body>
+</html>
+
