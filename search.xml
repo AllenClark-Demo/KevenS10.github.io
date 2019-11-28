@@ -271,8 +271,8 @@
       </categories>
       <tags>
         <tag>CTF Web</tag>
-        <tag>PHP伪协议</tag>
         <tag>PHP</tag>
+        <tag>PHP伪协议</tag>
         <tag>后端</tag>
       </tags>
   </entry>
@@ -348,8 +348,8 @@
       </categories>
       <tags>
         <tag>CTF Web</tag>
-        <tag>PHP</tag>
         <tag>反序列化漏洞</tag>
+        <tag>PHP</tag>
       </tags>
   </entry>
   <entry>
