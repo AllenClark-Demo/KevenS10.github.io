@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kevens10.github.io/"/>
-  <updated>2019-12-02T07:25:01.473Z</updated>
+  <updated>2019-12-08T06:38:13.738Z</updated>
   <id>https://kevens10.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>x86内存地址转换</title>
+    <link href="https://kevens10.github.io/articles/x86%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2.html"/>
+    <id>https://kevens10.github.io/articles/x86%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2.html</id>
+    <published>2019-12-07T08:12:16.000Z</published>
+    <updated>2019-12-08T06:38:13.738Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="0x00-物理地址概念"><a href="#0x00-物理地址概念" class="headerlink" title="0x00 物理地址概念"></a>0x00 物理地址概念</h2><p>用于内存芯片级的单元寻址，与处理器和CPU连接的地址总线相对应。物理地址是明确的、最终用在总线上的编号。</p><h2 id="0x01-逻辑地址概念"><a href="#0x01-逻辑地址概念" class="headerlink" title="0x01 逻辑地址概念"></a>0x01 逻辑地址概念</h2><p>逻辑地址指的是机器语言指令中，用来指定一个操作数或者是一条指令的地址。写汇编代码时，让CPU直接访问内存，这里所说的内存实际上就是逻辑地址。实际上用户层是不能直接访问物理内存的，只有内核级权限才能访问它。</p><p>在x86架构中，每个逻辑地址包括两部分：段（Segment）和偏移量（Offset）。</p><h2 id="0x02-线性地址概念"><a href="#0x02-线性地址概念" class="headerlink" title="0x02 线性地址概念"></a>0x02 线性地址概念</h2><p>也称为<code>虚拟地址</code>。在32位CPU中，它是32位的无符号整型，最大可以达到4G。在x86_64 CPU中目前最大可使用40位地址线，即最大可寻址1TB。</p><h2 id="0x03-CPU与内存映射"><a href="#0x03-CPU与内存映射" class="headerlink" title="0x03 CPU与内存映射"></a>0x03 CPU与内存映射</h2><p>CPU主要通过3种方式与外界交互：内存地址空间，I/O地址空间，还有中断。</p><p>前端总线把CPU与北桥连接起来（北桥则连接RAM内存、各种PCI设备，以及南桥）。每当CPU需要读写内存时，都会使用这条总线。在前端总线上传输的内存地址都是物理内存地址，编号从 0 开始一直到可用物理内存的最高端。这些数字被北桥映射到实际的内存条上。</p><p>在 CPU 内部，程序所使用的是逻辑内存地址，它必须被转换成物理地址后，才能用于实际内存访问。</p><h2 id="0x04-内存地址转换与分段"><a href="#0x04-内存地址转换与分段" class="headerlink" title="0x04 内存地址转换与分段"></a>0x04 内存地址转换与分段</h2><p><img src="https://i.loli.net/2019/12/07/PZ3MGfawsk2I8JB.png" alt="XRg.png"><br>从图中可以看到，<br><strong>CPU先通过分段机制将代码中的逻辑地址翻译成线性地址（虚拟地址），再利用分页机制将线性地址（虚拟地址）翻译成物理地址，交给北桥寻址。</strong></p><p><img src="https://i.loli.net/2019/12/07/q4vPYrCuRpOjEtF.png" alt="QQ截图20191207110557.png"><br>对于每一个进程，系统分配4GB的虚拟内存（不管物理内存实际有多大），其中0X00000000-0X7FFFFFFF为用户进程空间，0X80000000-0XFFFFFFFF为系统空间，每一个进程都拥有这么个4G的虚拟地址地址空间。</p><p>用户区是每个进程真正独立的可用内存空间，进程中的绝大部分数据都保存在这一区域。<br>主要包括：应用程序代码、全局变量、所有线程的线程栈以及 加载的DLL代码等<br>每个进程的用户区的虚拟内存空间相互独立，一般不可以直接跨进程访问，这使得一个程序直接破坏另一个程序的可能性非常小。<br>内核区中的所有数据是所用进程共享的，是操作系统代码的驻地。<br>其中包括： 操作系统内核代码， 以及与线程调度、 内存管理、文件系统支持、网络支持、 设备驱动程序相关的代码。<br>该分区中所有代码和数据都被操作系统保护。用户模式代码无法直接访问和操作：如果应用程序直接对该内存空间内的地址访问，将会发生地址访问违规。</p><p><strong>分段技术把虚拟地址空间映射到了物理地址空间，并且程序操作的是虚拟地址。</strong><br>将用户程序地址空间分成若干个大小不等的段，每段可以定义一组相对完整的逻辑信息。每个段都从0开始编址，并采用一段连续的地址空间。<br>段的长度由相应的逻辑信息组的长度决定，因而各段长度不等。整个作业的地址空间是二维的。</p><p>段号4位，每个作业最多2的4次方=16段，表示段号从0000<del>1111；段内位移量12位，2的12次方=4k，表示每段的段内地址最大为4K（各段长度不同），从000000000000</del>111111111111</p><p>3段表：<br>段号 段长 起始地址 存取控制<br>0     1K     4096    </p><p>1     4K     17500    </p><p>2     2K     8192  </p><p>分页技术仍然是一种虚拟地址空间到物理地址空间映射的机制。但是，粒度更加的小了。单位不是整个程序，而是某个“页”，一段虚拟地址空间组成的某一页映射到一段物理地址空间组成的某一页。<br>页号4位，每个作业最多2的4次方=16页，表示页号从0000<del>1111（24-1），页内位移量的位数表示页的大小，若页内位移量12位，则2的12次方=4k，页的大小为4k，页内地址从000000000000</del>111111111111</p><p>CPU在对内存进行操作时，内存管理单元MMU会将虚拟内存映射到物理内存上，所以出现的情况是虚拟内存的连续空间在实际的物理内存上并不一定连续，那么就需要一张表来记录虚拟内存与物理内存之间的映射关系，这就是分页技术中的页表。由于内存太大，页表可能会很大，为便于查找就把它再细分下，相邻的为一组，再加个组索引即有了两张页表了，第一张表来查属于哪一组的，再到那一组去查找更具体的。因此，X86采用二级页表的方式<br><img src="https://i.loli.net/2019/12/08/362oTUbJ9mVyvFg.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;0x00-物理地址概念&quot;&gt;&lt;a href=&quot;#0x00-物理地址概念&quot; class=&quot;headerlink&quot; title=&quot;0x00 物理地址概念&quot;&gt;&lt;/a&gt;0x00 物理地址概念&lt;/h2&gt;&lt;p&gt;用于内存芯片级的单元寻址，与处理器和CPU连接的地址总线相对应。物理
+      
+    
+    </summary>
+    
+    
+      <category term="操作系统" scheme="https://kevens10.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="操作系统" scheme="https://kevens10.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+      <category term="分页存储" scheme="https://kevens10.github.io/tags/%E5%88%86%E9%A1%B5%E5%AD%98%E5%82%A8/"/>
+    
+      <category term="分段存储" scheme="https://kevens10.github.io/tags/%E5%88%86%E6%AE%B5%E5%AD%98%E5%82%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>PE文件格式</title>
@@ -40,9 +70,9 @@
     
       <category term="CTF 逆向" scheme="https://kevens10.github.io/tags/CTF-%E9%80%86%E5%90%91/"/>
     
-      <category term="CTF PWN" scheme="https://kevens10.github.io/tags/CTF-PWN/"/>
-    
       <category term="操作系统" scheme="https://kevens10.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+      <category term="CTF PWN" scheme="https://kevens10.github.io/tags/CTF-PWN/"/>
     
   </entry>
   
@@ -575,33 +605,6 @@
       <category term="二进制漏洞" scheme="https://kevens10.github.io/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%BC%8F%E6%B4%9E/"/>
     
       <category term="栈溢出" scheme="https://kevens10.github.io/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C语言函数传参方式</title>
-    <link href="https://kevens10.github.io/articles/C%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E6%96%B9%E5%BC%8F.html"/>
-    <id>https://kevens10.github.io/articles/C%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82%E6%96%B9%E5%BC%8F.html</id>
-    <published>2019-10-13T12:06:13.000Z</published>
-    <updated>2019-10-13T12:33:02.601Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天在写扩展欧几里得算法的C语言函数时在实参与形参的参数传递时出了一些问题，于是复习一下C语言传参的方式<br>两种传参方式，值传递与地址传递</p><h2 id="值传递"><a href="#值传递" class="headerlink" title="值传递"></a>值传递</h2><p>这种方式使用变量、常量、数组元素作为函数参数，实际是将实参的值复制到形参相应的存储单元中，即形参和实参分别占用不同的存储单元，这种传递方式称为“参数的值传递”或者“函数的传值调用”。</p><p>值传递的特点是单向传递，即主调函数调用时给形参分配存储单元，把实参的值传递给形参，在调用结束后，形参的存储单元被释放，而形参值的任何变化都不会影响到实参的值，实参的存储单元仍保留并维持数值不变</p><p>例子：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line">/* 变量x、y为Swap函数的形式参数 */</span><br><span class="line">void Swap(int x, int y)</span><br><span class="line">&#123;</span><br><span class="line">    int tmp;</span><br><span class="line">    tmp = x;</span><br><span class="line">    x = y;</span><br><span class="line">    y = tmp;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"x = %d, y = %d\n"</span>, x, y);</span><br><span class="line">&#125;</span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    int a=10;</span><br><span class="line">    int b=20;</span><br><span class="line">     /*变量a、b为Swap函数的实际参数*/</span><br><span class="line">    Swap(a, b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"a = %d, b = %d\n"</span>, a, b);</span><br><span class="line">    <span class="built_in">return</span> 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在上面这个示例代码中，实参将值传递给形参，形参值发生互换后的值不能回传给主调函数。因此，主调函数中的数值不变，代码的运行结果为：</p><p>x = 20, y = 10<br>a = 10, b = 20</p><p>函数在调用时，隐含地把实参 a 的值赋值给了参数 x，而将实参 b 的值赋值给了参数 y，如下面的代码所示</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/*将a的值赋值给x（隐含动作）*/</span><br><span class="line">int x = a;</span><br><span class="line">/*将a的值赋值给y（隐含动作）*/</span><br><span class="line">int y = b;</span><br></pre></td></tr></table></figure><p>因此，之后在 Swap() 函数体内再也没有对 a、b 进行任何操作。而在 Swap() 函数体内交换的只是 x、y，并不是 a、b，当然，a、b 的值没有改变。整个 Swap() 函数调用是按照如下顺序执行的：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/*将a的值赋值给x（隐含动作）*/</span><br><span class="line">int x = a;</span><br><span class="line">/*将a的值赋值给y（隐含动作）*/</span><br><span class="line">int y = b;</span><br><span class="line">int tmp;</span><br><span class="line">tmp = x;</span><br><span class="line">x = y;</span><br><span class="line">y = tmp;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"x = %d, y = %d\n"</span>, x, y);</span><br></pre></td></tr></table></figure><p>由此可见，函数只是把 a、b 的值通过赋值传递给 x、y，在函数 Swap() 中操作的只是 x、y 的值，并不是 a、b 的值，这也就是所谓的参数的值传递。</p><h2 id="地址传递"><a href="#地址传递" class="headerlink" title="地址传递"></a>地址传递</h2><p>这种方式使用数组名或者指针作为函数参数，传递的是该数组的首地址或指针的值，而形参接收到的是地址，即指向实参的存储单元，形参和实参占用相同的存储单元，这种传递方式称为“参数的地址传递”。</p><p>地址传递的特点是形参并不存在存储空间，编译系统不为形参数组分配内存。数组名或指针就是一组连续空间的首地址。因此在数组名或指针作函数参数时所进行的传送只是地址传送，形参在取得该首地址之后，与实参共同拥有一段内存空间，形参的变化也就是实参的变化。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">void Swap(int *px, int *py)</span><br><span class="line">&#123;</span><br><span class="line">    int tmp;</span><br><span class="line">    tmp = *px;</span><br><span class="line">    *px = *py;</span><br><span class="line">    *py = tmp;</span><br><span class="line">    printf(&quot;*px = %d, *py = %d\n&quot;, *px, *py);</span><br><span class="line">&#125;</span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    int a=10;</span><br><span class="line">    int b=20;</span><br><span class="line">    Swap(&amp;a, &amp;b);</span><br><span class="line">    printf(&quot;a = %d, b = %d\n&quot;, a, b);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在上面的示例代码中，函数 void Swap(int<em>px,int</em>py) 中的参数 px、py 都是指针类型，在 main 函数中使用语句“Swap(&amp;a,&amp;b)”进行调用，该调用语句将 a 的地址(&amp;a)代入 px，b 的地址(&amp;b)代入 py。很显然，这里的函数调用有两个隐含操作：将 &amp;a 的值赋值给参数 px，将 &amp;b 的值赋值给参数 py，如下面的代码所示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">px = &amp;a;</span><br><span class="line">py = &amp;b;</span><br></pre></td></tr></table></figure><p>这里与值传递方式存在着很大的区别。在值传递方式中，传递的是变量 a、b 的内容（即在上面的值传递示例代码中，将 a、b 的内容传递给参数 x、y）；而这里的地址传递方式则是将变量 a、b 的地址值（&amp;a、&amp;b）传递给参数 px、py。因此，整个 Swap() 函数调用是按照如下顺序执行的：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/*将&amp;a的值赋值给px（隐含动作）*/</span><br><span class="line">px = &amp;a; /* ← */</span><br><span class="line">/*将&amp;b的值赋值给py（隐含动作）*/</span><br><span class="line">py = &amp;b;</span><br><span class="line">int tmp;</span><br><span class="line">tmp = *px;</span><br><span class="line">*px = *py;</span><br><span class="line">*py = tmp;</span><br><span class="line">printf(&quot;*px = %d, *py = %d\n&quot;, *px, *py);</span><br></pre></td></tr></table></figure><p>这样，有了前两行的隐含赋值操作，指针变量 px、py 的值已经分别是变量 a、b 的地址值（&amp;a、&amp;b）。接下来，对“<em>px”“</em>py”的操作当然也就是对 a、b 变量本身的操作了。所以 Swap() 函数中的交换操作就是对 a、b 值进行交换，这就是所谓的地址传递，运行结果为：<br>*px = 20, *py = 10<br>a = 20, b = 10<br>引用传递：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">void swap(int &amp;x,int &amp;y)</span><br><span class="line">&#123;</span><br><span class="line">    int temp = x;</span><br><span class="line">    x = y;</span><br><span class="line">    y = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;  </span><br><span class="line">    int a = 10, b = 20;</span><br><span class="line"></span><br><span class="line">    swap(a, b);</span><br><span class="line">    printf(&quot;a=%d\nb=%d\n&quot;, a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>指针传递：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void swap(int *x,int *y)</span><br><span class="line">&#123;</span><br><span class="line">    int temp = *x;</span><br><span class="line">    *x = *y;</span><br><span class="line">    *y = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main()</span><br><span class="line">&#123;  </span><br><span class="line">    int a = 10, b = 20;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    swap(&amp;a, &amp;b);</span><br><span class="line">    printf(&quot;a=%d\nb=%d\n&quot;, a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>参考：<a href="http://c.biancheng.net/view/371.html" target="_blank" rel="noopener">http://c.biancheng.net/view/371.html</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;今天在写扩展欧几里得算法的C语言函数时在实参与形参的参数传递时出了一些问题，于是复习一下C语言传参的方式&lt;br&gt;两种传参方式，值传递与地址传递&lt;/p&gt;
-&lt;h2 id=&quot;值传递&quot;&gt;&lt;a href=&quot;#值传递&quot; class=&quot;headerlink&quot; title=&quot;值传递&quot;&gt;&lt;/
-      
-    
-    </summary>
-    
-    
-      <category term="C语言" scheme="https://kevens10.github.io/categories/C%E8%AF%AD%E8%A8%80/"/>
-    
-    
-      <category term="C语言" scheme="https://kevens10.github.io/tags/C%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
