@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="Keven S">
 <meta property="og:description" content="在写Python爬虫的时候经常要用到正则表达式，今天把比较常用的一些用法总结记录一下首先需要导入re模块 1import re  start(),end()和span()函数start()返回匹配的起始位置。如： 12re.search(r&amp;apos;\d+&amp;apos;, &amp;apos;asdf13df234&amp;apos;).start()4  索引位置是从0开始计数的。 end()返回匹配结束的下一">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-17T15:41:47.085Z">
+<meta property="og:updated_time" content="2020-01-17T16:00:04.758Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用的Python正则表达式">
 <meta name="twitter:description" content="在写Python爬虫的时候经常要用到正则表达式，今天把比较常用的一些用法总结记录一下首先需要导入re模块 1import re  start(),end()和span()函数start()返回匹配的起始位置。如： 12re.search(r&amp;apos;\d+&amp;apos;, &amp;apos;asdf13df234&amp;apos;).start()4  索引位置是从0开始计数的。 end()返回匹配结束的下一">
@@ -398,8 +398,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-01-17T23:41:47+08:00">
-                2020-01-17
+              <time title="更新于" itemprop="dateModified" datetime="2020-01-18T00:00:04+08:00">
+                2020-01-18
               </time>
             
           </span>
@@ -454,7 +454,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,700 字
+                  1,689 字
                 </span>
               
 
@@ -519,79 +519,84 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.search(pattern, string, flags=0)</span><br></pre></td></tr></table></figure>
 
 <p>例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(re.search(&apos;www&apos;, &apos;www.abc.com&apos;).span())  # 在起始位置匹配</span><br><span class="line">print(re.search(&apos;com&apos;, &apos;www.abc.com&apos;).span())         # 不在起始位置匹配</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">print(re.search(&apos;www&apos;, &apos;www.abc.com&apos;).span())  # 在起始位置匹配</span><br><span class="line">print(re.search(&apos;com&apos;, &apos;www.abc.com&apos;).span())         # 不在起始位置匹配</span><br><span class="line"></span><br><span class="line">运行结果：</span><br><span class="line">(0, 3)</span><br><span class="line">(8, 11)</span><br></pre></td></tr></table></figure>
+
+<p><strong>re.match与re.search的区别<br>re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配。</strong></p>
+<h3 id="re-sub函数"><a href="#re-sub函数" class="headerlink" title="re.sub函数"></a>re.sub函数</h3><p>re.sub用于替换字符串中的匹配项。<br>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.sub(pattern, repl, string, count=0, flags=0)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>pattern : 正则中的模式字符串。</li>
+<li>repl : 替换的字符串，也可为一个函数。</li>
+<li>string : 要被查找替换的原始字符串。</li>
+<li>count : 模式匹配后替换的最大次数，默认 0 表示替换所有的匹配。</li>
+</ul>
+<p>例子;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a=&quot;0123-456-789&quot;</span><br><span class="line">b=re.sub(r&apos;\D&apos;,&quot;&quot;,a)</span><br><span class="line">print &quot;b&quot;</span><br></pre></td></tr></table></figure>
 
 <p>运行结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(0, 3)</span><br><span class="line">(8, 11)</span><br><span class="line">``` </span><br><span class="line">![QQ截图20200117162307.jpg](https://i.loli.net/2020/01/17/853v4tXYmCLdo2j.jpg)</span><br><span class="line"></span><br><span class="line">**re.match与re.search的区别</span><br><span class="line">re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配。**</span><br><span class="line">### re.sub函数</span><br><span class="line">re.sub用于替换字符串中的匹配项。</span><br><span class="line">语法：</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0123456789</span><br></pre></td></tr></table></figure>
 
-<p>re.sub(pattern, repl, string, count=0, flags=0)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+ pattern : 正则中的模式字符串。</span><br><span class="line">+ repl : 替换的字符串，也可为一个函数。</span><br><span class="line">+ string : 要被查找替换的原始字符串。</span><br><span class="line">+ count : 模式匹配后替换的最大次数，默认 0 表示替换所有的匹配。</span><br><span class="line"></span><br><span class="line">例子;</span><br></pre></td></tr></table></figure>
+<h3 id="re-compile函数"><a href="#re-compile函数" class="headerlink" title="re.compile函数"></a>re.compile函数</h3><p>compile 函数用于编译正则表达式，生成一个正则表达式（ Pattern ）对象，供 match() 和 search() 这两个函数使用。</p>
+<p>语法格式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.compile(pattern[, flags])</span><br></pre></td></tr></table></figure>
 
-<p>a=”0123-456-789”<br>b=re.sub(r’\D’,””,a)<br>print “b”</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">运行结果：</span><br></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(r&apos;\d+&apos;)                    # 用于匹配至少一个数字</span><br><span class="line">&gt;&gt;&gt; m = pattern.match(&apos;one12twothree34four&apos;)        # 查找头部，没有匹配</span><br><span class="line">&gt;&gt;&gt; print m</span><br><span class="line">None</span><br><span class="line">&gt;&gt;&gt; m = pattern.match(&apos;one12twothree34four&apos;, 2, 10) # 从&apos;e&apos;的位置开始匹配，没有匹配</span><br><span class="line">&gt;&gt;&gt; print m</span><br><span class="line">None</span><br><span class="line">&gt;&gt;&gt; m = pattern.match(&apos;one12twothree34four&apos;, 3, 10) # 从&apos;1&apos;的位置开始匹配，正好匹配</span><br><span class="line">&gt;&gt;&gt; print m                                         # 返回一个 Match 对象</span><br><span class="line">&lt;_sre.SRE_Match object at 0x10a42aac0&gt;</span><br></pre></td></tr></table></figure>
 
-<p>0123456789</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">### re.compile函数</span><br><span class="line">compile 函数用于编译正则表达式，生成一个正则表达式（ Pattern ）对象，供 match() 和 search() 这两个函数使用。</span><br><span class="line"></span><br><span class="line">语法格式为：</span><br></pre></td></tr></table></figure>
+<h3 id="findall函数"><a href="#findall函数" class="headerlink" title="findall函数"></a>findall函数</h3><p>在字符串中找到正则表达式所匹配的所有子串，并返回一个列表，如果没有找到匹配的，则返回空列表。<br><strong>re.match 和 re.search 是匹配一次 ,而findall 匹配所有。</strong><br>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pattern = re.compile(r&apos;\d+&apos;)   # 查找数字</span><br><span class="line">result1 = pattern.findall(&apos;runoob 123 google 456&apos;)</span><br><span class="line">result2 = pattern.findall(&apos;run88oob123google456&apos;, 0, 10)# 从0开始匹配，到10结束 </span><br><span class="line">print(result1)</span><br><span class="line">print(result2)</span><br></pre></td></tr></table></figure>
 
-<p>re.compile(pattern[, flags])</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">例子：</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[&apos;123&apos;, &apos;456&apos;]</span><br><span class="line">[&apos;88&apos;, &apos;12&apos;]</span><br></pre></td></tr></table></figure>
 
-<p>pattern = re.compile(r’\d+’)                    # 用于匹配至少一个数字</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>m = pattern.match(‘one12twothree34four’)        # 查找头部，没有匹配<br>print m<br>None<br>m = pattern.match(‘one12twothree34four’, 2, 10) # 从’e’的位置开始匹配，没有匹配<br>print m<br>None<br>m = pattern.match(‘one12twothree34four’, 3, 10) # 从’1’的位置开始匹配，正好匹配<br>print m                                         # 返回一个 Match 对象<br>&lt;_sre.SRE_Match object at 0x10a42aac0&gt;</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">### findall函数</span><br><span class="line">在字符串中找到正则表达式所匹配的所有子串，并返回一个列表，如果没有找到匹配的，则返回空列表。</span><br><span class="line">**re.match 和 re.search 是匹配一次 ,而findall 匹配所有。**</span><br><span class="line">例子：</span><br></pre></td></tr></table></figure>
+<p>re.finditer<br>和 findall 类似，在字符串中找到正则表达式所匹配的所有子串，并把它们作为一个迭代器返回。</p>
+<h3 id="re-split函数"><a href="#re-split函数" class="headerlink" title="re.split函数"></a>re.split函数</h3><p>split 方法按照能够匹配的子串将字符串分割后返回列表。<br>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.split(pattern, string[, maxsplit=0, flags=0])</span><br></pre></td></tr></table></figure>
 
-<p>pattern = re.compile(r’\d+’)   # 查找数字<br>result1 = pattern.findall(‘runoob 123 google 456’)<br>result2 = pattern.findall(‘run88oob123google456’, 0, 10)# 从0开始匹配，到10结束<br>print(result1)<br>print(result2)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">运行结果：</span><br></pre></td></tr></table></figure>
+<p>例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">re.split(&apos;\W+&apos;, &apos;runoob, runoob, runoob.&apos;)</span><br><span class="line">[&apos;runoob&apos;, &apos;runoob&apos;, &apos;runoob&apos;, &apos;&apos;]</span><br><span class="line"></span><br><span class="line">re.split(&apos;(\W+)&apos;, &apos; runoob, runoob, runoob.&apos;) </span><br><span class="line">[&apos;&apos;, &apos; &apos;, &apos;runoob&apos;, &apos;, &apos;, &apos;runoob&apos;, &apos;, &apos;, &apos;runoob&apos;, &apos;.&apos;, &apos;&apos;]</span><br><span class="line"></span><br><span class="line">re.split(&apos;\W+&apos;, &apos; runoob, runoob, runoob.&apos;, 1) </span><br><span class="line">[&apos;&apos;, &apos;runoob, runoob, runoob.&apos;]</span><br></pre></td></tr></table></figure>
 
-<p>[‘123’, ‘456’]<br>[‘88’, ‘12’]</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">re.finditer</span><br><span class="line">和 findall 类似，在字符串中找到正则表达式所匹配的所有子串，并把它们作为一个迭代器返回。</span><br><span class="line">### re.split函数</span><br><span class="line">split 方法按照能够匹配的子串将字符串分割后返回列表。</span><br><span class="line">语法：</span><br></pre></td></tr></table></figure>
+<h3 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h3><ul>
+<li>.                    匹配任意字符（不包括换行符）</li>
+<li>^                    匹配开始位置，多行模式下匹配每一行的开始</li>
+<li>$                    匹配结束位置，多行模式下匹配每一行的结束</li>
+<li><ul>
+<li>匹配前一个元字符0到多次</li>
+</ul>
+</li>
+<li><ul>
+<li>匹配前一个元字符1到多次</li>
+</ul>
+</li>
+<li>?                    匹配前一个元字符0到1次</li>
+<li>{m,n}                匹配前一个元字符m到n次</li>
+<li>\                   转义字符，跟在其后的字符将失去作为特殊元字符的含义，例如\.只能匹配.，不能再匹配任意字符</li>
+<li>[]                   字符集，一个字符的集合，可匹配其中任意一个字符</li>
+<li>|                    逻辑表达式 或 ，比如 a|b 代表可匹配 a 或者 b</li>
+<li>(…)                分组，默认为捕获，即被分组的内容可以被单独取出，默认每个分组有个索引，从 1 开始，按照”(“的顺序决定索引值</li>
+<li>(?iLmsux)            分组中可以设置模式，iLmsux之中的每个字符代表一个模式,用法参见 模式 I</li>
+<li>(?:…)              分组的不捕获模式，计算索引时会跳过这个分组</li>
+<li>(?P<name>…)        分组的命名模式，取此分组中的内容时可以使用索引也可以使用name</name></li>
+<li>(?P=name)            分组的引用模式，可在同一个正则表达式用引用前面命名过的正则</li>
+<li>(?#…)              注释，不影响正则表达式其它部分,用法参见 模式 I</li>
+<li>(?=…)              顺序肯定环视，表示所在位置右侧能够匹配括号内正则</li>
+<li>(?!…)              顺序否定环视，表示所在位置右侧不能匹配括号内正则</li>
+<li>(?&lt;=…)             逆序肯定环视，表示所在位置左侧能够匹配括号内正则</li>
+<li>(?&lt;!…)             逆序否定环视，表示所在位置左侧不能匹配括号内正则</li>
+<li>(?(id/name)yes|no)   若前面指定id或name的分区匹配成功则执行yes处的正则，否则执行no处的正则</li>
+<li>\number              匹配和前面索引为number的分组捕获到的内容一样的字符串</li>
+<li>\A                   匹配字符串开始位置，忽略多行模式</li>
+<li>\Z                   匹配字符串结束位置，忽略多行模式</li>
+<li>\b                   匹配位于单词开始或结束位置的空字符串</li>
+<li>\B                   匹配不位于单词开始或结束位置的空字符串</li>
+<li>\d                   匹配一个数字， 相当于 [0-9]<br>\D                   匹配非数字,相当于 [^0-9]</li>
+<li>\s                   匹配任意空白字符， 相当于 [ \t\n\r\f\v]</li>
+<li>\S                   匹配非空白字符，相当于 [^ \t\n\r\f\v]</li>
+<li>\w                   匹配数字、字母、下划线中任意一个字符， 相当于 [a-zA-Z0-9_]</li>
+<li>\W                   匹配非数字、字母、下划线中的任意字符，相当于 [^a-zA-Z0-9_]</li>
+</ul>
 
-<p>re.split(pattern, string[, maxsplit=0, flags=0])</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">例子:</span><br></pre></td></tr></table></figure>
-
-<p>re.split(‘\W+’, ‘runoob, runoob, runoob.’)<br>[‘runoob’, ‘runoob’, ‘runoob’, ‘’]</p>
-<p>re.split(‘(\W+)’, ‘ runoob, runoob, runoob.’)<br>[‘’, ‘ ‘, ‘runoob’, ‘, ‘, ‘runoob’, ‘, ‘, ‘runoob’, ‘.’, ‘’]</p>
-<p>re.split(‘\W+’, ‘ runoob, runoob, runoob.’, 1)<br>[‘’, ‘runoob, runoob, runoob.’]</p>
-<pre><code>### 元字符
-+ .                    匹配任意字符（不包括换行符）
-+ ^                    匹配开始位置，多行模式下匹配每一行的开始
-+ $                    匹配结束位置，多行模式下匹配每一行的结束
-+ *                  匹配前一个元字符0到多次
-+ +                   匹配前一个元字符1到多次
-+ ?                    匹配前一个元字符0到1次
-+ {m,n}                匹配前一个元字符m到n次
-+ \\                   转义字符，跟在其后的字符将失去作为特殊元字符的含义，例如\\.只能匹配.，不能再匹配任意字符
-+ []                   字符集，一个字符的集合，可匹配其中任意一个字符
-+ |                    逻辑表达式 或 ，比如 a|b 代表可匹配 a 或者 b
-+ (...)                分组，默认为捕获，即被分组的内容可以被单独取出，默认每个分组有个索引，从 1 开始，按照&quot;(&quot;的顺序决定索引值
-+ (?iLmsux)            分组中可以设置模式，iLmsux之中的每个字符代表一个模式,用法参见 模式 I
-+ (?:...)              分组的不捕获模式，计算索引时会跳过这个分组
-+ (?P&lt;name&gt;...)        分组的命名模式，取此分组中的内容时可以使用索引也可以使用name
-+ (?P=name)            分组的引用模式，可在同一个正则表达式用引用前面命名过的正则
-+ (?#...)              注释，不影响正则表达式其它部分,用法参见 模式 I
-+ (?=...)              顺序肯定环视，表示所在位置右侧能够匹配括号内正则
-+ (?!...)              顺序否定环视，表示所在位置右侧不能匹配括号内正则
-+ (?&lt;=...)             逆序肯定环视，表示所在位置左侧能够匹配括号内正则
-+ (?&lt;!...)             逆序否定环视，表示所在位置左侧不能匹配括号内正则
-+ (?(id/name)yes|no)   若前面指定id或name的分区匹配成功则执行yes处的正则，否则执行no处的正则
-+ \number              匹配和前面索引为number的分组捕获到的内容一样的字符串
-+ \A                   匹配字符串开始位置，忽略多行模式
-+ \Z                   匹配字符串结束位置，忽略多行模式
-+ \b                   匹配位于单词开始或结束位置的空字符串
-+ \B                   匹配不位于单词开始或结束位置的空字符串
-+ \d                   匹配一个数字， 相当于 [0-9]
-\D                   匹配非数字,相当于 [^0-9]
-+ \s                   匹配任意空白字符， 相当于 [ \t\n\r\f\v]
-+ \S                   匹配非空白字符，相当于 [^ \t\n\r\f\v]
-+ \w                   匹配数字、字母、下划线中任意一个字符， 相当于 [a-zA-Z0-9_]
-+ \W                   匹配非数字、字母、下划线中的任意字符，相当于 [^a-zA-Z0-9_]
-</code></pre>
       
     </div>
     
@@ -955,7 +960,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#start-end-和span-函数"><span class="nav-number">1.</span> <span class="nav-text">start(),end()和span()函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#start"><span class="nav-number">1.0.1.</span> <span class="nav-text">start()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#end"><span class="nav-number">1.0.2.</span> <span class="nav-text">end()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#span"><span class="nav-number">1.0.3.</span> <span class="nav-text">span()</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#group-函数"><span class="nav-number">2.</span> <span class="nav-text">group()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#groups-函数"><span class="nav-number">3.</span> <span class="nav-text">groups()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-match函数"><span class="nav-number">4.</span> <span class="nav-text">re.match函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-search函数"><span class="nav-number">5.</span> <span class="nav-text">re.search函数</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#start-end-和span-函数"><span class="nav-number">1.</span> <span class="nav-text">start(),end()和span()函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#start"><span class="nav-number">1.0.1.</span> <span class="nav-text">start()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#end"><span class="nav-number">1.0.2.</span> <span class="nav-text">end()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#span"><span class="nav-number">1.0.3.</span> <span class="nav-text">span()</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#group-函数"><span class="nav-number">2.</span> <span class="nav-text">group()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#groups-函数"><span class="nav-number">3.</span> <span class="nav-text">groups()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-match函数"><span class="nav-number">4.</span> <span class="nav-text">re.match函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-search函数"><span class="nav-number">5.</span> <span class="nav-text">re.search函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-sub函数"><span class="nav-number">6.</span> <span class="nav-text">re.sub函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-compile函数"><span class="nav-number">7.</span> <span class="nav-text">re.compile函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#findall函数"><span class="nav-number">8.</span> <span class="nav-text">findall函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-split函数"><span class="nav-number">9.</span> <span class="nav-text">re.split函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元字符"><span class="nav-number">10.</span> <span class="nav-text">元字符</span></a></li></div>
             
 
           </div>
