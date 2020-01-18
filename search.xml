@@ -34,8 +34,8 @@
       </categories>
       <tags>
         <tag>CTF 逆向</tag>
-        <tag>CTF PWN</tag>
         <tag>操作系统</tag>
+        <tag>CTF PWN</tag>
       </tags>
   </entry>
   <entry>
@@ -72,8 +72,8 @@
       </categories>
       <tags>
         <tag>CTF 逆向</tag>
-        <tag>CTF PWN</tag>
         <tag>汇编语言</tag>
+        <tag>CTF PWN</tag>
       </tags>
   </entry>
   <entry>
@@ -309,8 +309,8 @@
       </categories>
       <tags>
         <tag>CTF Web</tag>
-        <tag>PHP</tag>
         <tag>PHP伪协议</tag>
+        <tag>PHP</tag>
         <tag>后端</tag>
       </tags>
   </entry>
@@ -386,8 +386,8 @@
       </categories>
       <tags>
         <tag>CTF Web</tag>
-        <tag>反序列化漏洞</tag>
         <tag>PHP</tag>
+        <tag>反序列化漏洞</tag>
       </tags>
   </entry>
   <entry>
