@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kevens10.github.io/"/>
-  <updated>2020-01-17T16:00:04.758Z</updated>
+  <updated>2020-01-20T07:24:01.149Z</updated>
   <id>https://kevens10.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>简单的Python爬虫</title>
+    <link href="https://kevens10.github.io/articles/%E7%AE%80%E5%8D%95%E7%9A%84Python%E7%88%AC%E8%99%AB.html"/>
+    <id>https://kevens10.github.io/articles/%E7%AE%80%E5%8D%95%E7%9A%84Python%E7%88%AC%E8%99%AB.html</id>
+    <published>2020-01-20T12:48:51.000Z</published>
+    <updated>2020-01-20T07:24:01.149Z</updated>
+    
+    <content type="html"><![CDATA[<p>爬虫的定义：一段自动抓取互联网信息的程序，从互联网上抓取对于我们有价值的信息。Python 爬虫架构主要由五个部分组成，分别是调度器、URL管理器、网页下载器、网页解析器、应用程序（爬取的有价值数据）。</p><ul><li>调度器：相当于一台电脑的CPU，主要负责调度URL管理器、下载器、解析器之间的协调工作。</li><li>URL管理器：包括待爬取的URL地址和已爬取的URL地址，防止重复抓取URL和循环抓取URL，实现URL管理器主要用三种方式，通过内存、数据库、缓存数据库来实现。</li><li>网页下载器：通过传入一个URL地址来下载网页，将网页转换成一个字符串，网页下载器有urllib2（Python官方基础模块）包括需要登录、代理、和cookie，requests(第三方包)</li><li>网页解析器：将一个网页字符串进行解析。网页解析器在简单情况下用正则表达式匹配，除此还有html.parser（Python自带的）、beautifulsoup（第三方插件，可以使用Python自带的html.parser进行解析，也可以使用lxml进行解析，相对于其他几种来说要强大一些）、lxml（第三方插件，可以解析 xml 和 HTML），html.parser 和 beautifulsoup 以及 lxml 都是以 DOM 树的方式进行解析的。</li><li>应用程序：就是从网页中提取的有用数据组成的一个应用。</li></ul><h4 id="使用urllib2-打开网页并返回一个对象"><a href="#使用urllib2-打开网页并返回一个对象" class="headerlink" title="使用urllib2 打开网页并返回一个对象"></a>使用urllib2 打开网页并返回一个对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">url=&apos; &apos;</span><br><span class="line">   params = urllib.urlencode(&#123;&apos;loc&apos;:&apos;108288&apos;,&apos;day_type&apos;:&apos;weekend&apos;,&apos;type&apos;:&apos;exhibition&apos;&#125;)#构建请求参数</span><br><span class="line">   page = urllib.request.urlopen(url) #打开网页并返回一个对象</span><br><span class="line">   html = page.read() #直接获得网页的源代码</span><br><span class="line">   print page</span><br><span class="line">   print response.headers</span><br><span class="line">   print response.status_code.getcode() #获取网页内容的长度</span><br><span class="line">   return html</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">request = urllib.request.Request(url, headers=headers)</span><br><span class="line">response = urllib.request.urlopen(request)</span><br></pre></td></tr></table></figure><h4 id="使用request"><a href="#使用request" class="headerlink" title="使用request"></a>使用request</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">response = requests.get(url,params=params)</span><br><span class="line">print response.headers</span><br><span class="line">print response.status_code</span><br></pre></td></tr></table></figure><p>两种做对比：<br>1）构建参数：在构建请求参数时，第一种需要将请求参数使用urllib库的urlencode方法进行编码预处理</p><p>2）请求方法：发送get请求时，第一种使用的urllib库的urlopen方法打开一个url地址，而第二种直接使用requests库的get方法，与http请求方式是对应的</p><p>3）请求数据：第一种按照url格式去拼接一个url字符串，第二种按顺序将get请求的url和参数写好就可以了</p><p>4）处理响应：第一种处理消息头部、响应状态码和响应正文时分别使用.info()、.getcode()、.read()方法，第二种使用.headers、.status_code、.text方法</p><p>5）连接方式：看一下返回数据的头信息的“connection”，使用urllib库时，”connection”:”close”，说明每次请求结束关掉socket通道，而使用requests库使用了urllib3，多次请求重复使用一个socket，”connection”:”keep-alive”，说明多次请求使用一个连接，消耗更少的资源</p><p>6）编码方式：requests库的编码方式Accept-Encoding更全，</p><h4 id="爬取图片"><a href="#爬取图片" class="headerlink" title="爬取图片"></a>爬取图片</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for img in imglist:</span><br><span class="line">    urllib.request.urlretrieve(url+img, &apos;%s.jpg&apos; %index)</span><br><span class="line">    index += 1</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">with open(filePath,&apos;wb&apos;)as f:</span><br><span class="line">        request = urllib.request.Request(url, headers=headers)</span><br><span class="line">        response = urllib.request.urlopen(request)</span><br><span class="line">        f.write(response.read())</span><br></pre></td></tr></table></figure><p><code>urlretrieve()</code>方法直接将远程数据下载到本地。</p><p><code>urlretrieve(url, filename=None, reporthook=None, data=None)</code><br>参数filename指定了保存本地路径（如果参数未指定，urllib会生成一个临时文件保存数据。）<br>参数reporthook是一个回调函数，当连接上服务器、以及相应的数据块传输完毕时会触发该回调，我们可以利用这个回调函数来显示当前的下载进度。<br>参数data指post导服务器的数据，该方法返回一个包含两个元素的(filename, headers) 元组，filename 表示保存到本地的路径，header表示服务器的响应头</p><h4 id="爬取视频"><a href="#爬取视频" class="headerlink" title="爬取视频"></a>爬取视频</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">r = requests.get(url, headers=head, stream=True)</span><br><span class="line"> </span><br><span class="line">with open(&apos;./downLoad.mp4&apos;, &quot;wb&quot;) as mp4:</span><br><span class="line">    for chunk in r.iter_content(chunk_size=1024 * 1024):</span><br><span class="line">        if chunk:</span><br><span class="line">            mp4.write(chunk)</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">chunk_size = 1024  # 单次请求最大值</span><br><span class="line">      content_size = int(r.headers[&apos;content-length&apos;]) # 内容体总大小</span><br><span class="line">      print &apos;下载开始&apos;</span><br><span class="line">      with open(path, &quot;wb&quot;) as f:</span><br><span class="line">          n = 1</span><br><span class="line">          for chunk in r.iter_content(chunk_size=chunk_size):</span><br><span class="line">              loaded = n*1024.0/content_size</span><br><span class="line">              f.write(chunk)</span><br><span class="line">              print &apos;已下载&#123;0:%&#125;&apos;.format(loaded)</span><br><span class="line">              n += 1</span><br></pre></td></tr></table></figure><p>获取请求的原始响应可以用：Response.raw、Response.iter_content<br>普通情况可以用 r.raw，在初始请求中设置 stream=True,来获取服务器的原始套接字响应<br>当流下载时，用Response.iter_content更方便些。<br>requests.get(url)默认是下载在内存中的，下载完成才存到硬盘上<br>可以用Response.iter_content　边下载边存硬盘</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;爬虫的定义：一段自动抓取互联网信息的程序，从互联网上抓取对于我们有价值的信息。Python 爬虫架构主要由五个部分组成，分别是调度器、URL管理器、网页下载器、网页解析器、应用程序（爬取的有价值数据）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;调度器：相当于一台电脑的CPU，主要负责调度
+      
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="https://kevens10.github.io/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="https://kevens10.github.io/tags/Python/"/>
+    
+      <category term="爬虫" scheme="https://kevens10.github.io/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
   
   <entry>
     <title>常用的Python正则表达式</title>
@@ -574,36 +604,6 @@
       <category term="SQL注入漏洞" scheme="https://kevens10.github.io/tags/SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/"/>
     
       <category term="数据库" scheme="https://kevens10.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>仿射密码</title>
-    <link href="https://kevens10.github.io/articles/%E4%BB%BF%E5%B0%84%E5%AF%86%E7%A0%81.html"/>
-    <id>https://kevens10.github.io/articles/%E4%BB%BF%E5%B0%84%E5%AF%86%E7%A0%81.html</id>
-    <published>2019-10-19T06:45:13.000Z</published>
-    <updated>2019-10-19T07:46:03.322Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="0x01-算法原理"><a href="#0x01-算法原理" class="headerlink" title="0x01 算法原理"></a>0x01 算法原理</h2><p>仿射密码是一种表单代换密码，字母表的每个字母相应的值使用一个简单的数学函数对应一个数值，再把对应数值转换成字母。</p><p>加密函数：E(x) = (ax + b) (mod m)，其中 a与b互质，m是编码系统中字母的个数（通常都是26）。</p><p>解密函数：D(x) = a^{-1} (x - b) (mod m)，其中 a^{-1} 是 a 在Z_{m}群的乘法逆元。</p><p>a,b是密钥，为满足0≤a,b≤25和gcd(a,26)等于1的整数。<br>a-1表示a的逆元，即a-1*a ≡ 1mod26</p><h2 id="0x02-算法实现（加密与解密）"><a href="#0x02-算法实现（加密与解密）" class="headerlink" title="0x02 算法实现（加密与解密）"></a>0x02 算法实现（加密与解密）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">#define N 100</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">char m[N+1],c[N+1];</span><br><span class="line">int k1,k2;</span><br><span class="line">printf(&quot;请输入原文:&quot;);</span><br><span class="line">//以回车（换行）作为字符串读取的结束,默认遇空格、回车、跳格键结束。 </span><br><span class="line">scanf(&quot;%[^\n]&quot;,m);</span><br><span class="line">//开始加密</span><br><span class="line">printf(&quot;\n请输入密钥k1,k2:&quot;);</span><br><span class="line">//一次读取多个数值时的格式设置,默认以空格、回车分隔数值，若想以逗号分隔不同数值则需在&quot;&quot;内将格式设置为&quot;%d,%d&quot;，如scanf(&quot;%d,%d&quot;,&amp;k1,&amp;k2)则输入时仅以逗号分隔。 </span><br><span class="line">scanf(&quot;%d%d&quot;,&amp;k1,&amp;k2); </span><br><span class="line"></span><br><span class="line">for (int i=0;i&lt;strlen(m);i++)</span><br><span class="line">&#123;</span><br><span class="line">////&apos;a&apos;对应97,&apos;A&apos;对应65. 以下两式子等价 </span><br><span class="line">//c[i]=(m[i]-&apos;a&apos;+k2)%26+97;</span><br><span class="line">//c[i]=(m[i]-97+k2)%26+97;</span><br><span class="line">    if(m[i]&gt;=&apos;A&apos;&amp;&amp;m[i]&lt;=&apos;Z&apos;)</span><br><span class="line">    c[i]=&apos;A&apos;+(k1*(m[i]-&apos;A&apos;)+k2)%26;</span><br><span class="line">else if(m[i]&gt;=&apos;a&apos;&amp;&amp;m[i]&lt;=&apos;z&apos;)</span><br><span class="line">    c[i]=&apos;a&apos;+(k1*(m[i]-&apos;a&apos;)+k2)%26;</span><br><span class="line">else c[i]=m[i];</span><br><span class="line">//单字符输出每一个密文：</span><br><span class="line"></span><br><span class="line"> &#125; </span><br><span class="line">printf(&quot;\n密文是: %s&quot;,c);</span><br><span class="line">int r0=26,t0=0,t1=1,r1=k1,r2,t2,q;</span><br><span class="line">while(r1!=0)</span><br><span class="line">&#123;</span><br><span class="line">q=r0/r1;</span><br><span class="line">r2=r0-q*r1;</span><br><span class="line">t2=t0-q*t1;</span><br><span class="line">r0=r1;r1=r2;</span><br><span class="line">t0=t1;t1=t2;</span><br><span class="line">&#125;</span><br><span class="line">int k1_inv=t0;//扩展欧几里得算法求逆元 </span><br><span class="line">printf(&quot;\n逆元 %d mod %d 是: %d&quot;,k1,r0,t0);</span><br><span class="line"></span><br><span class="line">for (int i=0;i&lt;strlen(c);i++)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    if(c[i]&gt;=&apos;A&apos;&amp;&amp;c[i]&lt;=&apos;Z&apos;)</span><br><span class="line">    m[i]=&apos;A&apos;+(t0*(c[i]-&apos;A&apos;)-k2)%26;</span><br><span class="line">else if(c[i]&gt;=&apos;a&apos;&amp;&amp;c[i]&lt;=&apos;z&apos;)</span><br><span class="line">    m[i]=&apos;a&apos;+(t0*(c[i]-&apos;a&apos;)-k2)%26;</span><br><span class="line">else m[i]=c[i];</span><br><span class="line">&#125;//解密 </span><br><span class="line">printf(&quot;\n原文是: %s&quot;,m);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;0x01-算法原理&quot;&gt;&lt;a href=&quot;#0x01-算法原理&quot; class=&quot;headerlink&quot; title=&quot;0x01 算法原理&quot;&gt;&lt;/a&gt;0x01 算法原理&lt;/h2&gt;&lt;p&gt;仿射密码是一种表单代换密码，字母表的每个字母相应的值使用一个简单的数学函数对应一个数
-      
-    
-    </summary>
-    
-    
-      <category term="密码学" scheme="https://kevens10.github.io/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/"/>
-    
-    
-      <category term="密码学" scheme="https://kevens10.github.io/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/"/>
-    
-      <category term="古典密码" scheme="https://kevens10.github.io/tags/%E5%8F%A4%E5%85%B8%E5%AF%86%E7%A0%81/"/>
-    
-      <category term="算法" scheme="https://kevens10.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   

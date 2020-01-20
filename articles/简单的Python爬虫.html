@@ -100,7 +100,7 @@
 
 
 
-  <meta name="keywords" content="技术博客,Web安全,二进制安全,PWN,密码学,逆向">
+  <meta name="keywords" content="Python,爬虫,">
 
 
 
@@ -113,14 +113,18 @@
 
 
 
-<meta name="keywords" content="技术博客,Web安全,二进制安全,PWN,密码学,逆向">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Keven S">
-<meta property="og:url" content="https://kevens10.github.io/archives/2019/11/index.html">
+<meta name="description" content="爬虫的定义：一段自动抓取互联网信息的程序，从互联网上抓取对于我们有价值的信息。Python 爬虫架构主要由五个部分组成，分别是调度器、URL管理器、网页下载器、网页解析器、应用程序（爬取的有价值数据）。  调度器：相当于一台电脑的CPU，主要负责调度URL管理器、下载器、解析器之间的协调工作。 URL管理器：包括待爬取的URL地址和已爬取的URL地址，防止重复抓取URL和循环抓取URL，实现URL">
+<meta name="keywords" content="Python,爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单的Python爬虫">
+<meta property="og:url" content="https://kevens10.github.io/articles/简单的Python爬虫.html">
 <meta property="og:site_name" content="Keven S">
+<meta property="og:description" content="爬虫的定义：一段自动抓取互联网信息的程序，从互联网上抓取对于我们有价值的信息。Python 爬虫架构主要由五个部分组成，分别是调度器、URL管理器、网页下载器、网页解析器、应用程序（爬取的有价值数据）。  调度器：相当于一台电脑的CPU，主要负责调度URL管理器、下载器、解析器之间的协调工作。 URL管理器：包括待爬取的URL地址和已爬取的URL地址，防止重复抓取URL和循环抓取URL，实现URL">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-20T07:24:01.149Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Keven S">
+<meta name="twitter:title" content="简单的Python爬虫">
+<meta name="twitter:description" content="爬虫的定义：一段自动抓取互联网信息的程序，从互联网上抓取对于我们有价值的信息。Python 爬虫架构主要由五个部分组成，分别是调度器、URL管理器、网页下载器、网页解析器、应用程序（爬取的有价值数据）。  调度器：相当于一台电脑的CPU，主要负责调度URL管理器、下载器、解析器之间的协调工作。 URL管理器：包括待爬取的URL地址和已爬取的URL地址，防止重复抓取URL和循环抓取URL，实现URL">
 
 
 
@@ -150,7 +154,7 @@
 
 
 
-  <link rel="canonical" href="https://kevens10.github.io/archives/2019/11/">
+  <link rel="canonical" href="https://kevens10.github.io/articles/简单的Python爬虫.html">
 
 
 
@@ -172,7 +176,7 @@
 
 
 
-  <title>归档 | Keven S</title>
+  <title>简单的Python爬虫 | Keven S</title>
   
 
 
@@ -191,7 +195,7 @@
     
   
 
-  <div class="container sidebar-position-right page-archive">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 <a href="https://github.com/KevenS10" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
@@ -353,386 +357,299 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kevens10.github.io/articles/简单的Python爬虫.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Keven">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/temp.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Keven S">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
-         
+          <h2 class="post-title" itemprop="name headline">简单的Python爬虫</h2>
         
-        OK! 目前共计 34 篇日志。 继续努力。
-      </span>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-20T20:48:51+08:00">
+                2020-01-20
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-01-20T15:24:01+08:00">
+                2020-01-20
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,186 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
-        
-        
-        
+      
+        <p>爬虫的定义：一段自动抓取互联网信息的程序，从互联网上抓取对于我们有价值的信息。Python 爬虫架构主要由五个部分组成，分别是调度器、URL管理器、网页下载器、网页解析器、应用程序（爬取的有价值数据）。</p>
+<ul>
+<li>调度器：相当于一台电脑的CPU，主要负责调度URL管理器、下载器、解析器之间的协调工作。</li>
+<li>URL管理器：包括待爬取的URL地址和已爬取的URL地址，防止重复抓取URL和循环抓取URL，实现URL管理器主要用三种方式，通过内存、数据库、缓存数据库来实现。</li>
+<li>网页下载器：通过传入一个URL地址来下载网页，将网页转换成一个字符串，网页下载器有urllib2（Python官方基础模块）包括需要登录、代理、和cookie，requests(第三方包)</li>
+<li>网页解析器：将一个网页字符串进行解析。网页解析器在简单情况下用正则表达式匹配，除此还有html.parser（Python自带的）、beautifulsoup（第三方插件，可以使用Python自带的html.parser进行解析，也可以使用lxml进行解析，相对于其他几种来说要强大一些）、lxml（第三方插件，可以解析 xml 和 HTML），html.parser 和 beautifulsoup 以及 lxml 都是以 DOM 树的方式进行解析的。</li>
+<li>应用程序：就是从网页中提取的有用数据组成的一个应用。</li>
+</ul>
+<h4 id="使用urllib2-打开网页并返回一个对象"><a href="#使用urllib2-打开网页并返回一个对象" class="headerlink" title="使用urllib2 打开网页并返回一个对象"></a>使用urllib2 打开网页并返回一个对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">url=&apos; &apos;</span><br><span class="line">   params = urllib.urlencode(&#123;&apos;loc&apos;:&apos;108288&apos;,&apos;day_type&apos;:&apos;weekend&apos;,&apos;type&apos;:&apos;exhibition&apos;&#125;)#构建请求参数</span><br><span class="line">   page = urllib.request.urlopen(url) #打开网页并返回一个对象</span><br><span class="line">   html = page.read() #直接获得网页的源代码</span><br><span class="line">   print page</span><br><span class="line">   print response.headers</span><br><span class="line">   print response.status_code.getcode() #获取网页内容的长度</span><br><span class="line">   return html</span><br></pre></td></tr></table></figure>
 
-        
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">request = urllib.request.Request(url, headers=headers)</span><br><span class="line">response = urllib.request.urlopen(request)</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用request"><a href="#使用request" class="headerlink" title="使用request"></a>使用request</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">response = requests.get(url,params=params)</span><br><span class="line">print response.headers</span><br><span class="line">print response.status_code</span><br></pre></td></tr></table></figure>
+
+<p>两种做对比：<br>1）构建参数：在构建请求参数时，第一种需要将请求参数使用urllib库的urlencode方法进行编码预处理</p>
+<p>2）请求方法：发送get请求时，第一种使用的urllib库的urlopen方法打开一个url地址，而第二种直接使用requests库的get方法，与http请求方式是对应的</p>
+<p>3）请求数据：第一种按照url格式去拼接一个url字符串，第二种按顺序将get请求的url和参数写好就可以了</p>
+<p>4）处理响应：第一种处理消息头部、响应状态码和响应正文时分别使用.info()、.getcode()、.read()方法，第二种使用.headers、.status_code、.text方法</p>
+<p>5）连接方式：看一下返回数据的头信息的“connection”，使用urllib库时，”connection”:”close”，说明每次请求结束关掉socket通道，而使用requests库使用了urllib3，多次请求重复使用一个socket，”connection”:”keep-alive”，说明多次请求使用一个连接，消耗更少的资源</p>
+<p>6）编码方式：requests库的编码方式Accept-Encoding更全，</p>
+<h4 id="爬取图片"><a href="#爬取图片" class="headerlink" title="爬取图片"></a>爬取图片</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for img in imglist:</span><br><span class="line">    urllib.request.urlretrieve(url+img, &apos;%s.jpg&apos; %index)</span><br><span class="line">    index += 1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">with open(filePath,&apos;wb&apos;)as f:</span><br><span class="line">        request = urllib.request.Request(url, headers=headers)</span><br><span class="line">        response = urllib.request.urlopen(request)</span><br><span class="line">        f.write(response.read())</span><br></pre></td></tr></table></figure>
+
+<p><code>urlretrieve()</code>方法直接将远程数据下载到本地。</p>
+<p><code>urlretrieve(url, filename=None, reporthook=None, data=None)</code><br>参数filename指定了保存本地路径（如果参数未指定，urllib会生成一个临时文件保存数据。）<br>参数reporthook是一个回调函数，当连接上服务器、以及相应的数据块传输完毕时会触发该回调，我们可以利用这个回调函数来显示当前的下载进度。<br>参数data指post导服务器的数据，该方法返回一个包含两个元素的(filename, headers) 元组，filename 表示保存到本地的路径，header表示服务器的响应头</p>
+<h4 id="爬取视频"><a href="#爬取视频" class="headerlink" title="爬取视频"></a>爬取视频</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">r = requests.get(url, headers=head, stream=True)</span><br><span class="line"> </span><br><span class="line">with open(&apos;./downLoad.mp4&apos;, &quot;wb&quot;) as mp4:</span><br><span class="line">    for chunk in r.iter_content(chunk_size=1024 * 1024):</span><br><span class="line">        if chunk:</span><br><span class="line">            mp4.write(chunk)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">chunk_size = 1024	  # 单次请求最大值</span><br><span class="line">      content_size = int(r.headers[&apos;content-length&apos;]) # 内容体总大小</span><br><span class="line">      print &apos;下载开始&apos;</span><br><span class="line">      with open(path, &quot;wb&quot;) as f:</span><br><span class="line">          n = 1</span><br><span class="line">          for chunk in r.iter_content(chunk_size=chunk_size):</span><br><span class="line">              loaded = n*1024.0/content_size</span><br><span class="line">              f.write(chunk)</span><br><span class="line">              print &apos;已下载&#123;0:%&#125;&apos;.format(loaded)</span><br><span class="line">              n += 1</span><br></pre></td></tr></table></figure>
+
+<p>获取请求的原始响应可以用：Response.raw、Response.iter_content<br>普通情况可以用 r.raw，在初始请求中设置 stream=True,来获取服务器的原始套接字响应<br>当流下载时，用Response.iter_content更方便些。<br>requests.get(url)默认是下载在内存中的，下载完成才存到硬盘上<br>可以用Response.iter_content　边下载边存硬盘</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Keven
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://kevens10.github.io/articles/简单的Python爬虫.html" title="简单的Python爬虫">https://kevens10.github.io/articles/简单的Python爬虫.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:20px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
           
-          <div class="collection-title">
-            <h2 class="archive-year" id="archive-year-2019">2019</h2>
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"><i class="fa fa-tag"></i> 爬虫</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
           </div>
         
-        
 
         
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
         
-            <a class="post-title-link" href="/articles/PE文件格式.html" itemprop="url">
-              
-                <span itemprop="name">PE文件格式</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-30T16:12:16+08:00" content="2019-11-30">
-          11-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        </div>
+      
       
 
-        
-        
-        
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/articles/常用的Python正则表达式.html" rel="next" title="常用的Python正则表达式">
+                <i class="fa fa-chevron-left"></i> 常用的Python正则表达式
+              </a>
+            
+          </div>
 
-        
-        
+          <span class="post-nav-divider"></span>
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/articles/create_function()注入命令执行漏洞.html" itemprop="url">
-              
-                <span itemprop="name">create_function()注入命令执行漏洞</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-24T22:39:05+08:00" content="2019-11-24">
-          11-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/articles/哈希扩展长度攻击.html" itemprop="url">
-              
-                <span itemprop="name">哈希扩展长度攻击</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-23T18:59:18+08:00" content="2019-11-23">
-          11-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/articles/基础汇编.html" itemprop="url">
-              
-                <span itemprop="name">基础汇编</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-18T21:25:44+08:00" content="2019-11-18">
-          11-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/articles/常用的Markdown语法.html" itemprop="url">
-              
-                <span itemprop="name">常用的Markdown语法</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-18T20:48:51+08:00" content="2019-11-18">
-          11-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/articles/preg_replace()代码执行漏洞.html" itemprop="url">
-              
-                <span itemprop="name">preg_replace()代码执行漏洞</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-15T20:08:51+08:00" content="2019-11-15">
-          11-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/articles/SSRF漏洞.html" itemprop="url">
-              
-                <span itemprop="name">SSRF漏洞</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-11T20:08:51+08:00" content="2019-11-11">
-          11-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/articles/XXE漏洞.html" itemprop="url">
-              
-                <span itemprop="name">XXE漏洞</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-10T20:08:51+08:00" content="2019-11-10">
-          11-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/articles/文件包含漏洞.html" itemprop="url">
-              
-                <span itemprop="name">文件包含漏洞</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-09T18:59:18+08:00" content="2019-11-09">
-          11-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/articles/XSS漏洞.html" itemprop="url">
-              
-                <span itemprop="name">XSS漏洞</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-07T20:08:51+08:00" content="2019-11-07">
-          11-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-    </div>
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5db155f7ce04752a" async="async"></script>
+</div>
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -740,6 +657,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80Njk2Mi8yMzQ2Mw=="></div>
+    </div>
+
+  
+
+
+
+
 
         </div>
         
@@ -760,8 +688,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -958,6 +895,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用urllib2-打开网页并返回一个对象"><span class="nav-number">1.</span> <span class="nav-text">使用urllib2 打开网页并返回一个对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用request"><span class="nav-number">2.</span> <span class="nav-text">使用request</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#爬取图片"><span class="nav-number">3.</span> <span class="nav-text">爬取图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#爬取视频"><span class="nav-number">4.</span> <span class="nav-text">爬取视频</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
 
 <div id="music163player">
@@ -1140,6 +1093,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -1168,6 +1125,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
@@ -1525,6 +1493,23 @@
 
   
   
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 21565,
+    el: 'wpac-rating',
+    color: '00BFFF'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
 
   
 
